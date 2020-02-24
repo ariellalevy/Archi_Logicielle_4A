@@ -6,6 +6,7 @@
 
 Éléments à tester :
 
+- [ ] Rover
 - [ ] Taille du plateau
 - [ ] Déplacements (gauche, droite, avant, arrière)
 - [ ] Direction (Haut, bas, gauche , droite)
