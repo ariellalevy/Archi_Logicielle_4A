@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Plateau.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.code</a> &gt; <span class="el_source">Plateau.java</span></div><h1>Plateau.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.code;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Plateau {
+
+    private int longueur;
+    private int largeur;
+
+    // constructeur //
+<span class="fc" id="L13">    public Plateau (int L, int l){</span>
+<span class="fc" id="L14">        this.longueur = L;</span>
+<span class="fc" id="L15">        this.largeur = l;</span>
+<span class="fc" id="L16">    }</span>
+
+    // getters //
+    public int getLongueur() {
+<span class="nc" id="L20">        return longueur;</span>
+    }
+
+    public int getLargeur() {
+<span class="nc" id="L24">        return largeur;</span>
+    }
+
+    public ArrayList&lt;Integer&gt; getTaille() {
+<span class="fc" id="L28">        ArrayList&lt;Integer&gt; taille = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L30">        taille.add(largeur);</span>
+<span class="fc" id="L31">        taille.add(longueur);</span>
+
+<span class="fc" id="L33">        return taille;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
