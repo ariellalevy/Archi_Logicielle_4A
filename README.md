@@ -7,9 +7,9 @@
 Éléments à tester :
 
 - [ ] Rover
-- [ ] Taille du plateau
-- [ ] Déplacements (gauche, droite, avant, arrière)
-- [ ] Direction (Haut, bas, gauche , droite)
-- [ ] Get instructions
-- [ ] Obstacle
-- [ ] Laser
+- [ ] Taille du plateau (Marianne & Alexandre)
+- [ ] Déplacements (gauche, droite, avant, arrière) (Céline & Ariella)
+- [ ] Direction (Haut, bas, gauche , droite) (Marianne & Alexandre)
+- [ ] Get instructions (Céline & Ariella)
+- [ ] Obstacle (Marianne & Alexandre)
+- [ ] Laser (Céline & Ariella)
