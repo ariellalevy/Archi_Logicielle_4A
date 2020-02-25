@@ -4,22 +4,26 @@ import com.esiea.tp4A.code.Plateau;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
-import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PlateauTest {
 
-    private final Plateau plateau = new Plateau(100, 100);
-
+    private final Plateau plateau = new Plateau();
 
     @Test
-    void testTaille(){
-        ArrayList<Integer> taille = new ArrayList<Integer>();
-        taille.add(100);
-        taille.add(100);
-        assertThat(plateau.getTaille().equals(taille));
-        System.out.println("Test réussi ! :)");
+    public void testTaille(){
+
+        assertThat(plateau.getTaille(1) == 100);
+        System.out.println("Test taille réussi ! :)");
+    }
+
+    @Test
+    public void testSphere(){
+
+        assertThat(plateau.sphere(220) == -20);
+        System.out.println("Test sphérique réussi ! :)");
+
     }
 }
 
