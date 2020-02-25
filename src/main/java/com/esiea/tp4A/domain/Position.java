@@ -4,9 +4,9 @@ public interface Position {
 
     int getX();
     int getY();
-    String getD();
+    Direction getD();
 
-    static Position of(int x, int y, String D) {
+    static Position of(int x, int y, Direction D) {
         return new FixedPosition(x, y, D);
     }
 
@@ -14,9 +14,9 @@ public interface Position {
 
         private final int x;
         private final int y;
-        private final String D;
+        private final Direction D;
 
-        public FixedPosition(int x, int y, String D) {
+        public FixedPosition(int x, int y, Direction D) {
             this.x = x;
             this.y = y;
             this.D = D;
@@ -33,7 +33,7 @@ public interface Position {
         }
 
         @Override
-        public String getD(){
+        public Direction getD(){
             return D;
         }
     }

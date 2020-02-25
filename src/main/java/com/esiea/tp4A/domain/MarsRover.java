@@ -1,4 +1,5 @@
 package com.esiea.tp4A.domain;
+import java.lang.String;
 
 public interface MarsRover {
 
@@ -15,7 +16,7 @@ public interface MarsRover {
     }
 
     default Position move(String command) {
-        String N = "North";
-        return Position.of(0, 0, N);
+        Direction n= Direction.NORTH;
+        return Position.of(0, 0, n);
     }
 }
