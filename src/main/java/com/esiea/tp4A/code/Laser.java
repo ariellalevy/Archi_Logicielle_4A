@@ -1,31 +1,25 @@
 package com.esiea.tp4A.code;
+import com.esiea.tp4A.domain.MarsRover;
+import com.esiea.tp4A.domain.Position;
 
-public class Laser {
+public abstract class Laser implements Position {
 
-    private int distance ; // distance maximale du laser en cm
+    private int distance;
 
     public Laser(int distance){
         this.distance = distance;
     }
 
-    public boolean TouchTarget(int distance, int TargetPosX, int TargetPosY, int RoverPosX, int RoverPosY, String Direction){
+    public boolean ShotTarget(){
 
-        Direction = Rover.getDirection();
-        switch (Direction){
-            case EAST :
-                break;
-            case WEST :
-                break;
-            case NORTH :
-                break;
-            case SOUTH :
-                break;
-        }
-        if(RoverPosX - TargetPosX < distance) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        int obsX = Obstacle.getPosition();
+        int obsY = Obstacle.getPosition();
+
+
+        if(distanceObs <= distance && )
+        int positionX = Position.FixedPosition.getX();
+        int positionY = Position.getY();
+        String direction = Position.getD();
+    return true;
     }
 }
