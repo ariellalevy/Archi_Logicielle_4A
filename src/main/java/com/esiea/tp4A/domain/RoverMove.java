@@ -8,7 +8,7 @@ public class RoverMove implements MarsRover {
 
     @java.lang.Override
     public MarsRover initialize(Position position) {
-
+        return null;
     }
 
     @java.lang.Override
@@ -23,7 +23,12 @@ public class RoverMove implements MarsRover {
 
     @java.lang.Override
     public Position move(String command) {
-        return null;
+
+        char[] ch = command.toCharArray();
+        reading_commands(ch);
+        //ajout retourner position
+
+
     }
 
 
@@ -45,6 +50,7 @@ public class RoverMove implements MarsRover {
                     break;
 
                 default:	System.out.println("Error!");
+                        break;
 
             }
         }
