@@ -25,4 +25,45 @@ public class RoverMove implements MarsRover {
     public Position move(String command) {
         return null;
     }
+
+
+
+    public void reading_commands(char[] commands) {
+        int size = commands.length;
+        for (int i = 0; i < size; i ++) {
+            switch(commands[i]) {
+                case 'f': forward();
+                    break;
+
+                case 'b': back();
+                    break;
+
+                case 'l': left();
+                    break;
+
+                case 'r': right();
+                    break;
+
+                default:	System.out.println("Error!");
+
+            }
+        }
+    }
+
+
+    public void forward(){
+
+    }
+
+    public void back(){
+
+    }
+
+    public void left(){
+
+    }
+
+    public void right(){
+
+    }
 }
