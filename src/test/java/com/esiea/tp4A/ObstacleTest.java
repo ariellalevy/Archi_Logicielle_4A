@@ -17,4 +17,11 @@ private final Obstacle obstacle = new Obstacle(20,36,5,10);
         assertThat(obstacle.isOnSquare(22,45));
         System.out.println("test Passed" + obstacle.isOnSquare(18,38));
     }
+
+    void testGetPosittion(){
+        int [] positions = {20,36};
+        assertThat(obstacle.getPosition() == positions);
+        System.out.println("test Passed" + obstacle.getPosition());
+
+    }
 }

@@ -21,4 +21,9 @@ public class Obstacle {
                     return  false;
                 }
         }
+
+        public int[] getPosition() {
+            int[] pos = {positionX, positionY};
+            return  pos;
+        }
 }
