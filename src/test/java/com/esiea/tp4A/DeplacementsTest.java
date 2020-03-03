@@ -23,10 +23,10 @@ public class DeplacementsTest {
         newPosition = rover.move("l");
         assertThat(newPosition)
             .as("test move command l (0,0,NORTH) -> (0,0,NORTH)")
-            .isEqualTo(Position.of(0,0, Direction.NORTH));
+            .isEqualTo(Position.of(0,0, Direction.WEST));
         newPosition = rover.move("r");
         assertThat(newPosition)
             .as("test move command r (0,0,NORTH) -> (0,0,NORTH)")
-            .isEqualTo(Position.of(0,0, Direction.NORTH));
+            .isEqualTo(Position.of(0,0, Direction.EAST));
     }
 }
