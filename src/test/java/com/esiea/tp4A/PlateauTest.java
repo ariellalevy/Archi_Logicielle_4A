@@ -14,7 +14,7 @@ public class PlateauTest {
     @Test
     public void testTaille(){
 
-        assertThat(plateau.getTaille(1) == 100);
+        assertThat(plateau.getTaille() == 100 || plateau.getTaille() == 300 || plateau.getTaille() == 600);
         System.out.println("Test taille réussi ! :)");
     }
 

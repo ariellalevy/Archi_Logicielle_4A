@@ -1,6 +1,5 @@
 package com.esiea.tp4A.code;
 
-import java.util.Scanner;
 
 public class Plateau {
 
@@ -10,25 +9,14 @@ public class Plateau {
     public Plateau (){
     }
 
-    public int getTaille(int choix){
-        Scanner scan = new Scanner(System.in);
+    public int getTaille(){
 
-        while(choix > 3 || choix < 1) {
-            System.out.println("Veuillez saisir la taille du plateau :" + "\n" + "1 = Petit,\n" + "2 = Moyen,\n" + "3 = Grand\n");
-            choix = scan.nextInt();
-        }
-        // Petit //
-        if(choix == 1){
-            this.taille = 100;
-        }
-        // Moyen //
-        else if(choix == 2){
-            this.taille = 300;
-        }
-        // Grand //
-        else if (choix == 3){
-            this.taille = 600;
-        }
+        int tab_taille [] = {100, 300, 600};
+
+        int rand = (int) (Math.random() * tab_taille.length);
+
+        this.taille = tab_taille[rand];
+
         return taille;
     }
 
