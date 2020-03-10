@@ -13,26 +13,28 @@ public class RoverMove implements MarsRover {
         if(command.isEmpty()){
             return Position.of(0,0,Direction.NORTH);
         }
-        for (int i = 0; i < command.length(); i ++) {
-            switch(command.charAt(i)) {
+            switch(command.charAt(0)) {
                 case 'f':
                     return Position.of(0,1, Direction.NORTH);
-                    break;
+
                 case 'b':
                     return Position.of(0,-1, Direction.NORTH);
-                    break;
                 case 'l':
                     return Position.of(0,0, Direction.WEST);
-                    break;
                 case 'r':
                     return Position.of(0,0, Direction.EAST);
-                    break;
                 default:	System.out.println("Error!");
-                    break;
+                    return Position.of(0,0,Direction.NORTH);
             }
         }
+
+
+    public  void give_order(char[] command){
+        int i = 0;
+        for( i =0; i< command.length; i++){
+            String cmd ="";
+            cmd +=command[i];
+            move(cmd);
+        }
     }
-
-
-
 }
