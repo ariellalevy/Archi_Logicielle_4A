@@ -16,7 +16,6 @@ public class RoverMove implements MarsRover {
             switch(command.charAt(0)) {
                 case 'f':
                     return Position.of(0,1, Direction.NORTH);
-
                 case 'b':
                     return Position.of(0,-1, Direction.NORTH);
                 case 'l':
@@ -29,12 +28,14 @@ public class RoverMove implements MarsRover {
         }
 
 
-    public  void give_order(char[] command){
+    public  Position give_order(char[] command){
+        Position position = Position.of(0,0,Direction.NORTH);
         int i = 0;
         for( i =0; i< command.length; i++){
             String cmd ="";
             cmd +=command[i];
-            move(cmd);
+            position = move(cmd);
         }
+        return position;
     }
 }
