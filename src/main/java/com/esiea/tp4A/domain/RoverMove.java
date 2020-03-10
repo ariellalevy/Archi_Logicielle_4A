@@ -6,70 +6,35 @@ import com.esiea.tp4A.domain.Position;
 
 public class RoverMove implements MarsRover {
 
-    @java.lang.Override
-    public MarsRover initialize(Position position) {
-        return null;
-    }
-
-    @java.lang.Override
-    public MarsRover updateMap(PlanetMap map) {
-        return null;
-    }
-
-    @java.lang.Override
-    public MarsRover configureLaserRange(int range) {
-        return null;
-    }
+    public RoverMove(int x, int y, Direction direction){}
 
     @java.lang.Override
     public Position move(String command) {
-
-        char[] ch = command.toCharArray();
-        reading_commands(ch);
-        //ajout retourner position
-
-
-    }
-
-
-
-    public void reading_commands(char[] commands) {
-        int size = commands.length;
+        if(command.isEmpty()){
+            return Position.of(0,0,Direction.NORTH);
+        }
+        char[] cmd = command.toCharArray();
+        int size = cmd.length;
         for (int i = 0; i < size; i ++) {
-            switch(commands[i]) {
-                case 'f': forward();
+            switch(cmd[i]) {
+                case 'f':
+                    return Position.of(0,1, Direction.NORTH);
                     break;
-
-                case 'b': back();
+                case 'b':
+                    return Position.of(0,-1, Direction.NORTH);
                     break;
-
-                case 'l': left();
+                case 'l':
+                    return Position.of(0,0, Direction.WEST);
                     break;
-
-                case 'r': right();
+                case 'r':
+                    return Position.of(0,0, Direction.EAST);
                     break;
-
                 default:	System.out.println("Error!");
-                        break;
-
+                    break;
             }
         }
     }
 
 
-    public void forward(){
 
-    }
-
-    public void back(){
-
-    }
-
-    public void left(){
-
-    }
-
-    public void right(){
-
-    }
 }
