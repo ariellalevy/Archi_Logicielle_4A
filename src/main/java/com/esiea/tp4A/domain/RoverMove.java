@@ -13,10 +13,8 @@ public class RoverMove implements MarsRover {
         if(command.isEmpty()){
             return Position.of(0,0,Direction.NORTH);
         }
-        char[] cmd = command.toCharArray();
-        int size = cmd.length;
-        for (int i = 0; i < size; i ++) {
-            switch(cmd[i]) {
+        for (int i = 0; i < command.length(); i ++) {
+            switch(command.charAt(i)) {
                 case 'f':
                     return Position.of(0,1, Direction.NORTH);
                     break;
