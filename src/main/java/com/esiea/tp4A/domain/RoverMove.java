@@ -4,38 +4,69 @@ import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.Position;
 
+import static com.esiea.tp4A.domain.Direction.*;
+
 public class RoverMove implements MarsRover {
 
     public RoverMove(int x, int y, Direction direction){}
+    Position position = new PositionRover(0,0, NORTH);
 
     @java.lang.Override
     public Position move(String command) {
         if(command.isEmpty()){
-            return Position.of(0,0,Direction.NORTH);
-        }
+            return this.position;
+        }else{
             switch(command.charAt(0)) {
                 case 'f':
-                    return Position.of(0,1, Direction.NORTH);
+                    switch (this.position.getDirection()){
+                        case NORTH:
+                            this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
+                            return this.position;
+                        case SOUTH:
+                            this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
+                            return this.position;
+                        case EAST:
+                            this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection());
+                            return this.position;
+                        case WEST:
+                            this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());
+                            return this.position;
+                    }
                 case 'b':
-                    return Position.of(0,-1, Direction.NORTH);
+                    switch (this.position.getDirection()){
+                        case NORTH:
+                            this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
+                            return this.position;
+                        case SOUTH:
+                            this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
+                            return this.position;
+                        case EAST:
+                            this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());
+                            return this.position;
+                        case WEST:
+                            this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection());
+                            return this.position;
+                    }
                 case 'l':
-                    return Position.of(0,0, Direction.WEST);
+                    this.position = Position.of(this.position.getX(), this.position.getY(), WEST);
+                    return this.position;
                 case 'r':
-                    return Position.of(0,0, Direction.EAST);
+                    this.position = Position.of(this.position.getX(), this.position.getY(), EAST);
+                    return this.position;
                 default:	System.out.println("Error!");
-                    return Position.of(0,0,Direction.NORTH);
+                    return this.position;
             }
         }
+    }
 
 
     public  Position give_order(char[] command){
-        Position position = Position.of(0,0,Direction.NORTH);
         int i = 0;
         for( i =0; i< command.length; i++){
             String cmd ="";
             cmd +=command[i];
-            position = move(cmd);
+            this.position = move(cmd);
         }
-        return position;
+        return this.position;
     }
 }
