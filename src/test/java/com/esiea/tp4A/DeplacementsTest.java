@@ -1,5 +1,6 @@
 package com.esiea.tp4A;
 
+import com.esiea.tp4A.code.RoverMove;
 import com.esiea.tp4A.domain.*;
 import org.junit.jupiter.api.Test;
 

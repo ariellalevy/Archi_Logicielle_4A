@@ -1,4 +1,7 @@
-package com.esiea.tp4A.domain;
+package com.esiea.tp4A.code;
+
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.Position;
 
 public class PositionRover implements Position {
 
