@@ -4,22 +4,22 @@ public interface Position {
 
     int getX();
     int getY();
-    Direction getD();
+    Direction getDirection();
 
-    static Position of(int x, int y, Direction D) {
-        return new FixedPosition(x, y, D);
+    static Position of(int x, int y, Direction direction) {
+        return new FixedPosition(x, y,direction);
     }
 
     final class FixedPosition implements Position {
 
         private final int x;
         private final int y;
-        private final Direction D;
+        private final Direction direction;
 
-        public FixedPosition(int x, int y, Direction D) {
+        public FixedPosition(int x, int y, Direction direction) {
             this.x = x;
             this.y = y;
-            this.D = D;
+            this.direction = direction;
         }
 
         @Override
@@ -33,8 +33,8 @@ public interface Position {
         }
 
         @Override
-        public Direction getD(){
-            return D;
+        public Direction getDirection() {
+            return direction;
         }
     }
 }
