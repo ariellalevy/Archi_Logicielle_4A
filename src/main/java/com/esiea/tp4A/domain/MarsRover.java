@@ -1,4 +1,5 @@
 package com.esiea.tp4A.domain;
+import java.lang.String;
 
 public interface MarsRover {
 

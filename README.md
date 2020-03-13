@@ -10,6 +10,5 @@
 - [ ] Taille du plateau (Marianne & Alexandre)
 - [ ] Déplacements (gauche, droite, avant, arrière) (Céline & Ariella)
 - [ ] Direction (Haut, bas, gauche , droite) (Marianne & Alexandre)
-- [ ] Get instructions (Céline & Ariella)
 - [ ] Obstacle (Marianne & Alexandre)
-- [ ] Laser (Céline & Ariella)
+- [ ] Laser (Yohan)
