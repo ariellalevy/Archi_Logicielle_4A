@@ -11,7 +11,7 @@ public class ObstacleTest {
 private final Obstacle obstacle = new Obstacle(20,36);
     @Test
     void testPosition(){
-        assertThat(obstacle.getPositionX() == 20 && obstacle.getPositionX() == 36);
-        System.out.println("test Passed "+"Les positions sont :"+"X : "+ obstacle.getPositionX()+"Y : "+ obstacle.getPositionX());
+        assertThat(obstacle.getPositionX() == 20 && obstacle.getPositionY() == 36);
+        System.out.println("test Passed "+"Les positions sont :"+"X : "+ obstacle.getPositionX()+"Y : "+ obstacle.getPositionY());
     }
 }
