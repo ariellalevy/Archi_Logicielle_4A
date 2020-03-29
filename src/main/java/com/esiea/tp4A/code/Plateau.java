@@ -1,12 +1,27 @@
 package com.esiea.tp4A.code;
 
 
+import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
+
 public class Plateau {
 
     private int taille = 0;
 
+    private List<Obstacle> obstacleList;
+
+    private void setObstacleList(List<Obstacle> list){
+        obstacleList = list;
+    }
+
+    public List<Obstacle> getObstacles(){
+        return obstacleList;
+    }
+
     // constructeur //
-    public Plateau (){
+    public Plateau (List<Obstacle> list){
+        setObstacleList(list);
     }
 
     public int getTaille(){
