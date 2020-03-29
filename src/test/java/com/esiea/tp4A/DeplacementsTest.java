@@ -1,6 +1,7 @@
 package com.esiea.tp4A.domain;
 
 import com.esiea.tp4A.code.RoverMove;
+import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,24 +9,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DeplacementsTest {
-    /*private final RoverMove rover = new RoverMove(0,0,Direction.NORTH);
-
-    @Test
-    void move(){
-        char[] commande = {'f', 'f', 'l', 'b'};
-        Position newPosition = rover.give_order(commande);
-        String str = "x: " + newPosition.getX() + " y: " + newPosition.getY() + " direction: " + newPosition.getDirection();
-        assertThat(str)
-            .as("test move command fflb (0,0,NORTH) -> (1,2,WEST)")
-            .isEqualTo("x: 1 y: 2 direction: WEST");
-    }
-    */
 
         private final RoverMove roverNorth = (RoverMove) new RoverMove().initialize(Position.of(0, 0, Direction.NORTH));
         private final RoverMove roverSouth = (RoverMove) new RoverMove().initialize(Position.of(0, 0, Direction.SOUTH));
         private final RoverMove roverEast = (RoverMove) new RoverMove().initialize(Position.of(0, 0, Direction.EAST));
         private final RoverMove roverWest = (RoverMove) new RoverMove().initialize(Position.of(0, 0, Direction.WEST));
-
 
     /* Utilisation d'une commande inconnue */
 
@@ -206,8 +194,4 @@ class DeplacementsTest {
             .extracting(Position::getX, Position::getY, Position::getDirection)
             .isEqualTo(List.of(0, 0, Direction.EAST));
     }
-
-
-
-
 }
