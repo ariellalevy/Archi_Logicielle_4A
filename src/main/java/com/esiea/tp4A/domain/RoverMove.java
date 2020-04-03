@@ -20,9 +20,17 @@ public class RoverMove implements MarsRover {
                 case 'f':
                     switch (this.position.getDirection()){
                         case NORTH:
+                            //grille sphérique
+                            if(this.position.getY() == 50){
+                                this.position = Position.of(this.position.getX(), -49,this.position.getDirection())
+                            }
                             this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                             return this.position;
                         case SOUTH:
+                            //grille sphérique
+                            if(this.position.getY() == -50){
+                                this.position = Position.of(this.position.getX(), 49,this.position.getDirection())
+                            }
                             this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                             return this.position;
                         case EAST:
@@ -38,9 +46,17 @@ public class RoverMove implements MarsRover {
                 case 'b':
                     switch (this.position.getDirection()){
                         case NORTH:
+                            //grille sphérique
+                            if(this.position.getY() == -50){
+                                this.position = Position.of(this.position.getX(), 49,this.position.getDirection())
+                            }
                             this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                             return this.position;
                         case SOUTH:
+                            //grille sphérique
+                            if(this.position.getY() == 50){
+                                this.position = Position.of(this.position.getX(), -49,this.position.getDirection())
+                            }
                             this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                             return this.position;
                         case EAST:
