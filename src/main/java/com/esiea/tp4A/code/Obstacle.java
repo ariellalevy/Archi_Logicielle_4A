@@ -1,6 +1,6 @@
 package com.esiea.tp4A.code;
 
-public class Obstacle {
+public class Obstacle { //Implement Planet MAP ?
         public int positionX;//correspond à l'origine (gauche) en X
         public int positionY;//correspond à l'origine (gauche) en Y
         public int hauteur;//correspond à la surface sur les Y de l'obstacle
