@@ -8,10 +8,14 @@ public class Rover implements MarsRover{
 
 
 
-    Position position;
+    private Position position;
 
 
-    public Rover(int x, int y, Direction direction){}
+
+    public Rover(Position position){
+        this.position = position;
+        this.initialize(position);
+    }
 
 
     @Override
@@ -23,7 +27,7 @@ public class Rover implements MarsRover{
 
 
 
-    @java.lang.Override
+    @Override
     public Position move(String command) {
         if(command.isEmpty()){
             return Position.of(0,0,Direction.NORTH);
