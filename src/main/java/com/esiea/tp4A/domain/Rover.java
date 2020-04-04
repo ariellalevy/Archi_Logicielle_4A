@@ -9,6 +9,8 @@ public class Rover implements MarsRover{
 
 
     private Position position;
+    private Plateau plateau;
+    private boolean alive;
 
 
 
@@ -36,17 +38,34 @@ public class Rover implements MarsRover{
                 case 'f':
                     switch (this.position.getDirection()){
                         case NORTH:
+
+
                             //grille sphérique
-                            if(this.position.getY() == 50){
+
+                            if((plateau.getTaille() == 50) && (this.position.getY() == 50)){
                                 this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
                             }
+                            if((plateau.getTaille() == 150) && (this.position.getY() == 150)){
+                                this.position = Position.of(this.position.getX(), -149,this.position.getDirection());
+                            }
+
+                            if((plateau.getTaille() == 300) && (this.position.getY() == 300)){
+                                this.position = Position.of(this.position.getX(), -200,this.position.getDirection());
+                            }
+
                             this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                             return this.position;
                         case SOUTH:
-                            //PREVOIR LES 3 TAILLES DE CARTES
+
                             //grille sphérique
-                            if(this.position.getY() == -50){
+                            if((plateau.getTaille() == 50) && (this.position.getY() == -50)){
                                 this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
+                            }
+                            if((plateau.getTaille() == 150) && (this.position.getY() == -150)){
+                                this.position = Position.of(this.position.getX(), 149,this.position.getDirection());
+                            }
+                            if((plateau.getTaille() == 300) && (this.position.getY() == -300)){
+                                this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
                             }
                             this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                             return this.position;
@@ -63,18 +82,30 @@ public class Rover implements MarsRover{
                 case 'b':
                     switch (this.position.getDirection()){
                         case NORTH:
-                            //PREVOIR LES 3 TAILLES DE CARTES
+
                             //grille sphérique
-                            if(this.position.getY() == -50){
+                            if((plateau.getTaille() == 50) && (this.position.getY() == -50)){
                                 this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
+                            }
+                            if((plateau.getTaille() == 150) && (this.position.getY() == -150)){
+                                this.position = Position.of(this.position.getX(), 149,this.position.getDirection());
+                            }
+                            if((plateau.getTaille() == 300) && (this.position.getY() == -300)){
+                                this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
                             }
                             this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                             return this.position;
                         case SOUTH:
-                            //PREVOIR LES 3 TAILLES DE CARTES
+
                             //grille sphérique
-                            if(this.position.getY() == 50){
+                            if((plateau.getTaille() == 50) && (this.position.getY() == 50)){
                                 this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
+                            }
+                            if((plateau.getTaille() == 150) && (this.position.getY() == 150)){
+                                this.position = Position.of(this.position.getX(), -149,this.position.getDirection());
+                            }
+                            if((plateau.getTaille() == 300) && (this.position.getY() == 300)){
+                                this.position = Position.of(this.position.getX(), -299,this.position.getDirection());
                             }
                             this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                             return this.position;
@@ -138,5 +169,14 @@ public class Rover implements MarsRover{
             cmd +=command[i];
             move(cmd);
         }
+    }
+
+    public boolean setAlive(boolean value){
+        this.alive = value;
+        return alive;
+    }
+
+    public boolean isAlive(){
+        return alive;
     }
 }
