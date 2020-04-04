@@ -6,7 +6,7 @@ import com.esiea.tp4A.domain.Position;
 
 public class RoverMove implements MarsRover {
 
-    Position position = new PositionRover(0,0, NORTH); // position initiale
+    Position position = new PositionRover(0,0, Direction.NORTH); // position initiale
 
 
     public RoverMove(int x, int y, Direction direction){}
@@ -22,14 +22,14 @@ public class RoverMove implements MarsRover {
                         case NORTH:
                             //grille sphérique
                             if(this.position.getY() == 50){
-                                this.position = Position.of(this.position.getX(), -49,this.position.getDirection())
+                                this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
                             }
                             this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                             return this.position;
                         case SOUTH:
                             //grille sphérique
                             if(this.position.getY() == -50){
-                                this.position = Position.of(this.position.getX(), 49,this.position.getDirection())
+                                this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
                             }
                             this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                             return this.position;
@@ -48,14 +48,14 @@ public class RoverMove implements MarsRover {
                         case NORTH:
                             //grille sphérique
                             if(this.position.getY() == -50){
-                                this.position = Position.of(this.position.getX(), 49,this.position.getDirection())
+                                this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
                             }
                             this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                             return this.position;
                         case SOUTH:
                             //grille sphérique
                             if(this.position.getY() == 50){
-                                this.position = Position.of(this.position.getX(), -49,this.position.getDirection())
+                                this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
                             }
                             this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                             return this.position;
