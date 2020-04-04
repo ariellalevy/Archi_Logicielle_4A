@@ -4,12 +4,24 @@ import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.Position;
 
-public class RoverMove implements MarsRover {
-
-    Position position = new PositionRover(0,0, Direction.NORTH); // position initiale
+public class Rover implements MarsRover{
 
 
-    public RoverMove(int x, int y, Direction direction){}
+
+    Position position;
+
+
+    public Rover(int x, int y, Direction direction){}
+
+
+    @Override
+    public  MarsRover initialize(Position position) {
+        position = new Position.FixedPosition(0,0, Direction.NORTH);
+        return  this;
+
+    }
+
+
 
     @java.lang.Override
     public Position move(String command) {
@@ -27,6 +39,7 @@ public class RoverMove implements MarsRover {
                             this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                             return this.position;
                         case SOUTH:
+                            //PREVOIR LES 3 TAILLES DE CARTES
                             //grille sphérique
                             if(this.position.getY() == -50){
                                 this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
@@ -46,6 +59,7 @@ public class RoverMove implements MarsRover {
                 case 'b':
                     switch (this.position.getDirection()){
                         case NORTH:
+                            //PREVOIR LES 3 TAILLES DE CARTES
                             //grille sphérique
                             if(this.position.getY() == -50){
                                 this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
@@ -53,6 +67,7 @@ public class RoverMove implements MarsRover {
                             this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                             return this.position;
                         case SOUTH:
+                            //PREVOIR LES 3 TAILLES DE CARTES
                             //grille sphérique
                             if(this.position.getY() == 50){
                                 this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
