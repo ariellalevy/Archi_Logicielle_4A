@@ -11,7 +11,7 @@ public class Plateau {
 
     public int getTaille(){
 
-        int tab_taille [] = {100, 300, 600};
+        int tab_taille [] = {50, 150, 300};
 
         int rand = (int) (Math.random() * tab_taille.length);
 
@@ -23,7 +23,7 @@ public class Plateau {
     public int sphere(int position){
 
         if(position > taille){
-            position = - ((100 + taille) - position);
+            position = - ((50 + taille) - position);
         }
         return position;
     }

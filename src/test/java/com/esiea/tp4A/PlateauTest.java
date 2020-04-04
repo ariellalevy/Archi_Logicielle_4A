@@ -14,14 +14,14 @@ public class PlateauTest {
     @Test
     public void testTaille(){
 
-        assertThat(plateau.getTaille() == 100 || plateau.getTaille() == 300 || plateau.getTaille() == 600);
+        assertThat(plateau.getTaille() == 50 || plateau.getTaille() == 150 || plateau.getTaille() == 300);
         System.out.println("Test taille réussi ! :)");
     }
 
     @Test
     public void testSphere(){
 
-        assertThat(plateau.sphere(220) == -20);
+        assertThat(plateau.sphere(160) == -140);
         System.out.println("Test sphérique réussi ! :)");
 
     }
