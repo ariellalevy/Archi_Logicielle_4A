@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Plateau.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.code</a> &gt; <span class="el_source">Plateau.java</span></div><h1>Plateau.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.code;
+
+import java.util.Scanner;
+
+public class Plateau {
+
+<span class="fc" id="L7">    private int taille = 0;</span>
+
+    // constructeur //
+<span class="fc" id="L10">    public Plateau (){</span>
+<span class="fc" id="L11">    }</span>
+
+    public int getTaille(int choix){
+<span class="fc" id="L14">        Scanner scan = new Scanner(System.in);</span>
+
+<span class="pc bpc" id="L16" title="2 of 4 branches missed.">        while(choix &gt; 3 || choix &lt; 1) {</span>
+<span class="nc" id="L17">            System.out.println(&quot;Veuillez saisir la taille du plateau :&quot; + &quot;\n&quot; + &quot;1 = Petit,\n&quot; + &quot;2 = Moyen,\n&quot; + &quot;3 = Grand\n&quot;);</span>
+<span class="nc" id="L18">            choix = scan.nextInt();</span>
+        }
+        // Petit //
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">        if(choix == 1){</span>
+<span class="fc" id="L22">            this.taille = 100;</span>
+        }
+        // Moyen //
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        else if(choix == 2){</span>
+<span class="nc" id="L26">            this.taille = 300;</span>
+        }
+        // Grand //
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        else if (choix == 3){</span>
+<span class="nc" id="L30">            this.taille = 600;</span>
+        }
+<span class="fc" id="L32">        return taille;</span>
+    }
+
+    public int sphere(int position){
+
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if(position &gt; taille){</span>
+<span class="fc" id="L38">            position = - ((100 + taille) - position);</span>
+        }
+<span class="fc" id="L40">        return position;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -4,12 +4,11 @@
 [![codecov](https://codecov.io/gh/ariellalevy/Archi_Logicielle_4A/branch/master/graph/badge.svg)](https://codecov.io/gh/ariellalevy/Archi_Logicielle_4A)
 
 
-Éléments à tester :
+Éléments restants :
 
-- [ ] Rover
-- [ ] Taille du plateau (Marianne & Alexandre)
-- [ ] Déplacements (gauche, droite, avant, arrière) (Céline & Ariella)
-- [ ] Direction (Haut, bas, gauche , droite) (Marianne & Alexandre)
-- [ ] Get instructions (Céline & Ariella)
-- [ ] Obstacle (Marianne & Alexandre)
-- [ ] Laser (Céline & Ariella)
+-  position 50 joueurs aléatoirement
+- 15% d'obstacles sur la map
+- Laser
+- interface utilisateur
+- interface web
+- fichiers Markdown
