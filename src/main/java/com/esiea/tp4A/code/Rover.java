@@ -1,5 +1,6 @@
-package com.esiea.tp4A.domain;
+package com.esiea.tp4A.code;
 
+import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.Position;
@@ -8,7 +9,7 @@ public class Rover implements MarsRover{
 
 
 
-    private Position position;
+    public Position position;
     private Plateau plateau;
     private boolean alive;
 
@@ -179,5 +180,13 @@ public class Rover implements MarsRover{
 
     public boolean isAlive(){
         return alive;
+    }
+    
+    public void setPosition(Position position) {
+    	this.position = position;
+    }
+    
+    public Position getPosition() {
+    	return position;
     }
 }
