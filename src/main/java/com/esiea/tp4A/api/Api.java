@@ -8,6 +8,7 @@ public class Api {
         Plateau map = new Plateau();
         int taille;
         Scanner scan = new Scanner (System.in);
+        Position position;
         // initialisation obstacle + laser
 
         System.out.println(" Bienvenue sur notre jeu de l'espace!");
@@ -22,8 +23,8 @@ public class Api {
         Rover tabRover[] ;
 
         for(int i = 0; i < 50; i++){
-            tab[i]= new Rover();
-            tab[i].initialize(); // Introduire la notion de position de départ aléatoire
+            tabRover[i]= new Rover(); // pour chaque Rover fait l'initialisation + set alive à True
+            // Introduire la notion de position de départ aléatoire
         }
 
         System.out.println("La portée du laser définie aléatoirement correspond à :");
