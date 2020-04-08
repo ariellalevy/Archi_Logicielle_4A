@@ -1,9 +1,15 @@
 package com.esiea.tp4A.domain;
 
+import com.esiea.tp4.code.Plateau;
+import com.esiea.tp4.code.Position;
+import com.esiea.tp4.code.Rover;
+
+
+import java.util.Scanner;
 public class Api {
 
-
-    public static main void(String[] args){
+//DANS CHAQUE CASE APPELE IL FAUT TROUVER LE MOYEN DE SELECTIONNER UN ROVER PRECIS POUR LES APPELS DE FONCTION
+    public static void main(String[] args){
 
         Plateau map = new Plateau();
         int taille;
@@ -35,6 +41,7 @@ public class Api {
         //// Menu utilisateur
         System.out.println("################### MENU ###################");
         System.out.println("Que voulez-vous faire ? [h for help]");
+        String choice;
         boolean stop = false;
         choice = scan.next();
 
@@ -87,8 +94,8 @@ public class Api {
                     System.out.println("'l' : le rover pivote sur la gauche");
                     System.out.println("'r' : le rover pivote sur la droite");
                     System.out.println("Tapez votre commande :");
-                    char move = scan.next();
-                    RoverMove.give_order(move); // ??
+                    String move = scan.next();
+                    tabRover[i].give_order(move); // ??
 
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice= scan.next();
@@ -98,7 +105,7 @@ public class Api {
                     System.out.println("Tirer avec le laser :");
                     System.out.println("Vous devez utiliser la commande 's', le tir se fait dans la direction du rover");
                     System.out.println("EXEMPLE : le rover a une position (0, 0, N) avec un laser de portée courte 5 et un obstacle à (0,2)");
-                    System.out.println("Avec la commande [s, f, f], le rover détruit l'obstacle et se retrouve à une position de (0, 2, N)")
+                    System.out.println("Avec la commande [s, f, f], le rover détruit l'obstacle et se retrouve à une position de (0, 2, N)");
 
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice= scan.next();
@@ -108,7 +115,7 @@ public class Api {
                     System.out.println("Savoir si son personnage est vivant ou mort :");
                     boolean roveralive = Rover.isAlive();
                     String personnage = "";
-                    if(roveralive == true){
+                    if(roveralive == false){
                         personnage = "mort";
                     }
                     else {
