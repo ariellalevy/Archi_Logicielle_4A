@@ -1,13 +1,14 @@
-package com.esiea.tp4A.domain;
+package com.esiea.tp4A.api;
 
-import com.esiea.tp4.code.Plateau;
-import com.esiea.tp4.code.Position;
-import com.esiea.tp4.code.Rover;
-import com.esiea.tp4.domain.Direction;
-import com.esiea.tp4.domain.Position;
+import com.esiea.tp4A.code.Plateau;
+import com.esiea.tp4A.domain.Position;
+import com.esiea.tp4A.code.Rover;
+import com.esiea.tp4A.domain.Direction;
+
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Api {
@@ -19,67 +20,8 @@ public class Api {
     private List<Rover> lstRover;
     private int numeroJoueur;
 
-
-
-
-    /* Fonction qui génère aléatoirement la taille de la carte */
-    public void generationAleaCarte(){
-        map = new Plateau();
-        System.out.println("Voici la taille de la carte, choisie aléatoirement :");
-        taille = map.getTaille();
-        System.out.println(taille + "x" + taille);
-    }
-
-
-    /* Fonction qui génère aléatoirement un nombre */
-    public int randomNumber(int min, int max){
-        int range = max - min + 1;
-        int res;
-        for(int i = min-1; i<max; i++){
-            res = (int) (Math.random() * range ) +min;
-        }
-        return res;
-    }
-
-    /*Fonction qui génère une direction aléatoire*/
-    public Direction aleaDirection(){
-        Direction tabDirection[] = {Direction.EAST, Direction.WEST, Direction.NORTH, Direction.SOUTH};
-        int rand = (int) (Math.random() * tabDirection.length);
-        Direction direction = tabDirection[rand];
-        return direction;
-    }
-
-    /*Fonction qui génère une position aléatoire */
-    public Position aleaPosition(){
-        int xMax = taille; //abscise maximale
-        int yMax = taille; //ordonée maximale
-        //x aléatoire
-        int x = randomNumber(-xMax,xMax);
-        //y aléatoire
-        int y = randomNumber(-yMax, yMax);
-        //direction aléatoire
-        Direction direction = aleaDirection();
-        Position p = Position.of(x,y, direction);
-        return p;
-    }
-
-
-    /*Fonction qui gènère 50 joueurs*/
-    public List<Rover> generationAleaJoueurs(){
-        lstRover = new ArrayList<Rover>;
-        Position p;
-        for(int i = 0; i<50; i++){
-            Rover r= new Rover()); // création Rover
-            p = aleaPosition(); // génération position aléatoire
-            r.setPosition(p); //on fixe la position aléatoire du Rover
-            //AJOUTER PORTEE DU LASER QUAND ELLE SERA DISPO
-            lstRover.add(r);//ajout à la liste de Rovers
-        }
-    }
-
-
-//DANS CHAQUE CASE APPELE IL FAUT TROUVER LE MOYEN DE SELECTIONNER UN ROVER PRECIS POUR LES APPELS DE FONCTION
-    public static void main(String[] args){
+    //DANS CHAQUE CASE APPELE IL FAUT TROUVER LE MOYEN DE SELECTIONNER UN ROVER PRECIS POUR LES APPELS DE FONCTION
+    public Api() {
 
 
         Scanner scan = new Scanner (System.in);
@@ -134,7 +76,7 @@ public class Api {
                 case 'p':
                     System.out.println("Affichage de la position des joueurs");
                     for(Rover r: lstRover){
-                        System.out.println("( " +r.position.getX() + " , " + r.position.getY() + " , " + r.position.getDirection() + " )");
+                        System.out.println("( " +r.getPosition().getX() + ", "+ r.getPosition().getY() +  ", " + r.getPosition().getDirection() + " )");
                     }
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice = scan.next();
@@ -166,7 +108,8 @@ public class Api {
                     System.out.println("'r' : le rover pivote sur la droite");
                     System.out.println("Tapez votre commande :");
                     String move = scan.next();
-                    lstRover.get(numeroJoueur).give_order(move);
+                    char tabMove[] = move.toCharArray();
+                    lstRover.get(numeroJoueur).give_order(tabMove);
 
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice= scan.next();
@@ -192,7 +135,7 @@ public class Api {
                     else {
                         personnage = "vivant";
                     }
-                    System.out.println("Votre personnage (numéro " + numeroJoueur ") est : " + personnage);
+                    System.out.println("Votre personnage (numéro " + numeroJoueur + ") est : " + personnage);
 
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice= scan.next();
@@ -212,6 +155,70 @@ public class Api {
 
     scan.close();
     }
+
+
+
+    // Fonction qui génère aléatoirement la taille de la carte */
+    public void generationAleaCarte(){
+        map = new Plateau();
+        System.out.println("Voici la taille de la carte, choisie aléatoirement :");
+        taille = map.getTaille();
+        System.out.println(taille + "x" + taille);
+    }
+
+
+    /* Fonction qui génère aléatoirement un nombre */
+    public int randomNumber(int min, int max){
+        int range = max - min + 1;
+        int res = 0;
+        for(int i = min-1; i<max; i++){
+            res = (int) (Math.random() * range ) +min;
+        }
+        return res;
+    }
+
+    /*Fonction qui génère une direction aléatoire*/
+    public Direction aleaDirection(){
+        Direction tabDirection[] = {Direction.EAST, Direction.WEST, Direction.NORTH, Direction.SOUTH};
+        int rand = (int) (Math.random() * tabDirection.length);
+        Direction direction = tabDirection[rand];
+        return direction;
+    }
+
+    /*Fonction qui génère une position aléatoire */
+    public Position aleaPosition(){
+        int xMax = taille; //abscise maximale
+        int yMax = taille; //ordonée maximale
+        //x aléatoire
+        int x = randomNumber(-xMax,xMax);
+        //y aléatoire
+        int y = randomNumber(-yMax, yMax);
+        //direction aléatoire
+        Direction direction = aleaDirection();
+        Position p = Position.of(x,y, direction);
+        return p;
+    }
+
+
+    /*Fonction qui gènère 50 joueurs*/
+    public List<Rover> generationAleaJoueurs(){
+        lstRover = new ArrayList<Rover>();
+        Position p = null;
+        for(int i = 0; i<50; i++){
+            Rover r= new Rover(p); // création Rover
+            p = aleaPosition(); // génération position aléatoire
+            r.setPosition(p); //on fixe la position aléatoire du Rover
+            //AJOUTER PORTEE DU LASER QUAND ELLE SERA DISPO
+            lstRover.add(r);//ajout à la liste de Rovers
+        }
+        return lstRover;
+    }
+    
+    public static void main(String[] args) {
+    	new Api();
+    }
+
+
 
 
 
