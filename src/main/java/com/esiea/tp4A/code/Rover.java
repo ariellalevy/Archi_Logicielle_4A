@@ -14,9 +14,9 @@ public class Rover implements MarsRover{
 
 
 
-    public Rover(Position position){
-        this.position = position;
+    public Rover(){
         this.initialize(position);
+        this.alive = true;
     }
 
 
