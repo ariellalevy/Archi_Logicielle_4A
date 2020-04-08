@@ -181,4 +181,8 @@ public class Rover implements MarsRover{
     public boolean isAlive(){
         return alive;
     }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 }
