@@ -10,9 +10,10 @@ public class Rover implements MarsRover{
 
 
 
-    public Position position;
+    private Position position;
     private Plateau plateau;
     private boolean alive;
+    private int numeroRover;
 
 
 
@@ -20,6 +21,7 @@ public class Rover implements MarsRover{
         this.position = position;
         this.initialize(position);
         this.alive = true;
+        numeroRover = 0;
     }
 
 
@@ -31,7 +33,9 @@ public class Rover implements MarsRover{
     }
 
 
-
+// ATTENTION REPETER LA MANOEUVRE POUR TOUS LES CHARACTERES DE LA STRING
+    
+    //PROBLEME REPETITION DE COMMANDES !!!
     @Override
     public Position move(String command) {
         if(command.isEmpty()){
@@ -41,42 +45,54 @@ public class Rover implements MarsRover{
             case 'f':
                 switch (this.position.getDirection()){
                     case NORTH:
+                    	System.out.println("TEST 1");
 
 
                         //grille sphérique
 
-                        if((plateau.getTaille() == 50) && (this.position.getY() == 50)){
+                        if((plateau.getTaille() == 100) && (this.position.getY() == 50)){
                             this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
+                            System.out.println("TOTO 1a");
                         }
-                        if((plateau.getTaille() == 150) && (this.position.getY() == 150)){
+                        if((plateau.getTaille() == 300) && (this.position.getY() == 150)){
                             this.position = Position.of(this.position.getX(), -149,this.position.getDirection());
+                            System.out.println("TOTO 1b");
                         }
 
-                        if((plateau.getTaille() == 300) && (this.position.getY() == 300)){
+                        if((plateau.getTaille() == 600) && (this.position.getY() == 300)){
                             this.position = Position.of(this.position.getX(), -200,this.position.getDirection());
+                            System.out.println("TOTO 1c");
                         }
-
+                        System.out.println("HELLO 1");
                         this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                         return this.position;
                     case SOUTH:
-
+                    	System.out.println("TEST 2");
                         //grille sphérique
-                        if((plateau.getTaille() == 50) && (this.position.getY() == -50)){
+                        if((plateau.getTaille() == 100) && (this.position.getY() == -50)){
                             this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
+                            System.out.println("TOTO 2a");
                         }
-                        if((plateau.getTaille() == 150) && (this.position.getY() == -150)){
+                        if((plateau.getTaille() == 300) && (this.position.getY() == -150)){
                             this.position = Position.of(this.position.getX(), 149,this.position.getDirection());
+                            System.out.println("TOTO 2b");
                         }
-                        if((plateau.getTaille() == 300) && (this.position.getY() == -300)){
+                        if((plateau.getTaille() == 600) && (this.position.getY() == -300)){
                             this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
+                            System.out.println("TOTO 2c");
                         }
+                        System.out.println("HELLO 2");
                         this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                         return this.position;
                     case EAST:
+                    	System.out.println("TEST 3");
                         this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection());
+                        System.out.println("TOTO 3");
                         return this.position;
                     case WEST:
+                    	System.out.println("TEST 4");
                         this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());
+                        System.out.println("TOTO 4");
                         return this.position;
                     default: System.out.println("Erreur commande 'f'");
                         break;
@@ -87,13 +103,13 @@ public class Rover implements MarsRover{
                     case NORTH:
 
                         //grille sphérique
-                        if((plateau.getTaille() == 50) && (this.position.getY() == -50)){
+                        if((plateau.getTaille() == 100) && (this.position.getY() == -50)){
                             this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
                         }
-                        if((plateau.getTaille() == 150) && (this.position.getY() == -150)){
+                        if((plateau.getTaille() == 300) && (this.position.getY() == -150)){
                             this.position = Position.of(this.position.getX(), 149,this.position.getDirection());
                         }
-                        if((plateau.getTaille() == 300) && (this.position.getY() == -300)){
+                        if((plateau.getTaille() == 600) && (this.position.getY() == -300)){
                             this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
                         }
                         this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
@@ -101,13 +117,13 @@ public class Rover implements MarsRover{
                     case SOUTH:
 
                         //grille sphérique
-                        if((plateau.getTaille() == 50) && (this.position.getY() == 50)){
+                        if((plateau.getTaille() == 100) && (this.position.getY() == 50)){
                             this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
                         }
-                        if((plateau.getTaille() == 150) && (this.position.getY() == 150)){
+                        if((plateau.getTaille() == 300) && (this.position.getY() == 150)){
                             this.position = Position.of(this.position.getX(), -149,this.position.getDirection());
                         }
-                        if((plateau.getTaille() == 300) && (this.position.getY() == 300)){
+                        if((plateau.getTaille() == 600) && (this.position.getY() == 300)){
                             this.position = Position.of(this.position.getX(), -299,this.position.getDirection());
                         }
                         this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
@@ -142,15 +158,19 @@ public class Rover implements MarsRover{
             case 'r':
                 switch (this.position.getDirection()) {
                     case NORTH:
+                    	System.out.println("HOLA");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.EAST);
                         return this.position;
                     case SOUTH:
+                    	System.out.println("BONJOUR");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.WEST);
                         return this.position;
                     case EAST:
+                    	System.out.println("Dzien dobre");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.SOUTH);
                         return this.position;
                     case WEST:
+                    	System.out.println("Guten tag");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.NORTH);
                         return this.position;
                     default:
@@ -165,9 +185,8 @@ public class Rover implements MarsRover{
     }
 
 
-    public  void give_order(char[] command){
-        int i = 0;
-        for( i =0; i< command.length; i++){
+    public  void give_order(char[] command){ 
+        for(int  i =0; i< command.length; i++){
             String cmd ="";
             cmd +=command[i];
             move(cmd);
@@ -189,5 +208,13 @@ public class Rover implements MarsRover{
     
     public Position getPosition() {
     	return position;
+    }
+    
+    public int getNumeroRover() {
+    	return numeroRover;
+    }
+    
+    public void setNumeroRover(int numero) {
+    	numeroRover = numero;
     }
 }

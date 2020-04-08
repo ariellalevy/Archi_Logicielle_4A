@@ -9,7 +9,8 @@ public class Plateau {
     public Plateau (){
     }
 
-    public int getTaille(){
+    //Genere la taille aleatoire
+    public void geneTaille(){
 
         int tab_taille [] = {100, 300, 600};
 
@@ -17,13 +18,22 @@ public class Plateau {
 
         this.taille = tab_taille[rand];
 
-        return taille;
+    }
+    
+    public int getTaille() {
+    	return taille;
     }
 
     public int sphere(int position){
 
-        if(position > taille){
+        if((taille == 100) && (position > taille)){
             position = - ((100 + taille) - position);
+        }
+        if((taille == 300) && (position > taille)){
+            position = - ((300 + taille) - position);
+        }
+        if((taille == 600) && (position > taille)){
+            position = - ((600 + taille) - position);
         }
         return position;
     }

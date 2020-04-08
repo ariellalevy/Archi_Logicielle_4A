@@ -24,7 +24,7 @@ public class Api {
     public Api() {
 
 
-        Scanner scan = new Scanner (System.in);
+        scan = new Scanner (System.in);
 
 
 
@@ -43,10 +43,13 @@ public class Api {
         //######################## Génération des 50 joueurs ###########################
         System.out.println("Génération des 50 joueurs....");
         generationAleaJoueurs();
-        System.out.println("Bravo, nous avons maintenant généré nos 50 joueurs!!")
+        System.out.println("Bravo, nous avons maintenant généré nos 50 joueurs!!");
         //####################### Choix numéro de joueur ##############################
         System.out.println("Veuillez choisir un numéro de joueur entre 1 et 50");
-        numeroJoueur = scan.nextInt() -1; // on retire 1 pour être raccord avec notre liste qui va de 0 à 49
+        numeroJoueur = scan.nextInt(); 
+        
+        System.out.println("Vous avez choisi le Rover numéro " + numeroJoueur);
+        System.out.println("Voici ses coordonnées: " + lstRover.get(numeroJoueur -1).getPosition().getX() +" , " + lstRover.get(numeroJoueur-1).getPosition().getY() + ", " + lstRover.get(numeroJoueur -1).getPosition().getDirection());
        // System.out.println("La portée du laser définie aléatoirement correspond à :");
         // APPEL DES FONCTIONS GENERANT PORTEE DU LASER
         System.out.println("Rentrons maintenant dans le vif du sujet !");
@@ -71,12 +74,14 @@ public class Api {
                     System.out.println("s: Tirer avec le laser");
                     System.out.println("a: Savoir si son personnage est vivant ou mort");
                     System.out.println("q: Quitter le programme");
+                    System.out.println("Que voulez-vous faire? [h for help]");
+                    choice = scan.next();
                     break;
 
                 case 'p':
                     System.out.println("Affichage de la position des joueurs");
                     for(Rover r: lstRover){
-                        System.out.println("( " +r.getPosition().getX() + ", "+ r.getPosition().getY() +  ", " + r.getPosition().getDirection() + " )");
+                        System.out.println(" Rover numéro " + r.getNumeroRover() + " :  ("+r.getPosition().getX() + ", "+ r.getPosition().getY() +  ", " + r.getPosition().getDirection() + " )");
                     }
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice = scan.next();
@@ -84,7 +89,7 @@ public class Api {
 
                 case 'o':
                     System.out.println("Connaitre la position des obstacles et joueurs adverses dans un carré de 30x30(par défaut) autour du joueur (radar)");
-                    for(int i = 0; i < 50; i++){
+                    for(int i = 1; i < 51; i++){
                         //APPEL AUX FONCTIONS REQUISES
                     }
                     System.out.println("Que voulez-vous faire? [h for help]");
@@ -109,7 +114,8 @@ public class Api {
                     System.out.println("Tapez votre commande :");
                     String move = scan.next();
                     char tabMove[] = move.toCharArray();
-                    lstRover.get(numeroJoueur).give_order(tabMove);
+                    lstRover.get(numeroJoueur-1).give_order(tabMove);
+                    move="";
 
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice= scan.next();
@@ -162,6 +168,7 @@ public class Api {
     public void generationAleaCarte(){
         map = new Plateau();
         System.out.println("Voici la taille de la carte, choisie aléatoirement :");
+        map.geneTaille();
         taille = map.getTaille();
         System.out.println(taille + "x" + taille);
     }
@@ -204,10 +211,11 @@ public class Api {
     public List<Rover> generationAleaJoueurs(){
         lstRover = new ArrayList<Rover>();
         Position p = null;
-        for(int i = 0; i<50; i++){
+        for(int i = 1; i<51; i++){
             Rover r= new Rover(p); // création Rover
             p = aleaPosition(); // génération position aléatoire
             r.setPosition(p); //on fixe la position aléatoire du Rover
+            r.setNumeroRover(i);
             //AJOUTER PORTEE DU LASER QUAND ELLE SERA DISPO
             lstRover.add(r);//ajout à la liste de Rovers
         }
