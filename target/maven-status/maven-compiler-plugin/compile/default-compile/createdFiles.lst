@@ -1,6 +1,6 @@
-com\esiea\tp4A\domain\MarsRover.class
-com\esiea\tp4A\domain\Position.class
 com\esiea\tp4A\code\Plateau.class
-com\esiea\tp4A\Calc.class
 com\esiea\tp4A\domain\PlanetMap.class
 com\esiea\tp4A\domain\Position$FixedPosition.class
+com\esiea\tp4A\domain\MarsRover.class
+com\esiea\tp4A\domain\Position.class
+com\esiea\tp4A\Calc.class
