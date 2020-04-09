@@ -200,6 +200,7 @@ public class Api {
                 	}
                 	System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
+                    break;
                     
                 case 'q':
                     System.out.println("Merci de votre venue et à bientôt! Au revoir! ");
@@ -288,18 +289,17 @@ public class Api {
     //Création du set des positions  obstacles --> doivent occuper 15* du terrain
     public List<Position> generationSetObstaclesPositions(){
     	int nbPositionsMap = (taille + (taille+1)) * (taille*2); //nombres total de positions possibles sur la map
-    	System.out.println("nb positions carte: " + nbPositionsMap);
+    	//System.out.println("nb positions carte: " + nbPositionsMap);
     	int nbPositionObstacle = (int) Math.round(0.15 * nbPositionsMap); //15% des positions sont prises par des obstacles  
-    	System.out.println("nb positions obstacles: " + nbPositionObstacle);
+    	//System.out.println("nb positions obstacles: " + nbPositionObstacle);
     	List<Obstacle> lstObstacles = new ArrayList<Obstacle>();
     	
     	for(int i = 0; i< nbPositionObstacle ; i++) { // on génère les 15 % de positions aléatoires
-    		System.out.println("hey!");
+    		
     		Position p = aleaPosition();
     		Obstacle o = new Obstacle(p.getX(),p.getY(),Direction.NORTH);
     		lstObstacles.add(o);
-//    		setObstaclesPositions.addAll(o.obstaclePositions());
-//    		System.out.println("i:" + i);
+
     	}
     	for(Obstacle o: lstObstacles) {
     		setObstaclesPositions.add(o.getPosition());
@@ -307,10 +307,7 @@ public class Api {
     	
     	for(Rover r: lstRover) { // on ajoute cette liste d'obstacles à chaque Rover
     		r.setObstaclesMap(setObstaclesPositions);
-    		System.out.println("here!");
     	}
-    	System.out.println("taille de setObstaclesPositions: " + setObstaclesPositions.size());
-    	System.out.println("bouya!");
     	return setObstaclesPositions;
     }
     
