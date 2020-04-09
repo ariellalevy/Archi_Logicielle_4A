@@ -5,7 +5,7 @@
 
 
 Éléments restants :
-- 15% d'obstacles sur la map
+- detection des obstacles par les rovers
 - Laser
 - interface web
 - fichiers Markdown
