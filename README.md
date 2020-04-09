@@ -5,7 +5,6 @@
 
 
 Éléments restants :
-- detection des obstacles par les rovers
 - Laser
 - interface web
 - fichiers Markdown
