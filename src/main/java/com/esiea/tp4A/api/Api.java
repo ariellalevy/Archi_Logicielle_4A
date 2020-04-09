@@ -20,7 +20,7 @@ public class Api {
     private List<Rover> lstRover;
     private int numeroJoueur;
 
-    //DANS CHAQUE CASE APPELE IL FAUT TROUVER LE MOYEN DE SELECTIONNER UN ROVER PRECIS POUR LES APPELS DE FONCTION
+   
     public Api() {
 
 
@@ -47,6 +47,11 @@ public class Api {
         //####################### Choix numéro de joueur ##############################
         System.out.println("Veuillez choisir un numéro de joueur entre 1 et 50");
         numeroJoueur = scan.nextInt(); 
+        while((numeroJoueur <1)|| (numeroJoueur >50)){
+        	System.out.println("Il faut impérativement entrer un nombre entre 1 et 50, sinon on ne peut pas vous attribuer de rover");
+        	numeroJoueur = scan.nextInt();
+        	
+        }
         
         System.out.println("Vous avez choisi le Rover numéro " + numeroJoueur);
         System.out.println("Voici ses coordonnées: " + lstRover.get(numeroJoueur -1).getPosition().getX() +" , " + lstRover.get(numeroJoueur-1).getPosition().getY() + ", " + lstRover.get(numeroJoueur -1).getPosition().getDirection());
@@ -68,11 +73,13 @@ public class Api {
                 case 'h':
                     System.out.println("h: Afficher cet écran d'aide");
                     System.out.println("p: Afficher la position des 50 joueurs");
+                    System.out.println("c: Changer de rover");
                     System.out.println("o: Connaitre la position des obstacles et joueurs adverses dans un carré de 30x30(par défaut) autour du joueur (radar)");
                     System.out.println("l: Connaitre la portée du laser");
                     System.out.println("d: Se déplacer");
                     System.out.println("s: Tirer avec le laser");
                     System.out.println("a: Savoir si son personnage est vivant ou mort");
+                    System.out.println("m: Afficher mes informations (numéro de rover et position");
                     System.out.println("q: Quitter le programme");
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice = scan.next();
@@ -82,6 +89,21 @@ public class Api {
                     System.out.println("Affichage de la position des joueurs");
                     for(Rover r: lstRover){
                         System.out.println(" Rover numéro " + r.getNumeroRover() + " :  ("+r.getPosition().getX() + ", "+ r.getPosition().getY() +  ", " + r.getPosition().getDirection() + " )");
+                    }
+                    System.out.println("Que voulez-vous faire? [h for help]");
+                    choice = scan.next();
+                    break;
+                    
+                    
+                case 'c':
+                	System.out.println("Changer de joueur");
+                	System.out.println("Veuillez entrer le numéro du rover que vous voulez désormais incarner");
+                	System.out.println("Veuillez choisir un numéro de joueur entre 1 et 50");
+                    numeroJoueur = scan.nextInt(); 
+                    while((numeroJoueur <1)|| (numeroJoueur >50)){
+                    	System.out.println("Il faut impérativement entrer un nombre entre 1 et 50, sinon on ne peut pas vous attribuer de rover");
+                    	numeroJoueur = scan.nextInt();
+                    	
                     }
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice = scan.next();
@@ -114,8 +136,8 @@ public class Api {
                     System.out.println("Tapez votre commande :");
                     String move = scan.next();
                     char tabMove[] = move.toCharArray();
-                    System.out.println("numéro joueur: " + (numeroJoueur -1));
                     lstRover.get(numeroJoueur-1).give_order(tabMove);
+                    System.out.println("Nouvelle position du rover " + numeroJoueur + ": ("+lstRover.get(numeroJoueur-1).getPosition().getX() + ", "+ lstRover.get(numeroJoueur-1).getPosition().getY() +  ", " + lstRover.get(numeroJoueur-1).getPosition().getDirection() + " )");
                     move="";
 
                     System.out.println("Que voulez-vous faire? [h for help]");
@@ -147,14 +169,25 @@ public class Api {
                     System.out.println("Que voulez-vous faire? [h for help]");
                     choice= scan.next();
                     break;
-
+                    
+                case 'm': 
+                	System.out.println("Afficher mes informations:");
+                	System.out.println("Vous êtes le rover numéro " + numeroJoueur);
+                	System.out.println("Vous êtes actuellement situé en ("+lstRover.get(numeroJoueur-1).getPosition().getX() + ", "+ lstRover.get(numeroJoueur-1).getPosition().getY() +  ", " + lstRover.get(numeroJoueur-1).getPosition().getDirection() + " )");
+                	System.out.println("Que voulez-vous faire? [h for help]");
+                    choice= scan.next();
+                    break;
                 case 'q':
                     System.out.println("Merci de votre venue et à bientôt! Au revoir! ");
                     stop = true;
                     break;
 
                 default:
-                    System.out.println("Erreur");
+                    System.out.println("Commande inconnue");
+                    System.out.println("Que voulez-vous faire? [h for help]");
+                    choice= scan.next();
+                    
+                   
                     break;
             }
 

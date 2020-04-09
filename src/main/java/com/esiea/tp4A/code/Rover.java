@@ -48,54 +48,54 @@ public class Rover implements MarsRover{
             case 'f':
                 switch (this.position.getDirection()){
                     case NORTH:
-                    	System.out.println("TEST 1");
+                    	//System.out.println("TEST 1");
 
 
                         //grille sphérique
 
                         if((map.getTaille() == 100) && (this.position.getY() == 50)){
                             this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
-                            System.out.println("TOTO 1a");
+                            //System.out.println("TOTO 1a");
                         }
                         else if((map.getTaille() == 300) && (this.position.getY() == 150)){
                             this.position = Position.of(this.position.getX(), -149,this.position.getDirection());
-                            System.out.println("TOTO 1b");
+                            //System.out.println("TOTO 1b");
                         }
 
                         else if((map.getTaille() == 600) && (this.position.getY() == 300)){
                             this.position = Position.of(this.position.getX(), -200,this.position.getDirection());
-                            System.out.println("TOTO 1c");
+                            //System.out.println("TOTO 1c");
                         }
-                        System.out.println("HELLO 1");
+                        //System.out.println("HELLO 1");
                         this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                         return this.position;
                     case SOUTH:
-                    	System.out.println("TEST 2");
+                    	//System.out.println("TEST 2");
                         //grille sphérique
                         if((map.getTaille() == 100) && (this.position.getY() == -50)){
                             this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
-                            System.out.println("TOTO 2a");
+                            //System.out.println("TOTO 2a");
                         }
                         if((map.getTaille() == 300) && (this.position.getY() == -150)){
                             this.position = Position.of(this.position.getX(), 149,this.position.getDirection());
-                            System.out.println("TOTO 2b");
+                            //System.out.println("TOTO 2b");
                         }
                         if((map.getTaille() == 600) && (this.position.getY() == -300)){
                             this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
-                            System.out.println("TOTO 2c");
+                           // System.out.println("TOTO 2c");
                         }
-                        System.out.println("HELLO 2");
+                        //System.out.println("HELLO 2");
                         this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                         return this.position;
                     case EAST:
-                    	System.out.println("TEST 3");
+                    	//System.out.println("TEST 3");
                         this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection());
-                        System.out.println("TOTO 3");
+                        //System.out.println("TOTO 3");
                         return this.position;
                     case WEST:
-                    	System.out.println("TEST 4");
+                    	//System.out.println("TEST 4");
                         this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());
-                        System.out.println("TOTO 4");
+                       // System.out.println("TOTO 4");
                         return this.position;
                     default: System.out.println("Erreur commande 'f'");
                         break;
@@ -129,7 +129,7 @@ public class Rover implements MarsRover{
                         if((map.getTaille() == 600) && (this.position.getY() == 300)){
                             this.position = Position.of(this.position.getX(), -299,this.position.getDirection());
                         }
-                        System.out.println("Houston nous avons un pbm50");
+                        //System.out.println("Houston nous avons un pbm50");
                         this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                         return this.position;
                     case EAST:
@@ -162,19 +162,19 @@ public class Rover implements MarsRover{
             case 'r':
                 switch (this.position.getDirection()) {
                     case NORTH:
-                    	System.out.println("HOLA");
+                    	//System.out.println("HOLA");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.EAST);
                         return this.position;
                     case SOUTH:
-                    	System.out.println("BONJOUR");
+                    	//System.out.println("BONJOUR");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.WEST);
                         return this.position;
                     case EAST:
-                    	System.out.println("Dzien dobre");
+                    	//System.out.println("Dzien dobre");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.SOUTH);
                         return this.position;
                     case WEST:
-                    	System.out.println("Guten tag");
+                    	//System.out.println("Guten tag");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.NORTH);
                         return this.position;
                     default:
