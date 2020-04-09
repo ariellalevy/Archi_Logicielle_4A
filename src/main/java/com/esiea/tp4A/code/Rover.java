@@ -18,6 +18,7 @@ public class Rover implements MarsRover{
     private boolean alive;
     private int numeroRover;
     private List<Position> setObstaclesPositions;
+    
 
 
 
@@ -44,6 +45,10 @@ public class Rover implements MarsRover{
         if(command.isEmpty()){
             return Position.of(0,0,Direction.NORTH);
         }
+        
+        Position anciennePosition = position;
+     
+
 
         switch(command.charAt(0)) {
             case 'f':
@@ -69,6 +74,20 @@ public class Rover implements MarsRover{
                         }
                         //System.out.println("HELLO 1");
                         this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
+                       
+                       
+                        //Detection d'obstacles
+                        
+                        
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) + 1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        	
+                        
+                        
                         return this.position;
                     case SOUTH:
                     	//System.out.println("TEST 2");
@@ -87,15 +106,40 @@ public class Rover implements MarsRover{
                         }
                         //System.out.println("HELLO 2");
                         this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
+                        
+                        //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() + ")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case EAST:
                     	//System.out.println("TEST 3");
                         this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection());
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +( setObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() + ")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
                         //System.out.println("TOTO 3");
                         return this.position;
                     case WEST:
                     	//System.out.println("TEST 4");
                         this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p)+1) +", de coordonnées" +p.getX() +", " + p.getY() + ")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
                        // System.out.println("TOTO 4");
                         return this.position;
                     default: System.out.println("Erreur commande 'f'");
@@ -117,6 +161,15 @@ public class Rover implements MarsRover{
                             this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
                         }
                         this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case SOUTH:
 
@@ -132,12 +185,38 @@ public class Rover implements MarsRover{
                         }
                         //System.out.println("Houston nous avons un pbm50");
                         this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
                         return this.position;
                     case EAST:
                         this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1) +", de coordonnées" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case WEST:
                         this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection());
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     default: System.out.println("Erreur commande 'b'");
                         break;
@@ -146,15 +225,50 @@ public class Rover implements MarsRover{
                 switch (this.position.getDirection()) {
                     case NORTH:
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.WEST);
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case SOUTH:
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.EAST);
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p)+1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case EAST:
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.NORTH);
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1)+", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case WEST:
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.SOUTH);
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p)+1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
                         return this.position;
                     default:
                         System.out.println("Erreur commande 'l'");
@@ -165,18 +279,54 @@ public class Rover implements MarsRover{
                     case NORTH:
                     	//System.out.println("HOLA");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.EAST);
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case SOUTH:
                     	//System.out.println("BONJOUR");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.WEST);
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle  (le numéro " +(setObstaclesPositions.indexOf(p)+1) +", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case EAST:
                     	//System.out.println("Dzien dobre");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.SOUTH);
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1)+", de coordonnées (" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     case WEST:
                     	//System.out.println("Guten tag");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.NORTH);
+                        
+                      //Detection d'obstacles
+                        for(Position p : setObstaclesPositions) {
+                        	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+                        		System.out.println("Malheur! Un obstacle (le numéro " +(setObstaclesPositions.indexOf(p) +1) +", de coordonnées" +p.getX() +", " + p.getY() +")) nous barre la route! Revenons à notre ancienne position... ");
+                            	position = anciennePosition;
+                        	}
+                        }
+                        
                         return this.position;
                     default:
                         System.out.println("Erreur commande 'r'");
