@@ -1,5 +1,9 @@
 package com.esiea.tp4A.code;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.Position;
@@ -13,6 +17,7 @@ public class Rover implements MarsRover{
     private Plateau map;
     private boolean alive;
     private int numeroRover;
+    private List<Position> setObstaclesPositions;
 
 
 
@@ -33,10 +38,6 @@ public class Rover implements MarsRover{
     }
 
 
-
-// ATTENTION REPETER LA MANOEUVRE POUR TOUS LES CHARACTERES DE LA STRING
-    
-    //PROBLEME REPETITION DE COMMANDES !!!
 
     @Override
     public Position move(String command) {
@@ -228,5 +229,10 @@ public class Rover implements MarsRover{
     public void setPlateau(Plateau plateau) {
     	this.map = plateau;
     	    }
+    
+    public void setObstaclesMap(List<Position> setObstaPositions) {
+    	setObstaclesPositions = setObstaPositions;
+    	
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.esiea.tp4A.api;
 
+import com.esiea.tp4A.code.Obstacle;
 import com.esiea.tp4A.code.Plateau;
 import com.esiea.tp4A.domain.Position;
 import com.esiea.tp4A.code.Rover;
@@ -7,7 +8,9 @@ import com.esiea.tp4A.domain.Direction;
 
 
 import java.util.Scanner;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -19,6 +22,7 @@ public class Api {
     private Position position;
     private List<Rover> lstRover;
     private int numeroJoueur;
+    private List<Position> setObstaclesPositions = new ArrayList<Position>();
 
    
     public Api() {
@@ -43,7 +47,7 @@ public class Api {
         //######################## Génération des 50 joueurs ###########################
         System.out.println("Génération des 50 joueurs....");
         generationAleaJoueurs();
-        System.out.println("Bravo, nous avons maintenant généré nos 50 joueurs!!");
+        System.out.println("Bravo, nous avons maintenant généré nos 50 joueurs!!\n");
         //####################### Choix numéro de joueur ##############################
         System.out.println("Veuillez choisir un numéro de joueur entre 1 et 50");
         numeroJoueur = scan.nextInt(); 
@@ -54,14 +58,22 @@ public class Api {
         }
         
         System.out.println("Vous avez choisi le Rover numéro " + numeroJoueur);
-        System.out.println("Voici ses coordonnées: " + lstRover.get(numeroJoueur -1).getPosition().getX() +" , " + lstRover.get(numeroJoueur-1).getPosition().getY() + ", " + lstRover.get(numeroJoueur -1).getPosition().getDirection());
+        System.out.println("Voici ses coordonnées: " + lstRover.get(numeroJoueur -1).getPosition().getX() +" , " + lstRover.get(numeroJoueur-1).getPosition().getY() + ", " + lstRover.get(numeroJoueur -1).getPosition().getDirection() + "\n");
        // System.out.println("La portée du laser définie aléatoirement correspond à :");
         // APPEL DES FONCTIONS GENERANT PORTEE DU LASER
+        //###################### Génération des obstacles #########################################""
+        System.out.println("Maintenant cow-boy, l'heure est venue de rajouter des obstacles sur la carte!!!");
+        System.out.println("....Génération...");
+        generationSetObstaclesPositions();
+        System.out.println("C'est tout bon!");
+        
+        
+        
         System.out.println("Rentrons maintenant dans le vif du sujet !");
 
         //############################ MENU UTILISATEUR #####################################
         System.out.println("################### MENU ###################");
-        System.out.println("Que voulez-vous faire ? [h for help]");
+        System.out.println("Que voulez-vous faire ? [h for help]\n");
         String choice;
         boolean stop = false;
         choice = scan.next();
@@ -80,8 +92,9 @@ public class Api {
                     System.out.println("s: Tirer avec le laser");
                     System.out.println("a: Savoir si son personnage est vivant ou mort");
                     System.out.println("m: Afficher mes informations (numéro de rover et position");
+                    System.out.println("r: Afficher la position des obstacles");
                     System.out.println("q: Quitter le programme");
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice = scan.next();
                     break;
 
@@ -90,7 +103,7 @@ public class Api {
                     for(Rover r: lstRover){
                         System.out.println(" Rover numéro " + r.getNumeroRover() + " :  ("+r.getPosition().getX() + ", "+ r.getPosition().getY() +  ", " + r.getPosition().getDirection() + " )");
                     }
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice = scan.next();
                     break;
                     
@@ -105,7 +118,7 @@ public class Api {
                     	numeroJoueur = scan.nextInt();
                     	
                     }
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice = scan.next();
                     break;
 
@@ -114,7 +127,7 @@ public class Api {
                     for(int i = 1; i < 51; i++){
                         //APPEL AUX FONCTIONS REQUISES
                     }
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
 
@@ -123,7 +136,7 @@ public class Api {
 
                         //APPEL AUX FONCTIONS REQUISES
 
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
 
@@ -140,7 +153,7 @@ public class Api {
                     System.out.println("Nouvelle position du rover " + numeroJoueur + ": ("+lstRover.get(numeroJoueur-1).getPosition().getX() + ", "+ lstRover.get(numeroJoueur-1).getPosition().getY() +  ", " + lstRover.get(numeroJoueur-1).getPosition().getDirection() + " )");
                     move="";
 
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n ");
                     choice= scan.next();
                     break;
 
@@ -150,7 +163,7 @@ public class Api {
                     System.out.println("EXEMPLE : le rover a une position (0, 0, N) avec un laser de portée courte 5 et un obstacle à (0,2)");
                     System.out.println("Avec la commande [s, f, f], le rover détruit l'obstacle et se retrouve à une position de (0, 2, N)");
 
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
 
@@ -166,7 +179,7 @@ public class Api {
                     }
                     System.out.println("Votre personnage (numéro " + numeroJoueur + ") est : " + personnage);
 
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
                     
@@ -174,17 +187,29 @@ public class Api {
                 	System.out.println("Afficher mes informations:");
                 	System.out.println("Vous êtes le rover numéro " + numeroJoueur);
                 	System.out.println("Vous êtes actuellement situé en ("+lstRover.get(numeroJoueur-1).getPosition().getX() + ", "+ lstRover.get(numeroJoueur-1).getPosition().getY() +  ", " + lstRover.get(numeroJoueur-1).getPosition().getDirection() + " )");
-                	System.out.println("Que voulez-vous faire? [h for help]");
+                	System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
+                    
+                case 'r':
+                	System.out.println("Afficher la position des obstacles");
+                	Position[] tabPositionsOstacles = new Position[setObstaclesPositions.size()];
+                	setObstaclesPositions.toArray(tabPositionsOstacles);
+                	for(int i = 0; i < tabPositionsOstacles.length; i++) {
+                		System.out.println("Obstacle " + (i+1) + ": (" + tabPositionsOstacles[i].getX() + ", " + tabPositionsOstacles[i].getY() + ")");
+                	}
+                	System.out.println("Que voulez-vous faire? [h for help] \n");
+                    choice= scan.next();
+                    
                 case 'q':
                     System.out.println("Merci de votre venue et à bientôt! Au revoir! ");
                     stop = true;
+                    System.exit(0);
                     break;
 
                 default:
                     System.out.println("Commande inconnue");
-                    System.out.println("Que voulez-vous faire? [h for help]");
+                    System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     
                    
@@ -204,7 +229,7 @@ public class Api {
         System.out.println("Voici la taille de la carte, choisie aléatoirement :");
         map.geneTaille();
         taille = map.getTaille();
-        System.out.println(taille + "x" + taille);
+        System.out.println(taille + "x" + taille +"\n");
     }
 
 
@@ -255,6 +280,38 @@ public class Api {
             lstRover.add(r);//ajout à la liste de Rovers
         }
         return lstRover;
+    }
+    
+    
+    
+    
+    //Création du set des positions  obstacles --> doivent occuper 15* du terrain
+    public List<Position> generationSetObstaclesPositions(){
+    	int nbPositionsMap = (taille + (taille+1)) * (taille*2); //nombres total de positions possibles sur la map
+    	System.out.println("nb positions carte: " + nbPositionsMap);
+    	int nbPositionObstacle = (int) Math.round(0.15 * nbPositionsMap); //15% des positions sont prises par des obstacles  
+    	System.out.println("nb positions obstacles: " + nbPositionObstacle);
+    	List<Obstacle> lstObstacles = new ArrayList<Obstacle>();
+    	
+    	for(int i = 0; i< nbPositionObstacle ; i++) { // on génère les 15 % de positions aléatoires
+    		System.out.println("hey!");
+    		Position p = aleaPosition();
+    		Obstacle o = new Obstacle(p.getX(),p.getY(),Direction.NORTH);
+    		lstObstacles.add(o);
+//    		setObstaclesPositions.addAll(o.obstaclePositions());
+//    		System.out.println("i:" + i);
+    	}
+    	for(Obstacle o: lstObstacles) {
+    		setObstaclesPositions.add(o.getPosition());
+    	}
+    	
+    	for(Rover r: lstRover) { // on ajoute cette liste d'obstacles à chaque Rover
+    		r.setObstaclesMap(setObstaclesPositions);
+    		System.out.println("here!");
+    	}
+    	System.out.println("taille de setObstaclesPositions: " + setObstaclesPositions.size());
+    	System.out.println("bouya!");
+    	return setObstaclesPositions;
     }
     
     public static void main(String[] args) {

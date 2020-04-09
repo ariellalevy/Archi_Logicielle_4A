@@ -1,29 +1,27 @@
 package com.esiea.tp4A.code;
 
-<<<<<<< HEAD
-public class Obstacle {
+import java.util.HashSet;
+import java.util.Set;
+
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.PlanetMap;
+import com.esiea.tp4A.domain.Position;
+
+public class Obstacle { //Implement Planet MAP ?
         private int positionX;//correspond à l'origine (gauche) en X
         private int positionY;//correspond à l'origine (gauche) en Y
-=======
-public class Obstacle { //Implement Planet MAP ?
-        public int positionX;//correspond à l'origine (gauche) en X
-        public int positionY;//correspond à l'origine (gauche) en Y
-        public int hauteur;//correspond à la surface sur les Y de l'obstacle
-        public int largeur;//correspond à la surface sur les X de l'obstacle
->>>>>>> api
-
-        private void setPositionX(int posX){
-            positionX = posX;
+        private Direction direction;
+        private Position position;
+       
+        
+        public Obstacle(int posX,int posY, Direction direction){
+           positionX = posX;
+           positionY = posY;
+           this.direction = direction;
+           position = Position.of(posX, posY, direction);
+           
         }
-
-        private void setPositionY(int posY) {
-            positionY = posY;
-        }
-
-        public Obstacle(int posX,int posY){
-            setPositionX(posX);
-            setPositionY(posY);
-        }
+         
 
         public int getPositionX(){
             return positionX;
@@ -32,4 +30,13 @@ public class Obstacle { //Implement Planet MAP ?
         public int getPositionY(){
             return positionY;
         }
+        
+        public Direction getDirection() {
+        	return direction;
+        }
+        
+        public Position getPosition() {
+        	return position;
+        }
+		
 }
