@@ -3,7 +3,6 @@ package com.esiea.tp4A.code;
 
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
-import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.Position;
 
 public class Rover implements MarsRover{
@@ -11,7 +10,7 @@ public class Rover implements MarsRover{
 
 
     private Position position;
-    private Plateau plateau;
+    private Plateau map;
     private boolean alive;
     private int numeroRover;
 
@@ -50,16 +49,16 @@ public class Rover implements MarsRover{
 
                         //grille sphérique
 
-                        if((plateau.getTaille() == 100) && (this.position.getY() == 50)){
+                        if((map.getTaille() == 100) && (this.position.getY() == 50)){
                             this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
                             System.out.println("TOTO 1a");
                         }
-                        if((plateau.getTaille() == 300) && (this.position.getY() == 150)){
+                        else if((map.getTaille() == 300) && (this.position.getY() == 150)){
                             this.position = Position.of(this.position.getX(), -149,this.position.getDirection());
                             System.out.println("TOTO 1b");
                         }
 
-                        if((plateau.getTaille() == 600) && (this.position.getY() == 300)){
+                        else if((map.getTaille() == 600) && (this.position.getY() == 300)){
                             this.position = Position.of(this.position.getX(), -200,this.position.getDirection());
                             System.out.println("TOTO 1c");
                         }
@@ -69,15 +68,15 @@ public class Rover implements MarsRover{
                     case SOUTH:
                     	System.out.println("TEST 2");
                         //grille sphérique
-                        if((plateau.getTaille() == 100) && (this.position.getY() == -50)){
+                        if((map.getTaille() == 100) && (this.position.getY() == -50)){
                             this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
                             System.out.println("TOTO 2a");
                         }
-                        if((plateau.getTaille() == 300) && (this.position.getY() == -150)){
+                        if((map.getTaille() == 300) && (this.position.getY() == -150)){
                             this.position = Position.of(this.position.getX(), 149,this.position.getDirection());
                             System.out.println("TOTO 2b");
                         }
-                        if((plateau.getTaille() == 600) && (this.position.getY() == -300)){
+                        if((map.getTaille() == 600) && (this.position.getY() == -300)){
                             this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
                             System.out.println("TOTO 2c");
                         }
@@ -103,13 +102,13 @@ public class Rover implements MarsRover{
                     case NORTH:
 
                         //grille sphérique
-                        if((plateau.getTaille() == 100) && (this.position.getY() == -50)){
+                        if((map.getTaille() == 100) && (this.position.getY() == -50)){
                             this.position = Position.of(this.position.getX(), 49,this.position.getDirection());
                         }
-                        if((plateau.getTaille() == 300) && (this.position.getY() == -150)){
+                        if((map.getTaille() == 300) && (this.position.getY() == -150)){
                             this.position = Position.of(this.position.getX(), 149,this.position.getDirection());
                         }
-                        if((plateau.getTaille() == 600) && (this.position.getY() == -300)){
+                        if((map.getTaille() == 600) && (this.position.getY() == -300)){
                             this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
                         }
                         this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
@@ -117,15 +116,16 @@ public class Rover implements MarsRover{
                     case SOUTH:
 
                         //grille sphérique
-                        if((plateau.getTaille() == 100) && (this.position.getY() == 50)){
+                        if((map.getTaille() == 100) && (this.position.getY() == 50)){
                             this.position = Position.of(this.position.getX(), -49,this.position.getDirection());
                         }
-                        if((plateau.getTaille() == 300) && (this.position.getY() == 150)){
+                        if((map.getTaille() == 300) && (this.position.getY() == 150)){
                             this.position = Position.of(this.position.getX(), -149,this.position.getDirection());
                         }
-                        if((plateau.getTaille() == 600) && (this.position.getY() == 300)){
+                        if((map.getTaille() == 600) && (this.position.getY() == 300)){
                             this.position = Position.of(this.position.getX(), -299,this.position.getDirection());
                         }
+                        System.out.println("Houston nous avons un pbm50");
                         this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                         return this.position;
                     case EAST:
@@ -217,4 +217,8 @@ public class Rover implements MarsRover{
     public void setNumeroRover(int numero) {
     	numeroRover = numero;
     }
+    
+    public void setPlateau(Plateau plateau) {
+    	this.map = plateau;
+    	    }
 }

@@ -114,6 +114,7 @@ public class Api {
                     System.out.println("Tapez votre commande :");
                     String move = scan.next();
                     char tabMove[] = move.toCharArray();
+                    System.out.println("numéro joueur: " + (numeroJoueur -1));
                     lstRover.get(numeroJoueur-1).give_order(tabMove);
                     move="";
 
@@ -216,6 +217,7 @@ public class Api {
             p = aleaPosition(); // génération position aléatoire
             r.setPosition(p); //on fixe la position aléatoire du Rover
             r.setNumeroRover(i);
+            r.setPlateau(map);
             //AJOUTER PORTEE DU LASER QUAND ELLE SERA DISPO
             lstRover.add(r);//ajout à la liste de Rovers
         }
