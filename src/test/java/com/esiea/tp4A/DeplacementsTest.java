@@ -1,6 +1,6 @@
 package com.esiea.tp4A.domain;
 
-import com.esiea.tp4A.code.RoverMove;
+import com.esiea.tp4A.code.Rover;
 import org.junit.Test;
 import org.junit.jupiter.api.Test;
 
@@ -10,10 +10,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class DeplacementsTest {
 
-        private final RoverMove roverNorth = (RoverMove) new RoverMove().initialize(Position.of(0, 0, Direction.NORTH));
-        private final RoverMove roverSouth = (RoverMove) new RoverMove().initialize(Position.of(0, 0, Direction.SOUTH));
-        private final RoverMove roverEast = (RoverMove) new RoverMove().initialize(Position.of(0, 0, Direction.EAST));
-        private final RoverMove roverWest = (RoverMove) new RoverMove().initialize(Position.of(0, 0, Direction.WEST));
+        private final Rover roverNorth = (Rover) new Rover().initialize(Position.of(0, 0, Direction.NORTH));
+        private final Rover roverSouth = (Rover) new Rover().initialize(Position.of(0, 0, Direction.SOUTH));
+        private final Rover roverEast = (Rover) new Rover().initialize(Position.of(0, 0, Direction.EAST));
+        private final Rover roverWest = (Rover) new Rover().initialize(Position.of(0, 0, Direction.WEST));
 
     /* Utilisation d'une commande inconnue */
 
@@ -29,6 +29,7 @@ class DeplacementsTest {
 
     /* Utilisation de la commande f (forward) */
 
+    /* Orientation Nord */
     @Test
     void move_forward_north() {
         Position newPosition = roverNorth.move("f");
@@ -39,6 +40,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, 1, Direction.NORTH));
     }
 
+    /* Orientation Sud */
     @Test
     void move_forward_south() {
         Position newPosition = roverSouth.move("f");
@@ -49,6 +51,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, -1, Direction.SOUTH));
     }
 
+    /* Orientation Ouest */
     @Test
     void move_forward_west() {
         Position newPosition = roverWest.move("f");
@@ -59,6 +62,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(-1, 0, Direction.WEST));
     }
 
+    /* Orientation Est */
     @Test
     void move_forward_east() {
         Position newPosition = roverEast.move("f");
@@ -71,6 +75,7 @@ class DeplacementsTest {
 
     /* Utilisation de la commande b (backward) */
 
+    /* Orientation Nord */
     @Test
     void move_backward_north() {
         Position newPosition = roverNorth.move("b");
@@ -81,6 +86,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, -1, Direction.NORTH));
     }
 
+    /* Orientation Sud */
     @Test
     void move_backward_south() {
         Position newPosition = roverSouth.move("b");
@@ -91,6 +97,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, 1, Direction.SOUTH));
     }
 
+    /* Orientation Oues */
     @Test
     void move_backward_west() {
         Position newPosition = roverWest.move("b");
@@ -101,6 +108,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(-1, 0, Direction.WEST));
     }
 
+    /* Orientation Est */
     @Test
     void move_backward_east() {
         Position newPosition = roverEast.move("b");
@@ -113,6 +121,7 @@ class DeplacementsTest {
 
     /* Utilisation de la commande r (right) */
 
+    /* Orientation Nord */
     @Test
     void move_right_north() {
         Position newPosition = roverNorth.move("r");
@@ -123,6 +132,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, 0, Direction.NORTH));
     }
 
+    /* Orientation Sud */
     @Test
     void move_right_south() {
         Position newPosition = roverSouth.move("r");
@@ -133,6 +143,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, 0, Direction.SOUTH));
     }
 
+    /* Orientation Ouest */
     @Test
     void move_right_west() {
         Position newPosition = roverWest.move("r");
@@ -143,6 +154,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, 0, Direction.WEST));
     }
 
+    /* Orientation Est */
     @Test
     void move_right_east() {
         Position newPosition = roverEast.move("r");
@@ -155,6 +167,7 @@ class DeplacementsTest {
 
     /* Utilisation de la commande l (left) */
 
+    /* Orientation Nord */
     @Test
     void move_left_north() {
         Position newPosition = roverNorth.move("l");
@@ -165,6 +178,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, 0, Direction.NORTH));
     }
 
+    /* Orientation Sud */
     @Test
     void move_left_south() {
         Position newPosition = roverSouth.move("l");
@@ -175,6 +189,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, 0, Direction.SOUTH));
     }
 
+    /* Orientation Ouest */
     @Test
     void move_left_west() {
         Position newPosition = roverWest.move("l");
@@ -185,6 +200,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(0, 0, Direction.WEST));
     }
 
+    /* Orientation Est */
     @Test
     void move_left_east() {
         Position newPosition = roverEast.move("l");
