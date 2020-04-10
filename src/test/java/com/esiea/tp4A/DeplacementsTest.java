@@ -1,7 +1,10 @@
-package com.esiea.tp4A.domain;
+package com.esiea.tp4A;
 
+import com.esiea.tp4A.code.Plateau;
 import com.esiea.tp4A.code.Rover;
-import org.junit.Test;
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.Position;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,13 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class DeplacementsTest {
 
-        private final Rover roverNorth = (Rover) new Rover().initialize(Position.of(0, 0, Direction.NORTH));
-        private final Rover roverSouth = (Rover) new Rover().initialize(Position.of(0, 0, Direction.SOUTH));
-        private final Rover roverEast = (Rover) new Rover().initialize(Position.of(0, 0, Direction.EAST));
-        private final Rover roverWest = (Rover) new Rover().initialize(Position.of(0, 0, Direction.WEST));
+        private final Rover roverNorth = (Rover) new Rover(Position.of(0, 0, Direction.NORTH));
+        private final Rover roverSouth = (Rover) new Rover(Position.of(0, 0, Direction.SOUTH));
+        private final Rover roverEast = (Rover) new Rover(Position.of(0, 0, Direction.EAST));
+        private final Rover roverWest = (Rover) new Rover(Position.of(0, 0, Direction.WEST));
+        private final Plateau plateau = new Plateau();
 
     /* Utilisation d'une commande inconnue */
-
+  
     @Test
     void move_unknown_command() {
         Position newPosition = roverNorth.move("a");
@@ -26,7 +30,7 @@ class DeplacementsTest {
             .extracting(Position::getX, Position::getY, Position::getDirection)
             .isEqualTo(List.of(0, 0, Direction.NORTH));
     }
-
+	
     /* Utilisation de la commande f (forward) */
 
     /* Orientation Nord */
@@ -105,7 +109,7 @@ class DeplacementsTest {
         assertThat(newPosition)
             .as("Le Rover est orienté vers l'Ouest, après avoir utilisé la commande f")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(-1, 0, Direction.WEST));
+            .isEqualTo(List.of(1, 0, Direction.WEST));
     }
 
     /* Orientation Est */
@@ -116,7 +120,7 @@ class DeplacementsTest {
         assertThat(newPosition)
             .as("Le Rover est orienté vers l'Est, après avoir utilisé la commande f")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(1, 0, Direction.EAST));
+            .isEqualTo(List.of(-1, 0, Direction.EAST));
     }
 
     /* Utilisation de la commande r (right) */
@@ -127,9 +131,9 @@ class DeplacementsTest {
         Position newPosition = roverNorth.move("r");
 
         assertThat(newPosition)
-            .as("Le Rover est orienté vers le Nord, après avoir utilisé la commande r")
+            .as("Le Rover est orienté vers l'est, après avoir utilisé la commande r")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, 0, Direction.NORTH));
+            .isEqualTo(List.of(0, 0, Direction.EAST));
     }
 
     /* Orientation Sud */
@@ -138,9 +142,9 @@ class DeplacementsTest {
         Position newPosition = roverSouth.move("r");
 
         assertThat(newPosition)
-            .as("Le Rover est orienté vers le Sud, après avoir utilisé la commande r")
+            .as("Le Rover est orienté vers l'ouest, après avoir utilisé la commande r")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, 0, Direction.SOUTH));
+            .isEqualTo(List.of(0, 0, Direction.WEST));
     }
 
     /* Orientation Ouest */
@@ -149,9 +153,9 @@ class DeplacementsTest {
         Position newPosition = roverWest.move("r");
 
         assertThat(newPosition)
-            .as("Le Rover est orienté vers l'Ouest, après avoir utilisé la commande r")
+            .as("Le Rover est orienté vers le nord, après avoir utilisé la commande r")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, 0, Direction.WEST));
+            .isEqualTo(List.of(0, 0, Direction.NORTH));
     }
 
     /* Orientation Est */
@@ -160,9 +164,9 @@ class DeplacementsTest {
         Position newPosition = roverEast.move("r");
 
         assertThat(newPosition)
-            .as("Le Rover est orienté vers l'Est, après avoir utilisé la commande r")
+            .as("Le Rover est orienté vers le sud, après avoir utilisé la commande r")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, 0, Direction.EAST));
+            .isEqualTo(List.of(0, 0, Direction.SOUTH));
     }
 
     /* Utilisation de la commande l (left) */
@@ -173,9 +177,9 @@ class DeplacementsTest {
         Position newPosition = roverNorth.move("l");
 
         assertThat(newPosition)
-            .as("Le Rover est orienté vers le Nord, après avoir utilisé la commande l")
+            .as("Le Rover est orienté vers l'ouest, après avoir utilisé la commande l")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, 0, Direction.NORTH));
+            .isEqualTo(List.of(0, 0, Direction.WEST));
     }
 
     /* Orientation Sud */
@@ -184,9 +188,9 @@ class DeplacementsTest {
         Position newPosition = roverSouth.move("l");
 
         assertThat(newPosition)
-            .as("Le Rover est orienté vers le Sud, après avoir utilisé la commande l")
+            .as("Le Rover est orienté vers l'est, après avoir utilisé la commande l")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, 0, Direction.SOUTH));
+            .isEqualTo(List.of(0, 0, Direction.EAST));
     }
 
     /* Orientation Ouest */
@@ -195,9 +199,9 @@ class DeplacementsTest {
         Position newPosition = roverWest.move("l");
 
         assertThat(newPosition)
-            .as("Le Rover est orienté vers l'Ouest, après avoir utilisé la commande l")
+            .as("Le Rover est orienté vers le sud, après avoir utilisé la commande l")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, 0, Direction.WEST));
+            .isEqualTo(List.of(0, 0, Direction.SOUTH));
     }
 
     /* Orientation Est */
@@ -206,8 +210,8 @@ class DeplacementsTest {
         Position newPosition = roverEast.move("l");
 
         assertThat(newPosition)
-            .as("Le Rover est orienté vers l'Est, après avoir utilisé la commande l")
+            .as("Le Rover est orienté vers le nord, après avoir utilisé la commande l")
             .extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, 0, Direction.EAST));
+            .isEqualTo(List.of(0, 0, Direction.NORTH));
     }
 }
