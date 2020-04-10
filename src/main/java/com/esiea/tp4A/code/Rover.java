@@ -18,6 +18,7 @@ public class Rover implements MarsRover{
     private boolean alive;
     private int numeroRover;
     private List<Position> setObstaclesPositions;
+    private int porteeLaser;
     
 
 
@@ -28,6 +29,7 @@ public class Rover implements MarsRover{
         this.initialize(position);
         this.alive = true;
         numeroRover = 0;
+        porteeLaser = 0;
     }
 
 
@@ -383,6 +385,10 @@ public class Rover implements MarsRover{
     public void setObstaclesMap(List<Position> setObstaPositions) {
     	setObstaclesPositions = setObstaPositions;
     	
+    }
+    
+    public void setPorteeLaser(int portee) {
+    	porteeLaser = portee;
     }
 
 }

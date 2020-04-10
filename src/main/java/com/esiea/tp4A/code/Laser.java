@@ -9,14 +9,19 @@ import com.esiea.tp4A.code.Obstacle;
 
 public abstract class Laser implements MarsRover {
 
-    private int distance;
+    private int range;
     private Position position;
     private Obstacle map;
     private List<Position> lstPositionsObstacles = new ArrayList<Position>();
     private boolean statutTir = false;
+    
+    
+    public Laser(int range) {
+    	configureLaserRange(range);
+    }
 
     public Laser configureLaserRange(int range){
-        this.distance = range;
+        this.range = range;
         return this;
     }
     
@@ -47,6 +52,10 @@ public abstract class Laser implements MarsRover {
     	return statutTir;
     }
     
+    
+    public int getRange() {
+    	return range;
+    }
     
     
 //

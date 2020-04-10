@@ -23,6 +23,7 @@ public class Api {
     private List<Rover> lstRover;
     private int numeroJoueur;
     private List<Position> setObstaclesPositions = new ArrayList<Position>();
+    private int porteeLaser;
 
    
     public Api() {
@@ -34,15 +35,10 @@ public class Api {
 
         // initialisation obstacle + laser
 
-        System.out.println(" Bienvenue sur notre jeu de l'espace!");
+        System.out.println("Bienvenue sur notre JEU DE L'ESPACE!");
 
         //############# Génération aléatoire de la tailles de la CARTE #######
         generationAleaCarte();
-
-        // APPEL DES FONCTIONS GENERANT LES OBSTACLES ALEATOIRES SUR LA CARTE
-
-
-
 
         //######################## Génération des 50 joueurs ###########################
         System.out.println("Génération des 50 joueurs....");
@@ -59,13 +55,16 @@ public class Api {
         
         System.out.println("Vous avez choisi le Rover numéro " + numeroJoueur);
         System.out.println("Voici ses coordonnées: " + lstRover.get(numeroJoueur -1).getPosition().getX() +" , " + lstRover.get(numeroJoueur-1).getPosition().getY() + ", " + lstRover.get(numeroJoueur -1).getPosition().getDirection() + "\n");
-       // System.out.println("La portée du laser définie aléatoirement correspond à :");
+        System.out.println("La portée du laser définie aléatoirement est de " + porteeLaser);
+        if(porteeLaser == 2000) {
+        	System.out.println("Attention, c'est une portee très grande, il y a donc un risque d'auto-déstruction si le tir fait le tour de la planète! Be careful!\n");
+        }
         // APPEL DES FONCTIONS GENERANT PORTEE DU LASER
         //###################### Génération des obstacles #########################################""
         System.out.println("Maintenant cow-boy, l'heure est venue de rajouter des obstacles sur la carte!!!");
         System.out.println("....Génération...");
         generationSetObstaclesPositions();
-        System.out.println("C'est tout bon!");
+        System.out.println("C'est tout bon!\n");
         
         
         
@@ -187,6 +186,10 @@ public class Api {
                 	System.out.println("Afficher mes informations:");
                 	System.out.println("Vous êtes le rover numéro " + numeroJoueur);
                 	System.out.println("Vous êtes actuellement situé en ("+lstRover.get(numeroJoueur-1).getPosition().getX() + ", "+ lstRover.get(numeroJoueur-1).getPosition().getY() +  ", " + lstRover.get(numeroJoueur-1).getPosition().getDirection() + " )");
+                	System.out.println("La portée de votre laser est de " + porteeLaser);
+                	if(porteeLaser == 2000) {
+                		System.out.println("Pour votre propre sécurité nous nous permettons de vous rappeler le risque d'auto-déstruction!");
+                	}
                 	System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
@@ -266,18 +269,27 @@ public class Api {
         return p;
     }
 
+    
+    /*Fonction qui génère aléatoirement la portée du laser*/
+    public int aleaPorteeLaser() {
+    	int tabPortee[] = {5, 30, 2000}; //2000 équivaut à la valeur infinie de la portée du laser
+    	int rand = (int) (Math.random() * tabPortee.length);
+    	int portee = tabPortee[rand];
+    	return portee;
+    }
 
     /*Fonction qui gènère 50 joueurs*/
     public List<Rover> generationAleaJoueurs(){
         lstRover = new ArrayList<Rover>();
         Position p = null;
+        porteeLaser = aleaPorteeLaser();//la portee choisie aléatoirement est la même pour tous les rovers sinon le jeu est injuste
         for(int i = 1; i<51; i++){
             Rover r= new Rover(p); // création Rover
             p = aleaPosition(); // génération position aléatoire
             r.setPosition(p); //on fixe la position aléatoire du Rover
             r.setNumeroRover(i);
             r.setPlateau(map);
-            //AJOUTER PORTEE DU LASER QUAND ELLE SERA DISPO
+            r.setPorteeLaser(porteeLaser);
             lstRover.add(r);//ajout à la liste de Rovers
         }
         return lstRover;
