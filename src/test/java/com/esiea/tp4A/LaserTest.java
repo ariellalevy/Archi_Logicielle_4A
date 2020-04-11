@@ -19,7 +19,6 @@ public class LaserTest {
     private final Laser laser = new Laser(5);
     private final Set<Position> posList = new HashSet<>();
 
-
     void init(){
         posList.add(Position.of(2,3,Direction.NORTH));
         posList.add(Position.of(1,4,Direction.NORTH));
@@ -36,6 +35,4 @@ public class LaserTest {
         assertThat(laser.LaserShoot(posList,Position.of(-2,4,Direction.EAST)));
         assertThat(!laser.LaserShoot(posList,Position.of(-2,9,Direction.SOUTH)));
     }
-
-
 }

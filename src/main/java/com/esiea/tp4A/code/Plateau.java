@@ -11,14 +11,13 @@ import java.util.List;
 import java.util.Set;
 
 public final class Plateau implements PlanetMap{
-
     private int taille = 0;
 
     @Override
-    public Set<Position> obstaclePositions() {
-        return null;
-    }
+    public Set<Position> obstaclePositions() {return null;}
 
+    public Plateau (){}
+    
     /* Constructeur */
     public Plateau (int tailleInput){
         initMap();
@@ -27,9 +26,7 @@ public final class Plateau implements PlanetMap{
 
     private void initMap(){
         int tab_taille [] = {50, 150, 300};
-
         int rand = (int) (Math.random() * tab_taille.length);
-
         this.taille = tab_taille[rand];
     }
 
@@ -43,15 +40,12 @@ public final class Plateau implements PlanetMap{
         }
     }
 
-    public Set<Position> getObstacleList(){
-        return this.obstaclePositions();
-    }
+    public Set<Position> getObstacleList(){return this.obstaclePositions();}
 
     /* Génère un obstacle */
     public void geneObstacle(Position position){
         int obs = (int) (0.15 * getTaille());
-        for(int i = 0; i < obs; i++)
-        {
+        for(int i = 0; i < obs; i++){
             creationObs(position);
         }
     }
@@ -62,7 +56,6 @@ public final class Plateau implements PlanetMap{
             this.getObstacleList().add(position);
             return true;
         }
-
         return false;
     }
 
@@ -73,16 +66,14 @@ public final class Plateau implements PlanetMap{
                 return true;
             }
         }
-
         return false;
     }
 
-    public int getTaille(){
-        return taille;
-    }
+    public int getTaille(){return taille;}
+
+    public void setTaille(int taille){this.taille = taille;}
 
     public int sphere(int position){
-
         if((taille == 100) && (position > taille)){
             position = - ((100 + taille) - position);
         }
@@ -94,6 +85,4 @@ public final class Plateau implements PlanetMap{
         }
         return position;
     }
-
 }
-
