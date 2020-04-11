@@ -217,8 +217,9 @@ class DeplacementsTest {
     }
     /* test de plusieurs deplacement*/
     @Test
-    void move_test() {
-    	Position newPosition = roverNorth.move("fflb");
+    void give_order_move() {
+    	char command[] = {'f','f','l','b'};
+    	Position newPosition = roverNorth.give_order(command);
     	
         assertThat(newPosition)
             .as("Le Rover est a la position (1, 2, W), après avoir utilisé les commande [f, f, l, b]")
