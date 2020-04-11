@@ -2,6 +2,7 @@ package com.esiea.tp4A.api;
 
 import com.esiea.tp4A.code.Obstacle;
 import com.esiea.tp4A.code.Plateau;
+import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.Position;
 import com.esiea.tp4A.code.Rover;
 import com.esiea.tp4A.domain.Direction;
@@ -14,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 
 
-public class Api {
+public class Api{
 
     private Plateau map;
     private int taille;
@@ -226,9 +227,8 @@ public class Api {
 
     // Fonction qui génère aléatoirement la taille de la carte */
     public void generationAleaCarte(){
-        map = new Plateau();
+        map = new Plateau(randomNumber(0,100));
         System.out.println("Voici la taille de la carte, choisie aléatoirement :");
-        map.geneTaille();
         taille = map.getTaille();
         System.out.println(taille + "x" + taille +"\n");
     }

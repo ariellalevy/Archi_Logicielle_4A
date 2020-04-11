@@ -10,15 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public abstract class Plateau implements PlanetMap {
+public final class Plateau implements PlanetMap{
 
     private int taille = 0;
 
+    @Override
+    public Set<Position> obstaclePositions() {
+        return null;
+    }
 
     /* Constructeur */
-    public Plateau (){
+    public Plateau (int tailleInput){
         initMap();
-        initMapWithObstacles(this.taille);
+        initMapWithObstacles(tailleInput);
     }
 
     private void initMap(){
