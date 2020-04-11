@@ -70,9 +70,10 @@ public class Rover implements MarsRover{
                                 this.position = Position.of(this.position.getX(), -200,this.position.getDirection());
                                 //System.out.println("TOTO 1c");
                             }
+                    	}else {
+                    		this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                     	}
                         //System.out.println("HELLO 1");
-                        this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                         if(setObstaclesPositions != null) {
                         	//Detection d'obstacles
                             for(Position p : setObstaclesPositions) {
@@ -99,9 +100,9 @@ public class Rover implements MarsRover{
                                 this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
                                // System.out.println("TOTO 2c");
                             }
+                        }else {
+                        	this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                         }
-                        //System.out.println("HELLO 2");
-                        this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                         if(setObstaclesPositions != null) {
                         	//Detection d'obstacles
                             for(Position p : setObstaclesPositions) {
@@ -158,8 +159,9 @@ public class Rover implements MarsRover{
                             if((map.getTaille() == 600) && (this.position.getY() == -300)){
                                 this.position = Position.of(this.position.getX(), 299,this.position.getDirection());
                             }
+                    	}else {
+                    		this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                     	}
-                        this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                         if(setObstaclesPositions != null) {
                         	//Detection d'obstacles
                             for(Position p : setObstaclesPositions) {
@@ -182,9 +184,9 @@ public class Rover implements MarsRover{
                             if((map.getTaille() == 600) && (this.position.getY() == 300)){
                                 this.position = Position.of(this.position.getX(), -299,this.position.getDirection());
                             }
+                    	}else {
+                    		this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                     	}
-                        //System.out.println("Houston nous avons un pbm50");
-                        this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                         if(setObstaclesPositions != null) {
                         	//Detection d'obstacles
                             for(Position p : setObstaclesPositions) {

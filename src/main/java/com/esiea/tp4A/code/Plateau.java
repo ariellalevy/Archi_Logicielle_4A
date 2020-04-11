@@ -24,6 +24,10 @@ public class Plateau {
     	return taille;
     }
 
+    public void setTaille(int taille) {
+    	this.taille = taille;
+    }
+    
     public int sphere(int position){
 
         if((taille == 100) && (position > taille)){
