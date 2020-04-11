@@ -1,4 +1,5 @@
-**Fonctionnement du système :**
+Fonctionnement du système :
+-
 
 1. Les joueurs intéragiront en temps réel dans notre jeu. Nous trouvons que ce jeu de stratégie sera plus sympa pour les utilisateurs s'il est géré de manière synchrone (schéma).
 En effet, il y aura plus de fluidité dans le jeu, les joueurs n'auront pas besoin d'attendre, ce qui créera plus de compétitivité. 
