@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ObstacleTest {
 
-private final Obstacle obstacle = new Obstacle(20,36);
+private final Obstacle obstacle = new Obstacle(20,36, null);
     @Test
     void testPosition(){
         assertThat(obstacle.getPositionX() == 20 && obstacle.getPositionY() == 36);

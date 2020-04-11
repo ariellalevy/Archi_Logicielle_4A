@@ -5,10 +5,6 @@
 
 
 Éléments restants :
-
--  position 50 joueurs aléatoirement
-- 15% d'obstacles sur la map
 - Laser
-- interface utilisateur
 - interface web
 - fichiers Markdown
