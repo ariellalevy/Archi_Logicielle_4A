@@ -1,33 +1,82 @@
 package com.esiea.tp4A.code;
 
 
-public class Plateau {
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.PlanetMap;
+import com.esiea.tp4A.domain.Position;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+public abstract class Plateau implements PlanetMap {
 
     private int taille = 0;
 
-    // constructeur //
+
+    /* Constructeur */
     public Plateau (){
+        initMap();
+        initMapWithObstacles(this.taille);
     }
 
-    //Genere la taille aleatoire
-    public void geneTaille(){
-
+    private void initMap(){
         int tab_taille [] = {50, 150, 300};
 
         int rand = (int) (Math.random() * tab_taille.length);
 
         this.taille = tab_taille[rand];
-
-    }
-    
-    public int getTaille() {
-    	return taille;
     }
 
-    public void setTaille(int taille) {
-    	this.taille = taille;
+    private void initMapWithObstacles(int taille){
+        int obstacleCount = (int) (taille * 0.15);
+        for (int i = 0; i< obstacleCount; i++){
+            int posX = (int) (Math.random() * taille);
+            int posY = (int) (Math.random() * taille);
+            Obstacle tmpObstacle = new Obstacle(posX,posY,Direction.NORTH);
+            this.obstaclePositions().add(Position.of(tmpObstacle.getPositionX(),tmpObstacle.getPositionY(), Direction.NORTH));
+        }
     }
-    
+
+    public Set<Position> getObstacleList(){
+        return this.obstaclePositions();
+    }
+
+    /* Génère un obstacle */
+    public void geneObstacle(Position position){
+        int obs = (int) (0.15 * getTaille());
+        for(int i = 0; i < obs; i++)
+        {
+            creationObs(position);
+        }
+    }
+
+    /* Création de l'obstacle */
+    public boolean creationObs(Position position) {
+        if (!this.present(position)) {
+            this.getObstacleList().add(position);
+            return true;
+        }
+
+        return false;
+    }
+
+    /* Verification si obstacle déjà présent */
+    boolean present(Position position) {
+        for (Position p : this.getObstacleList()) {
+            if (p.getX() == position.getX() && p.getY() == position.getY()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public int getTaille(){
+        return taille;
+    }
+
     public int sphere(int position){
 
         if((taille == 100) && (position > taille)){
@@ -43,3 +92,4 @@ public class Plateau {
     }
 
 }
+

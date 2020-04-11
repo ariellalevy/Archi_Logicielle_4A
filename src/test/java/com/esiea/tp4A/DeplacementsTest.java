@@ -215,7 +215,7 @@ class DeplacementsTest {
             .extracting(Position::getX, Position::getY, Position::getDirection)
             .isEqualTo(List.of(0, 0, Direction.NORTH));
     }
-    /* test de plusieurs deplacement*/
+    /* Test de plusieurs déplacement */
     @Test
     void give_order_move() {
     	char command[] = {'f','f','l','b'};
@@ -227,7 +227,7 @@ class DeplacementsTest {
             .isEqualTo(List.of(1, 2, Direction.WEST));
     }
     
-    /* Deplacement sur un plateau spherique*/
+    /* Déplacement sur un plateau sphérique */
     @Test
     void move_forward_sphere() {
     	plateau.setTaille(100);
