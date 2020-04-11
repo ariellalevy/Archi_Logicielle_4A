@@ -12,16 +12,13 @@ public class Obstacle { //Implement Planet MAP ?
         private int positionY;//correspond à l'origine (gauche) en Y
         private Direction direction;
         private Position position;
-       
         
         public Obstacle(int posX,int posY, Direction direction){
            positionX = posX;
            positionY = posY;
            this.direction = direction;
            position = Position.of(posX, posY, direction);
-           
         }
-         
 
         public int getPositionX(){
             return positionX;
@@ -38,5 +35,4 @@ public class Obstacle { //Implement Planet MAP ?
         public Position getPosition() {
         	return position;
         }
-		
 }
