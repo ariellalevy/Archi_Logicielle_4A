@@ -45,3 +45,4 @@ On peut également faire des pages de refus qui vont refuser le client suppléme
 Pour cela il faut faire une base de données "utilisateurs" avec une colonne joueur qui va prendre comme information le nom d'utilisateur du joueur et une base de données "historique"
 qui permettra de faire un historique de chaque partie du joueur. Il faudra faire une référence à cette base de données "historique" depuis la base de données "utilisateurs", grâce à un id.
 
+https://kroki.io/c4plantuml/svg/eNp9UkFuwjAQvOcVW05Uopz6AErEgQMVKvQcGbNJLBwbeTeC_r4b40AQtLd4PDszO86MWAVuG5u9GKdtu0fI34vcO8YzT4_dRcaGLcLmhxgbSFewN6oKqoHSB1gKFBwyzJU7GFclbpatMZB3Y90S-wbDBEY9I0_QSLAP6AngS-AaYSesCZwM13CMEspGDJTWvnVM09FrdjEZ7y6KBcWjyP2RJjpZ6090tSNgD7pGfehcTbiTT_rF4szjRhl7M1i8dWegq-xWIpvoKjlXRgdPvmRYnHWtXIWAw4Fb9F7alVIkis6q_34SfcM-IIGyti9JCwBpe7GXh2gUG-9i-C-0g9ofOvomJKEJq5grfRhQ71fdoNtTyt-1lWY-0VT1zoeH8v-ZjkustuuLxLPJaw8p3UzG5Qf8BSot7V4=
