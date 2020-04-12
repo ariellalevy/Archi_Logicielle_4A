@@ -233,12 +233,13 @@ public class Rover implements MarsRover{
         }
     }
     
-    public  void give_order(char[] command){ 
+    public  Position give_order(char[] command){
         for(int  i =0; i< command.length; i++){
             String cmd ="";
             cmd +=command[i];
             move(cmd);
         }
+        return this.getPosition();
     }
 
     public boolean setAlive(boolean value){
