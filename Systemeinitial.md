@@ -5,22 +5,23 @@ Fonctionnement du système :
 En effet, il y aura plus de fluidité dans le jeu, les joueurs n'auront pas besoin d'attendre, ce qui créera plus de compétitivité. 
 Par exemple : lorsqu'un rover tire sur un autre rover, celui-ci sera directement en état "mort".
 
-2. Toutes les données permettant de représenter le jeu seront stockées par partie jouée (ou par joueur ?) et accessible par un id. 
-Mise à jour constante des serveurs.
+2. Toutes les données permettant de représenter le jeu seront stockées par partie jouée dans une base de donnée, accessible par un id.
 
-3. Les informations confidentielles des joueurs seront stockées dans  une base de données, accessible par un mot de passe changé régulièrement. (firewalls ?).
+3. Les informations confidentielles des joueurs seront stockées dans  une base de données, accessible par un mot de passe changé régulièrement.
 Les données seront chiffrées avec un certificat SSL. (schéma)
 
-4. Gestion de plusieurs parties jouées en même temps : (schéma)
+4. Gestion de plusieurs parties jouées en même temps : Il y a une liste de partie sur le serveur.
+On génèrera plusieurs plateaux et dès qu'un plateeau est plein, on passe au suivant.
 
-5. Gestion de plusieurs parties jouées par joueur en même temps : (schéma)
+5. Gestion de plusieurs parties jouées par joueur en même temps : Chaque joueur a une liste de parties identifiables avec un id.
 
 6. Si un serveur plante, un logiciel qui pilote le cluter bascule d'une machine à une autre
  et fait de la réplication en parallèle.(serveur de secours prend le relai, redondance serveur, clustering)
  
-7. Les joueurs s'authentifiront grâce à une @ mail et un mot de passe avec les exigences de la CNIL 
-(ou authentification à 2 facteurs ?) Sauvegarde de la progression en fonction du joueur
+7. Les joueurs s'authentifiront avec une authentification à deux facteurs grâce à une adresse mail et un mot de passe respectant les exigences de la CNIL et l'identité du joueur sera vérifié par sms.
+La sauvegarde de la progression du jeu se fera avec une base de données, en fonction du joueur grâce à un id.
 
-8. Pour éviter une surcharge imprévue, on répartit les @IP sur les différents serveurs par exemple, en fonction du pays.
-(équilibrage de charges)
+8. Pour éviter une surcharge imprévue, on répartit les adresses IP sur les différents serveurs.
+(équilibrage de charges) On limite le nombre de requêtes en simultané pour éviter un surcharge au niveau du serveur de base de données. 
+On peut également faire des pages de refus qui vont refuser le client supplémentaire s'il y a trop de monde et le rediriger vers une page d'attente.
  
