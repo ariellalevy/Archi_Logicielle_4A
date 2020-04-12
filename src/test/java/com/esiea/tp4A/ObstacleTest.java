@@ -1,17 +1,23 @@
 package com.esiea.tp4A;
 
 import com.esiea.tp4A.code.Obstacle;
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.Position;
+
 import org.junit.jupiter.api.Test;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 public class ObstacleTest {
 
-private final Obstacle obstacle = new Obstacle(20,36, null);
+private final Obstacle obstacle = new Obstacle(20,36, Direction.NORTH);
     @Test
     void testPosition(){
-        assertThat(obstacle.getPositionX() == 20 && obstacle.getPositionY() == 36);
-        System.out.println("test Passed "+"Les positions sont :"+"X : "+ obstacle.getPositionX()+"Y : "+ obstacle.getPositionY());
+        assertThat(obstacle.getPositionX()).isEqualTo(20);
+        assertThat(obstacle.getPositionY()).isEqualTo(36);
+        assertThat(obstacle.getDirection()).isEqualTo(Direction.NORTH);
     }
 }

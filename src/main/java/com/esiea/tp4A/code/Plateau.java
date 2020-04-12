@@ -14,8 +14,6 @@ public final class Plateau implements PlanetMap{
 
     @Override
     public Set<Position> obstaclePositions() {return null;}
-
-    public Plateau (){}
     
     /* Constructeur */
     public Plateau (int tailleInput){

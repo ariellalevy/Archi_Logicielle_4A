@@ -30,9 +30,11 @@ public class LaserTest {
     @Test
     void testShoot(){
         init();
-        assertThat(laser.LaserShoot(posList,Position.of(1,9,Direction.SOUTH)));
-        assertThat(!laser.LaserShoot(posList,Position.of(1,10,Direction.SOUTH)));
-        assertThat(laser.LaserShoot(posList,Position.of(-2,4,Direction.EAST)));
-        assertThat(!laser.LaserShoot(posList,Position.of(-2,9,Direction.SOUTH)));
+        //test passant obstacle detruit
+        assertThat(laser.LaserShoot(posList,Position.of(1,9,Direction.SOUTH))).isEqualTo(true);
+        assertThat(laser.LaserShoot(posList,Position.of(-2,4,Direction.EAST))).isEqualTo(true);
+        //test non passant 
+        assertThat(laser.LaserShoot(posList,Position.of(1,10,Direction.SOUTH))).isEqualTo(false);
+        assertThat(laser.LaserShoot(posList,Position.of(-2,9,Direction.SOUTH))).isEqualTo(false);
     }
 }

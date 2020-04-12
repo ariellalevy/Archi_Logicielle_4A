@@ -13,7 +13,7 @@ class DeplacementsTest {
         private final Rover roverEast = (Rover) new Rover(Position.of(0, 0, Direction.EAST));
         private final Rover roverWest = (Rover) new Rover(Position.of(0, 0, Direction.WEST));
         private final Rover roverSphere = (Rover) new Rover(Position.of(0, 50, Direction.NORTH));
-        private final Plateau plateau = new Plateau();
+        private final Plateau plateau = new Plateau(100);
     @Test
     void move_unknown_command() {
         Position newPosition = roverNorth.move("a");
