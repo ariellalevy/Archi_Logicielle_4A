@@ -113,11 +113,13 @@ public final class serverHttp {
 
         if (retour != null){
             response = jsonComeBack(retour);
+            he.sendResponseHeaders(200, response.length());
         }else{
             response = "le joeur n'existe pas";
+            he.sendResponseHeaders(404, response.length());
         }
         System.out.println(response);
-        he.sendResponseHeaders(200, response.length());
+
         OutputStream os = he.getResponseBody();
         os.write(response.toString().getBytes());
         os.close();
@@ -137,8 +139,13 @@ public final class serverHttp {
 
             // send response
             String response = jsonComeBack(api.joingame(myQuerry));
+            if (response != null){
+                he.sendResponseHeaders(201, response.length());
+            }else {
+                response = "Le nom de joueur est deja pris";
+                he.sendResponseHeaders(409, response.length());
+            }
 
-            he.sendResponseHeaders(200, response.length());
             OutputStream os = he.getResponseBody();
             os.write(response.toString().getBytes());
             os.close();
@@ -151,8 +158,11 @@ public final class serverHttp {
             String part2 = parts[1]; // command
 
             String response = jsonComeBack(api.command(part1,part2));
-
-            he.sendResponseHeaders(200, response.length());
+            if (response != null){
+                he.sendResponseHeaders(200, response.length());
+            }else {
+                he.sendResponseHeaders(409, response.length());
+            }
             OutputStream os = he.getResponseBody();
             os.write(response.toString().getBytes());
             os.close();

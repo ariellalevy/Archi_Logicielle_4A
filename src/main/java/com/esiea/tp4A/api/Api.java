@@ -8,9 +8,9 @@ import com.esiea.tp4A.domain.Direction;
 
 
 import java.util.Scanner;
-import java.util.Set;
+
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 
 
@@ -30,8 +30,6 @@ public class Api {
 
         scan = new Scanner (System.in);
 
-
-
         // initialisation obstacle + laser
 
         System.out.println(" Bienvenue sur notre jeu de l'espace!");
@@ -40,9 +38,6 @@ public class Api {
         generationAleaCarte();
 
         // APPEL DES FONCTIONS GENERANT LES OBSTACLES ALEATOIRES SUR LA CARTE
-
-
-
 
         //######################## Génération des 50 joueurs ###########################
         System.out.println("Génération des 50 joueurs....");
@@ -146,6 +141,7 @@ public class Api {
                     System.out.println("'b' : le rover recule");
                     System.out.println("'l' : le rover pivote sur la gauche");
                     System.out.println("'r' : le rover pivote sur la droite");
+                    System.out.println("'s' : le laser du rover fait un shoot");
                     System.out.println("Tapez votre commande :");
                     String move = scan.next();
                     char tabMove[] = move.toCharArray();
@@ -182,15 +178,15 @@ public class Api {
                     System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
-                    
-                case 'm': 
+
+                case 'm':
                 	System.out.println("Afficher mes informations:");
                 	System.out.println("Vous êtes le rover numéro " + numeroJoueur);
                 	System.out.println("Vous êtes actuellement situé en ("+lstRover.get(numeroJoueur-1).getPosition().getX() + ", "+ lstRover.get(numeroJoueur-1).getPosition().getY() +  ", " + lstRover.get(numeroJoueur-1).getPosition().getDirection() + " )");
                 	System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
-                    
+
                 case 'r':
                 	System.out.println("Afficher la position des obstacles");
                 	Position[] tabPositionsOstacles = new Position[setObstaclesPositions.size()];
@@ -201,7 +197,7 @@ public class Api {
                 	System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
                     break;
-                    
+
                 case 'q':
                     System.out.println("Merci de votre venue et à bientôt! Au revoir! ");
                     stop = true;
@@ -212,8 +208,8 @@ public class Api {
                     System.out.println("Commande inconnue");
                     System.out.println("Que voulez-vous faire? [h for help] \n");
                     choice= scan.next();
-                    
-                   
+
+
                     break;
             }
 
@@ -282,18 +278,18 @@ public class Api {
         }
         return lstRover;
     }
-    
-    
-    
-    
+
+
+
+
     //Création du set des positions  obstacles --> doivent occuper 15* du terrain
     public List<Position> generationSetObstaclesPositions(){
     	int nbPositionsMap = (taille + (taille+1)) * (taille*2); //nombres total de positions possibles sur la map
     	//System.out.println("nb positions carte: " + nbPositionsMap);
-    	int nbPositionObstacle = (int) Math.round(0.15 * nbPositionsMap); //15% des positions sont prises par des obstacles  
+    	int nbPositionObstacle = (int) Math.round(0.15 * nbPositionsMap); //15% des positions sont prises par des obstacles
     	//System.out.println("nb positions obstacles: " + nbPositionObstacle);
     	List<Obstacle> lstObstacles = new ArrayList<Obstacle>();
-    	
+
     	for(int i = 0; i< nbPositionObstacle ; i++) { // on génère les 15 % de positions aléatoires
     		
     		Position p = aleaPosition();

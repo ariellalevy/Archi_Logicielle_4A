@@ -18,11 +18,15 @@ public final class ApiOnline {
     }
 
     public player getPlayerData(String nickname){
-        var retur = Games.get(listPlayer.get(nickname)).getPlayerData(nickname);
-        if (retur != null){
-            return retur;
-        }else{
+        if (!listPlayer.containsKey(nickname)){
             return null;
+        }else {
+            var retur = Games.get(listPlayer.get(nickname)).getPlayerData(nickname);
+            if (retur != null){
+                return retur;
+            }else{
+                return null;
+            }
         }
     }
 
@@ -48,7 +52,11 @@ public final class ApiOnline {
         if (gameIsFull()){
             createNewGame();
         }
-        listPlayer.put(playerName,Games.size()-1);
-        return Games.get(Games.size()-1).joinAGame(playerName);
+        if (listPlayer.containsKey(playerName)){
+            return null;
+        }else {
+            listPlayer.put(playerName,Games.size()-1);
+            return Games.get(Games.size()-1).joinAGame(playerName);
+        }
     }
 }
