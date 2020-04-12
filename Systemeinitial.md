@@ -1,9 +1,21 @@
 Fonctionnement du système :
 -
 
-1. Les joueurs intéragiront en temps réel dans notre jeu. Nous trouvons que ce jeu de stratégie sera plus sympa pour les utilisateurs s'il est géré de manière synchrone (schéma).
+1. Les joueurs intéragiront en temps réel dans notre jeu. Nous trouvons que ce jeu de stratégie sera plus sympa pour les utilisateurs s'il est géré de manière synchrone ( voir schéma).
 En effet, il y aura plus de fluidité dans le jeu, les joueurs n'auront pas besoin d'attendre, ce qui créera plus de compétitivité. 
 Par exemple : lorsqu'un rover tire sur un autre rover, celui-ci sera directement en état "mort".
+
+@startuml
+!include C4_Context.puml
+
+title Diagramme d'un système synchrone
+
+Person(customer, "Client")
+System(server_system, "Serveur")
+
+Rel(customer, server_system, "Client request")
+Rel_Back(customer, server_system, "Server response")
+@enduml
 
 2. Toutes les données permettant de représenter le jeu seront stockées par partie jouée dans une base de donnée, accessible par un id.
 
@@ -32,3 +44,4 @@ On peut également faire des pages de refus qui vont refuser le client suppléme
 11. Comment un joueur pourrait avoir un historique contenant son nombre de parties gagnées et son nombre de tirs réussis ?
 Pour cela il faut faire une base de données "utilisateurs" avec une colonne joueur qui va prendre comme information le nom d'utilisateur du joueur et une base de données "historique"
 qui permettra de faire un historique de chaque partie du joueur. Il faudra faire une référence à cette base de données "historique" depuis la base de données "utilisateurs", grâce à un id.
+
