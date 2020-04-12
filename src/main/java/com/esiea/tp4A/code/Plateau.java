@@ -5,13 +5,12 @@ import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.Position;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 public final class Plateau implements PlanetMap{
     private int taille = 0;
+    private Set<Position> setPosition = new HashSet<Position>();
 
     @Override
     public Set<Position> obstaclePositions() {return null;}
@@ -37,7 +36,7 @@ public final class Plateau implements PlanetMap{
             int posX = (int) (Math.random() * taille);
             int posY = (int) (Math.random() * taille);
             Obstacle tmpObstacle = new Obstacle(posX,posY,Direction.NORTH);
-            this.obstaclePositions().add(Position.of(tmpObstacle.getPositionX(),tmpObstacle.getPositionY(), Direction.NORTH));
+            setPosition.add(Position.of(tmpObstacle.getPositionX(),tmpObstacle.getPositionY(), Direction.NORTH));
         }
     }
 
