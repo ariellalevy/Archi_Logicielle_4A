@@ -8,7 +8,7 @@ import com.esiea.tp4A.domain.Position;
 
 import java.util.*;
 
-public class game{
+public final class game{
     private int taille;
     private Plateau map;
     private List<Rover> lstRover = new ArrayList<Rover>();

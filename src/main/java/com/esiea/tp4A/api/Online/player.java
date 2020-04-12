@@ -2,7 +2,7 @@ package com.esiea.tp4A.api.Online;
 
 import com.esiea.tp4A.code.Rover;
 
-public class player{
+public final class player{
 
     public player(String playerName, int Id){
         this.nameJoueur = playerName;

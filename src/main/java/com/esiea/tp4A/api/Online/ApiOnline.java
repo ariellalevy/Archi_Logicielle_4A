@@ -1,20 +1,11 @@
 package com.esiea.tp4A.api.Online;
 
-import com.esiea.tp4A.code.Obstacle;
-import com.esiea.tp4A.code.Plateau;
 import com.esiea.tp4A.domain.Position;
-import com.esiea.tp4A.code.Rover;
-import com.esiea.tp4A.domain.Direction;
-
-
-import java.awt.desktop.SystemEventListener;
 import java.util.*;
 
 
-public class ApiOnline {
+public final class ApiOnline {
 
-    private Scanner scan;
-    private Position position;
     private List<game> Games = new ArrayList<game>();
     private Map<String,Integer> listPlayer = new HashMap<String, Integer>();;
 
@@ -33,7 +24,6 @@ public class ApiOnline {
         }else{
             return null;
         }
-
     }
 
     private boolean gameIsFull(){

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sun.net.httpserver.*;
 
 
-public class serverHttp {
+public final class serverHttp {
 
     private static ApiOnline api;
     private static int PlayersCount = 0;
