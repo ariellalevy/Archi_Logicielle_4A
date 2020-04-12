@@ -30,6 +30,7 @@ public final class Plateau implements PlanetMap{
         this.taille = tab_taille[rand];
     }
 
+    /* Initialisation de la map avec des obstacles */
     private void initMapWithObstacles(int taille){
         int obstacleCount = (int) (taille * 0.15);
         for (int i = 0; i< obstacleCount; i++){
@@ -43,16 +44,25 @@ public final class Plateau implements PlanetMap{
     public Set<Position> getObstacleList(){return this.obstaclePositions();}
 
     /* Génère un obstacle */
-    public void geneObstacle(Position position){
-        int obs = (int) (0.15 * getTaille());
-        for(int i = 0; i < obs; i++){
-            creationObs(position);
+    public void geneObstacle (int taille){
+        int nbPositionsMap = (taille + (taille+1));
+        int nbPositionObstacle = (int) Math.round(0.15 * nbPositionsMap);
+        for(int i = 0; i < nbPositionObstacle; i++){
+            int posX = (int) (Math.random() * taille);
+            int posY = (int) (Math.random() * taille);
+            Position position = Position.of(posX, posY, Direction.NORTH);
+            if(isPresent(position)){
+                i = +0;
+            }else{
+                creationObs(position);
+                i++;
+            }
         }
     }
 
     /* Création de l'obstacle */
     public boolean creationObs(Position position) {
-        if (!this.present(position)) {
+        if (!this.isPresent(position)) {
             this.getObstacleList().add(position);
             return true;
         }
@@ -60,7 +70,7 @@ public final class Plateau implements PlanetMap{
     }
 
     /* Verification si obstacle déjà présent */
-    boolean present(Position position) {
+    boolean isPresent(Position position) {
         for (Position p : this.getObstacleList()) {
             if (p.getX() == position.getX() && p.getY() == position.getY()) {
                 return true;
