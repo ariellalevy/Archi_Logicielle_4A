@@ -36,5 +36,10 @@ public interface Position {
         public Direction getDirection() {
             return direction;
         }
+
+        @Override
+        public String toString(){
+            return "PositionX : " + getX() + " PositionY : " + getY() + " Direction : " + getDirection();
+        }
     }
 }

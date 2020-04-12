@@ -10,16 +10,11 @@ import com.esiea.tp4A.domain.Position;
 
 public class Rover implements MarsRover{
 
-
-
-
     private Position position;
     private Plateau map;
     private boolean alive;
     private int numeroRover;
     private List<Position> setObstaclesPositions;
-    
-
 
 
 
@@ -42,13 +37,12 @@ public class Rover implements MarsRover{
 
     @Override
     public Position move(String command) {
+        System.out.println("New Move");
         if(command.isEmpty()){
             return Position.of(0,0,Direction.NORTH);
         }
         
         Position anciennePosition = position;
-     
-
 
         switch(command.charAt(0)) {
             case 'f':
@@ -379,6 +373,7 @@ public class Rover implements MarsRover{
     public void setNumeroRover(int numero) {
     	numeroRover = numero;
     }
+
 
     
     public void setPlateau(Plateau plateau) {

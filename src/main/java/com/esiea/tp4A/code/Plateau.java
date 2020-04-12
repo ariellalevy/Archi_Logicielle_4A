@@ -1,9 +1,19 @@
 package com.esiea.tp4A.code;
 
 
-public class Plateau {
+import com.esiea.tp4A.domain.PlanetMap;
+import com.esiea.tp4A.domain.Position;
+
+import java.util.Set;
+
+public class Plateau implements PlanetMap {
 
     private int taille = 0;
+
+    @Override
+    public Set<Position> obstaclePositions() {
+        return null;
+    }
 
     // constructeur //
     public Plateau (){
@@ -19,7 +29,7 @@ public class Plateau {
         this.taille = tab_taille[rand];
 
     }
-    
+
     public int getTaille() {
     	return taille;
     }
@@ -27,7 +37,7 @@ public class Plateau {
     public void setTaille(int taille) {
     	this.taille = taille;
     }
-    
+
     public int sphere(int position){
 
         if((taille == 100) && (position > taille)){
