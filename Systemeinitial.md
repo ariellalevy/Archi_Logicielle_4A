@@ -5,14 +5,14 @@ Fonctionnement du système :
 En effet, il y aura plus de fluidité dans le jeu, les joueurs n'auront pas besoin d'attendre, ce qui créera plus de compétitivité. 
 Par exemple : lorsqu'un rover tire sur un autre rover, celui-ci sera directement en état "mort".
 
-      ![Image](assets/synchrone.png)
+      ![Image](https://image.noelshack.com/fichiers/2020/15/7/1586723046-requete.jpg)
 
 2. Toutes les données permettant de représenter le jeu seront stockées par partie jouée dans une base de donnée, accessible par un id.
 
 3. Les informations confidentielles des joueurs seront stockées dans  une base de données, accessible par un mot de passe changé régulièrement.
 Les données seront chiffrées avec un certificat SSL.
 
-    ![Image](assets/stockage.png)
+    ![Image](https://image.noelshack.com/fichiers/2020/15/7/1586723569-ssl.png)
 
 4. Gestion de plusieurs parties jouées en même temps : Il y a une liste de partie sur le serveur.
 On génèrera plusieurs plateaux et dès qu'un plateeau est plein, on passe au suivant.
@@ -22,7 +22,7 @@ On génèrera plusieurs plateaux et dès qu'un plateeau est plein, on passe au s
 6. Si un serveur plante, un logiciel qui pilote le cluter bascule d'une machine à une autre
  et fait de la réplication en parallèle.(serveur de secours prend le relai, redondance serveur, clustering)
  
-      ![Image](assets/cluster.png)
+      ![Image](https://image.noelshack.com/fichiers/2020/15/7/1586722700-cluster.png)
  
 7. Les joueurs s'authentifiront avec une authentification à deux facteurs grâce à une adresse mail et un mot de passe respectant les exigences de la CNIL et l'identité du joueur sera vérifié par sms.
 La sauvegarde de la progression du jeu se fera avec une base de données, en fonction du joueur grâce à un id.
@@ -33,7 +33,7 @@ On peut également faire des pages de refus qui vont refuser le client suppléme
 
 9. Comment les utilisateurs pourraient communiquer entre eux ? Grâce à la création d'une chatbox, avec des sockets qui permettraient d'avoir une connexion en temps réelle.
 
-      ![Image](assets/chatbox.png)
+      ![Image](https://image.noelshack.com/fichiers/2020/15/7/1586722700-chatbox.png)
 
 10. Comment on pourrait supprimer un joueur d'une partie ? On supprimerait un joueur au bout d'un certain temps d'inactivité ou alors on le remplacerait pas un bot.
 
