@@ -19,5 +19,8 @@ private final Obstacle obstacle = new Obstacle(20,36, Direction.NORTH);
         assertThat(obstacle.getPositionX()).isEqualTo(20);
         assertThat(obstacle.getPositionY()).isEqualTo(36);
         assertThat(obstacle.getDirection()).isEqualTo(Direction.NORTH);
+        assertThat("[" + obstacle.getPosition().getX() + "," + obstacle.getPosition().getY() + "," + obstacle.getPosition().getDirection() + "]")
+        	.isEqualTo("[20,36,NORTH]");
     }
+    
 }

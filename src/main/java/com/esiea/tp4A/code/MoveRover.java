@@ -3,11 +3,12 @@ package com.esiea.tp4A.code;
 import java.util.List;
 
 import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.MarsRover;
 import com.esiea.tp4A.domain.Position;
 
-public class MoveRover {
+public class MoveRover implements MarsRover{
 	
-    public static Position move(String command,Position position, List<Position> setObstaclesPositions, Plateau map) {
+    public Position move(String command,Position position, List<Position> setObstaclesPositions, Plateau map) {
         if(command.isEmpty()){
             return Position.of(0,0,Direction.NORTH);
         }
@@ -289,7 +290,7 @@ public class MoveRover {
         }
     }
     
-    public static  Position give_order(char[] command, Position position, List<Position> setObstaclesPositions, Plateau map){ 
+    public  Position give_order(char[] command, Position position, List<Position> setObstaclesPositions, Plateau map){ 
         for(int  i =0; i< command.length; i++){
             String cmd ="";
             cmd +=command[i];

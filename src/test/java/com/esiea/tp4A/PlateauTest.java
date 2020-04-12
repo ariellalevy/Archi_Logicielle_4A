@@ -2,6 +2,7 @@ package com.esiea.tp4A;
 
 import com.esiea.tp4A.code.Plateau;
 import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.Position;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -25,5 +26,15 @@ public class PlateauTest {
     	plateauTest.setTaille(100);
         assertThat(plateauTest.sphere(160)).isEqualTo(-40);
         System.out.println("Test sphérique réussi ! :)");
+    }
+    
+    @Test
+    public void get_Obstacle_List(){
+        assertThat(plateauTest.getObstacleList()).isEqualTo(null);
+    }
+    
+    @Test
+    public void is_Present(){
+        assertThat(plateauTest.isPresent(Position.of(0, 0, Direction.NORTH))).isEqualTo(false);
     }
 }

@@ -14,6 +14,7 @@ public class Rover implements MarsRover{
     private boolean alive;
     private int numeroRover;
     private List<Position> setObstaclesPositions;
+    private MoveRover moveRover = new MoveRover();
     
     public Rover(Position position){
         this.position = position;
@@ -30,11 +31,11 @@ public class Rover implements MarsRover{
 
     @Override
     public Position move(String command) {
-    	return MoveRover.move(command, this.position, this.setObstaclesPositions, this.map);
+    	return moveRover.move(command, this.position, this.setObstaclesPositions, this.map);
     }
     
     public  Position give_order(char[] command){ 
-    	return MoveRover.give_order(command, this.position, this.setObstaclesPositions, this.map);
+    	return moveRover.give_order(command, this.position, this.setObstaclesPositions, this.map);
     }
 
     public boolean setAlive(boolean value){

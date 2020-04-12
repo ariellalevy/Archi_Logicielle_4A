@@ -15,6 +15,9 @@ public final class Plateau implements PlanetMap{
     @Override
     public Set<Position> obstaclePositions() {return null;}
     
+    /* Constructeur vide */
+    public Plateau (){}
+    
     /* Constructeur */
     public Plateau (int tailleInput){
         initMap();
@@ -67,13 +70,17 @@ public final class Plateau implements PlanetMap{
     }
 
     /* Verification si obstacle déjà présent */
-    boolean isPresent(Position position) {
-        for (Position p : this.getObstacleList()) {
-            if (p.getX() == position.getX() && p.getY() == position.getY()) {
-                return true;
+    public boolean isPresent(Position position) {
+    	if(this.getObstacleList() != null) {
+    		for (Position p : this.getObstacleList()) {
+                if (p.getX() == position.getX() && p.getY() == position.getY()) {
+                    return true;
+                }
             }
-        }
-        return false;
+    	}else {
+    		return false;
+    	}
+    	return false;
     }
 
     public int getTaille(){return taille;}

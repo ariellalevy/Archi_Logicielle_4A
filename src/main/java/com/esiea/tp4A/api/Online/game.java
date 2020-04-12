@@ -37,7 +37,7 @@ public final class game{
         System.out.println("Creation Plateau");
         map = new Plateau();
         System.out.println("Voici la taille de la carte, choisie aléatoirement :");
-        map.geneTaille();
+        map.getTaille();
         taille = map.getTaille();
         System.out.println(taille + "x" + taille +"\n");
     }
