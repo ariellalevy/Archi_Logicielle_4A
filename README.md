@@ -4,7 +4,8 @@
 [![codecov](https://codecov.io/gh/ariellalevy/Archi_Logicielle_4A/branch/master/graph/badge.svg)](https://codecov.io/gh/ariellalevy/Archi_Logicielle_4A)
 
 
-Éléments restants :
-- Laser
-- interface web
-- fichiers Markdown
+Projet 4A-CFA : Architecture logicielle
+
+Création d'un Mars Rover
+- fichiers Markdown : nommés Systemeinitial.md et Miseajoursysteme.md
+
