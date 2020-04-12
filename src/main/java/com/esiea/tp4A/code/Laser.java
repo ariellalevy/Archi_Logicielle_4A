@@ -22,9 +22,7 @@ public final class Laser {
         var tmpObj = obsInRange(position);
         tmpObj = orderSet(tmpObj,position.getDirection());
         map = orderSet(map,position.getDirection());
-
         final Set<Position> tmpList = new HashSet<>();
-
         for (Iterator<Position> it = map.iterator(); it.hasNext(); ) {
             Position f = it.next();
             for (Position pos: tmpObj) {
@@ -100,4 +98,3 @@ public final class Laser {
         return this;
     }
 }
-
