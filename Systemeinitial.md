@@ -9,7 +9,7 @@ Par exemple : lorsqu'un rover tire sur un autre rover, celui-ci sera directement
 Mise à jour constante des serveurs.
 
 3. Les informations confidentielles des joueurs seront stockées dans  une base de données, accessible par un mot de passe changé régulièrement. (firewalls ?).
-Les données seront cryptées avec un certificat SSL. (schéma)
+Les données seront chiffrées avec un certificat SSL. (schéma)
 
 4. Gestion de plusieurs parties jouées en même temps : (schéma)
 
