@@ -33,6 +33,7 @@ public final class serverHttp {
     }
 
     static class returnedObject {
+
         Player player;
         LocalMap localMap;
     }

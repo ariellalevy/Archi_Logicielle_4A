@@ -17,6 +17,7 @@ public final class game{
     private List<Position> setObstaclesPositions = new ArrayList<Position>();
 
     game(int gamesCount){
+
         sessionNumber = gamesCount;
         generationAleaCarte();
         generationSetObstaclesPositions(gamesCount);

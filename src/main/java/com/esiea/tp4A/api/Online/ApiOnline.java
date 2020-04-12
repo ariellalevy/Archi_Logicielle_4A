@@ -14,6 +14,7 @@ public final class ApiOnline {
     }
 
     public void createNewGame(){
+
         Games.add(new game(Games.size()));
     }
 

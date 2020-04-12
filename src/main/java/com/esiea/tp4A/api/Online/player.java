@@ -31,6 +31,7 @@ public final class player{
 
     @Override
     public String toString(){
+
         return "Name : " + getNameJoueur() + " " + "Position : X: " + getRoverJoueur().getPosition().getX() +  "Position : Y: " + getRoverJoueur().getPosition().getY() +  "Dir: " + getRoverJoueur().getPosition().getDirection();
     }
 }
