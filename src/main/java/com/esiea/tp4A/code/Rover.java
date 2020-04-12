@@ -31,41 +31,46 @@ public class Rover implements MarsRover{
     
     public Position spheriqueOrdonnees(int taille, int y) {
     	Position newPosition=null;
-    	if((map.getTaille() == taille) && (this.position.getY()==y)) {
-    		if(y >=0) {
-    			newPosition = Position.of(this.position.getX(), (this.position.getY() +(-2*taille)+1), this.position.getDirection());
+    	if(map != null) {
+    		if((map.getTaille() == taille) && (this.position.getY()==y)) {
+        		if(y >=0) {
+        			newPosition = Position.of(this.position.getX(), (this.position.getY() +(-2*taille)+1), this.position.getDirection());
+        		}
+        		else {
+        			newPosition = Position.of(this.position.getX(), (this.position.getY() +(-2*taille)-1), this.position.getDirection());
+        		}
     		}
-    		else {
-    			newPosition = Position.of(this.position.getX(), (this.position.getY() +(-2*taille)-1), this.position.getDirection());
-    		}
-		}
+    	}
+    	
     	return newPosition;
     }
     
     
     public Position spheriqueAbscises(int taille, int x) {
     	Position newPosition=null;
-    	if((map.getTaille() == taille) && (this.position.getX()==x)) {
-    		if(x >=0) {
-    			newPosition = Position.of((this.position.getX() +(-2*taille)+1),this.position.getY(), this.position.getDirection());
+    	if(map != null) {
+    		if((map.getTaille() == taille) && (this.position.getX()==x)) {
+        		if(x >=0) {
+        			newPosition = Position.of((this.position.getX() +(-2*taille)+1),this.position.getY(), this.position.getDirection());
+        		}
+        		else {
+        			newPosition = Position.of((this.position.getY() +(-2*taille)-1), this.position.getY(), this.position.getDirection());
+        		}
     		}
-    		else {
-    			newPosition = Position.of((this.position.getY() +(-2*taille)-1), this.position.getY(), this.position.getDirection());
-    		}
-		}
+    	}
     	return newPosition;
       }
     
     public Position detectObstacles(Position anciennePosition) {
-    	 
-    	 //Position newPosition = null;
-    	 for(Position p : lstObstaclesPositions) {
-         	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
-         		System.out.println("Malheur! Un obstacle (le numéro " +(lstObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() + ")) nous barre la route! Revenons à notre ancienne position... ");
-             	position = anciennePosition;
-         	}
-    	 }
-    	 return position;
+    	if(lstObstaclesPositions != null) {
+    		for(Position p : lstObstaclesPositions) {
+             	if((p.getX() == position.getX()) && (p.getY() == position.getY())){
+             		System.out.println("Malheur! Un obstacle (le numéro " +(lstObstaclesPositions.indexOf(p) +1) +", de coordonnées (" +p.getX() +", " + p.getY() + ")) nous barre la route! Revenons à notre ancienne position... ");
+                 	position = anciennePosition;
+             	}
+        	 }
+    	}
+    	return position;
     }
     
 

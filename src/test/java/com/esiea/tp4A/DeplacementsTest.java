@@ -182,7 +182,8 @@ class DeplacementsTest {
     @Test
     void give_order_move() {
     	char command[] = {'f','f','l','b'};
-    	Position newPosition = roverNorth.give_order(command);
+    	roverNorth.give_order(command);
+    	Position newPosition = roverNorth.getPosition();
         assertThat(newPosition)
             .as("Le Rover est a la position (1, 2, W), après avoir utilisé les commande [f, f, l, b]").extracting(Position::getX, Position::getY, Position::getDirection)
             .isEqualTo(List.of(1, 2, Direction.WEST));
@@ -195,6 +196,6 @@ class DeplacementsTest {
     	Position newPosition = roverSphere.move("f");
         assertThat(newPosition)
             .as("Le Rover est orienté vers le nord a l'opposer, après avoir utilisé la commande f").extracting(Position::getX, Position::getY, Position::getDirection)
-            .isEqualTo(List.of(0, -49, Direction.NORTH));
+            .isEqualTo(List.of(0, 51, Direction.NORTH));
     }
 }
