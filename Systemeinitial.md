@@ -24,4 +24,11 @@ La sauvegarde de la progression du jeu se fera avec une base de données, en fon
 8. Pour éviter une surcharge imprévue, on répartit les adresses IP sur les différents serveurs.
 (équilibrage de charges) On limite le nombre de requêtes en simultané pour éviter un surcharge au niveau du serveur de base de données. 
 On peut également faire des pages de refus qui vont refuser le client supplémentaire s'il y a trop de monde et le rediriger vers une page d'attente.
- 
+
+9. Comment les utilisateurs pourraient communiquer entre eux ? Grâce à la création d'une chatbox, avec des sockets qui permettraient d'avoir une connexion en temps réelle.
+
+10. Comment on pourrait supprimer un joueur d'une partie ? On supprimerait un joueur au bout d'un certain temps d'inactivité ou alors on le remplacerait pas un bot.
+
+11. Comment un joueur pourrait avoir un historique contenant son nombre de parties gagnées et son nombre de tirs réussis ?
+Pour cela il faut faire une base de données "utilisateurs" avec une colonne joueur qui va prendre comme information le nom d'utilisateur du joueur et une base de données "historique"
+qui permettra de faire un historique de chaque partie du joueur. Il faudra faire une référence à cette base de données "historique" depuis la base de données "utilisateurs", grâce à un id.
