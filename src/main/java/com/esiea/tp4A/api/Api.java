@@ -1,5 +1,6 @@
 package com.esiea.tp4A.api;
 
+import com.esiea.tp4A.code.Laser;
 import com.esiea.tp4A.code.Obstacle;
 import com.esiea.tp4A.code.Plateau;
 import com.esiea.tp4A.domain.PlanetMap;
@@ -24,6 +25,7 @@ public class Api{
     private List<Rover> lstRover;
     private int numeroJoueur;
     private List<Position> setObstaclesPositions = new ArrayList<Position>();
+    private final Laser laser = new Laser(porteeLaser());
 
 
     public Api() {
@@ -117,8 +119,8 @@ public class Api{
                     break;
                 case 's':
                     System.out.println("Tirer avec le laser :\nVous devez utiliser la commande 's', le tir se fait dans la direction du rover\nEXEMPLE : le rover a une position (0, 0, N) avec un laser de portée courte 5 et un obstacle à (0,2)\nAvec la commande [s, f, f], le rover détruit l'obstacle et se retrouve à une position de (0, 2, N)\nTapez votre commande :");
-                    String tir = scan.next();
-                    //APPEL DES FONCTIONS CORRESPONDANTES//
+                   // String tir = scan.next();
+                    //APPEL DE LASERSHOOT
                     choice= scan.next();
                     break;
                 case 'a':
@@ -241,7 +243,7 @@ public class Api{
     /* Fonction qui génère aléatoirement la portée du laser */
     public int porteeLaser(){
         int laser;
-        int tab_range[] = {5, 30, (int) Double.POSITIVE_INFINITY};
+        int tab_range[] = {5, 30, (int) Double.POSITIVE_INFINITY}; // tableau contenant les 3 possibilités de portée du laser
         int rand = (int) (Math.random() * tab_range.length);
         laser = tab_range[rand];
         return laser;
