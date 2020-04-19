@@ -10,7 +10,7 @@ import java.util.Set;
 
 public final class Plateau implements PlanetMap{
     private int taille = 0;
-    private Set<Position> setPosition = new HashSet<Position>();
+    private Set<Position> setPosition = new HashSet<>();
 
     @Override
     public Set<Position> obstaclePositions() {return null;}

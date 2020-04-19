@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>serverHttp.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.api.Online</a> &gt; <span class="el_source">serverHttp.java</span></div><h1>serverHttp.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.api.Online;
+
+import java.io.*;
+import java.net.InetSocketAddress;
+import java.net.URI;
+import java.net.URLDecoder;
+import java.util.*;
+
+
+
+import com.esiea.tp4A.api.Api;
+import com.esiea.tp4A.code.Obstacle;
+import com.esiea.tp4A.domain.Position;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.sun.net.httpserver.*;
+
+
+<span class="nc" id="L20">public final class serverHttp {</span>
+
+    private static ApiOnline api;
+<span class="nc" id="L23">    private static int PlayersCount = 0;</span>
+
+    public static void main(String[] args) throws Exception {
+<span class="nc" id="L26">        HttpServer server = HttpServer.create(new InetSocketAddress(&quot;localhost&quot;,8090), 0);</span>
+<span class="nc" id="L27">        System.out.println(&quot;server started at &quot; + server.getAddress());</span>
+<span class="nc" id="L28">        server.createContext(&quot;/&quot;, new MyHandler());</span>
+<span class="nc" id="L29">        server.createContext(&quot;/api/player/&quot;, new playHandler());</span>
+<span class="nc" id="L30">        server.setExecutor(null);</span>
+<span class="nc" id="L31">        server.start();</span>
+<span class="nc" id="L32">        api = new ApiOnline();</span>
+<span class="nc" id="L33">    }</span>
+
+<span class="nc" id="L35">    static class returnedObject {</span>
+
+        Player player;
+        LocalMap localMap;
+    }
+
+<span class="nc" id="L41">    static  class LocalMap{</span>
+        ArrayList&lt;Obstacle&gt; obstacles;
+        ArrayList&lt;Player&gt; players;
+    }
+
+<span class="nc" id="L46">    static class Player{</span>
+        String name;
+<span class="nc" id="L48">        enum Status {</span>
+<span class="nc" id="L49">            alive,</span>
+<span class="nc" id="L50">            dead</span>
+        }
+        Position position;
+        int Laser_range;
+    }
+
+
+<span class="nc" id="L57">    static class MyHandler implements HttpHandler {</span>
+        @Override
+        public void handle(HttpExchange he) throws IOException {
+<span class="nc" id="L60">            String response = he.getRequestURI().toString();</span>
+<span class="nc" id="L61">            he.sendResponseHeaders(200, response.length());</span>
+<span class="nc" id="L62">            OutputStream os = he.getResponseBody();</span>
+<span class="nc" id="L63">            os.write(response.getBytes());</span>
+<span class="nc" id="L64">            os.close();</span>
+<span class="nc" id="L65">        }</span>
+    }
+
+<span class="nc" id="L68">     static class playHandler implements HttpHandler {</span>
+
+        @Override
+
+        public void handle(HttpExchange he) throws IOException {
+
+<span class="nc bnc" id="L74" title="All 4 branches missed.">            switch (he.getRequestMethod()){</span>
+                case &quot;GET&quot;:
+<span class="nc" id="L76">                    getFct(he);</span>
+<span class="nc" id="L77">                    break;</span>
+                case &quot;POST&quot;:
+<span class="nc" id="L79">                    postFct(he);</span>
+<span class="nc" id="L80">                    break;</span>
+                case &quot;PATCH&quot;:
+<span class="nc" id="L82">                    patchFct(he);</span>
+<span class="nc" id="L83">                    break;</span>
+                    default:
+<span class="nc" id="L85">                        Map&lt;String, Object&gt; parameters = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L86">                        URI requestedUri = he.getRequestURI();</span>
+<span class="nc" id="L87">                        String query = requestedUri.getRawQuery();</span>
+<span class="nc" id="L88">                        parseQuery(query, parameters);</span>
+
+                        // send response
+<span class="nc" id="L91">                        String response = &quot;Action non reconnue&quot; ;</span>
+<span class="nc" id="L92">                        he.sendResponseHeaders(403, response.length());</span>
+<span class="nc" id="L93">                        OutputStream os = he.getResponseBody();</span>
+<span class="nc" id="L94">                        os.write(response.toString().getBytes());</span>
+<span class="nc" id="L95">                        os.close();</span>
+                        break;
+            }
+<span class="nc" id="L98">        }</span>
+    }
+
+    private static void getFct(HttpExchange he) throws IOException{
+<span class="nc" id="L102">        String myQuerry = he.getRequestURI().toString().replace(&quot;/api/player/&quot;,&quot;&quot;).replace(&quot;{&quot;,&quot;&quot;).replace(&quot;}&quot;,&quot;&quot;).replace(&quot;%7B&quot;,&quot;&quot;).replace(&quot;%7D&quot;,&quot;&quot;);</span>
+        // parse request
+<span class="nc" id="L104">        Map&lt;String, Object&gt; parameters = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L105">        URI requestedUri = he.getRequestURI();</span>
+<span class="nc" id="L106">        String query = requestedUri.getRawQuery();</span>
+
+<span class="nc" id="L108">        parseQuery(query, parameters);</span>
+<span class="nc" id="L109">        System.out.println(&quot;avant reponse&quot; + myQuerry);</span>
+        // send response
+<span class="nc" id="L111">        var retour = api.getPlayerData(myQuerry);</span>
+
+<span class="nc" id="L113">        String response = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (retour != null){</span>
+<span class="nc" id="L116">            response = jsonComeBack(retour);</span>
+<span class="nc" id="L117">            he.sendResponseHeaders(200, response.length());</span>
+        }else{
+<span class="nc" id="L119">            response = &quot;le joeur n'existe pas&quot;;</span>
+<span class="nc" id="L120">            he.sendResponseHeaders(404, response.length());</span>
+        }
+<span class="nc" id="L122">        System.out.println(response);</span>
+
+<span class="nc" id="L124">        OutputStream os = he.getResponseBody();</span>
+<span class="nc" id="L125">        os.write(response.toString().getBytes());</span>
+<span class="nc" id="L126">        os.close();</span>
+
+
+<span class="nc" id="L129">    }</span>
+
+        private static void postFct(HttpExchange he) throws IOException {
+<span class="nc" id="L132">        System.out.println(&quot;Post&quot;);</span>
+<span class="nc" id="L133">            String myQuerry = he.getRequestURI().toString().replace(&quot;/api/player/&quot;,&quot;&quot;).replace(&quot;{&quot;,&quot;&quot;).replace(&quot;}&quot;,&quot;&quot;).replace(&quot;%7B&quot;,&quot;&quot;).replace(&quot;%7D&quot;,&quot;&quot;);</span>
+            // parse request
+<span class="nc" id="L135">            Map&lt;String, Object&gt; parameters = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L136">            InputStreamReader isr = new InputStreamReader(he.getRequestBody(), &quot;utf-8&quot;);</span>
+<span class="nc" id="L137">            BufferedReader br = new BufferedReader(isr);</span>
+<span class="nc" id="L138">            String query = br.readLine();</span>
+<span class="nc" id="L139">            parseQuery(query, parameters);</span>
+
+            // send response
+<span class="nc" id="L142">            String response = jsonComeBack(api.joingame(myQuerry));</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (response != null){</span>
+<span class="nc" id="L144">                he.sendResponseHeaders(201, response.length());</span>
+            }else {
+<span class="nc" id="L146">                response = &quot;Le nom de joueur est deja pris&quot;;</span>
+<span class="nc" id="L147">                he.sendResponseHeaders(409, response.length());</span>
+            }
+
+<span class="nc" id="L150">            OutputStream os = he.getResponseBody();</span>
+<span class="nc" id="L151">            os.write(response.toString().getBytes());</span>
+<span class="nc" id="L152">            os.close();</span>
+<span class="nc" id="L153">        }</span>
+
+        private static void patchFct(HttpExchange he) throws IOException{
+<span class="nc" id="L156">            String myQuerry = he.getRequestURI().toString().replace(&quot;/api/player/&quot;,&quot;&quot;).replace(&quot;{&quot;,&quot;&quot;).replace(&quot;}&quot;,&quot;&quot;).replace(&quot;%7B&quot;,&quot;&quot;).replace(&quot;%7D&quot;,&quot;&quot;);</span>
+<span class="nc" id="L157">            String[] parts = myQuerry.split(&quot;/&quot;);</span>
+<span class="nc" id="L158">            String part1 = parts[0]; // playerName</span>
+<span class="nc" id="L159">            String part2 = parts[1]; // command</span>
+
+<span class="nc" id="L161">            String response = jsonComeBack(api.command(part1,part2));</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">            if (response != null){</span>
+<span class="nc" id="L163">                he.sendResponseHeaders(200, response.length());</span>
+            }else {
+<span class="nc" id="L165">                he.sendResponseHeaders(409, response.length());</span>
+            }
+<span class="nc" id="L167">            OutputStream os = he.getResponseBody();</span>
+<span class="nc" id="L168">            os.write(response.toString().getBytes());</span>
+<span class="nc" id="L169">            os.close();</span>
+<span class="nc" id="L170">        }</span>
+
+        private static String jsonComeBack(player Player) throws IOException{
+<span class="nc" id="L173">            ObjectMapper mapper = new ObjectMapper();</span>
+<span class="nc" id="L174">            JsonNode rootNode = mapper.createObjectNode();</span>
+
+<span class="nc" id="L176">            JsonNode childNode1 = mapper.createObjectNode();</span>
+<span class="nc" id="L177">            ((ObjectNode) childNode1).put(&quot;name&quot;, Player.getNameJoueur());</span>
+<span class="nc" id="L178">            ((ObjectNode) childNode1).put(&quot;status&quot;, Player.getRoverJoueur().isAlive());</span>
+<span class="nc" id="L179">            ((ObjectNode) childNode1).put(&quot;laser-range&quot;, 1);</span>
+
+
+<span class="nc" id="L182">            JsonNode childNode12 = mapper.createObjectNode();</span>
+<span class="nc" id="L183">            ((ObjectNode) childNode12).put(&quot;x&quot;, Player.getRoverJoueur().getPosition().getX());</span>
+<span class="nc" id="L184">            ((ObjectNode) childNode12).put(&quot;y&quot;, Player.getRoverJoueur().getPosition().getY());</span>
+<span class="nc" id="L185">            ((ObjectNode) childNode12).put(&quot;direction&quot;, Player.getRoverJoueur().getPosition().getDirection().name());</span>
+
+<span class="nc" id="L187">            ((ObjectNode) childNode1).put(&quot;position&quot;, childNode12);</span>
+
+<span class="nc" id="L189">            ((ObjectNode) childNode1).set(&quot;position&quot;, childNode12);</span>
+
+
+
+<span class="nc" id="L193">            ((ObjectNode) rootNode).set(&quot;player&quot;, childNode1);</span>
+
+<span class="nc" id="L195">            JsonNode childNode2 = mapper.createObjectNode();</span>
+<span class="nc" id="L196">            ((ObjectNode) childNode2).put(&quot;obstacle&quot;, (api.getGameObstacles(Player.getNameJoueur())).toString());</span>
+<span class="nc" id="L197">            ((ObjectNode) childNode2).put(&quot;players&quot;, (api.getGamePalyers(Player.getNameJoueur())).toString());</span>
+
+
+<span class="nc" id="L200">            ((ObjectNode) rootNode).set(&quot;local-map&quot;, childNode2);</span>
+
+<span class="nc" id="L202">            String jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode);</span>
+<span class="nc" id="L203">            System.out.println(jsonString);</span>
+<span class="nc" id="L204">            return jsonString;</span>
+        }
+
+    private static int getPlayersCount(){
+<span class="nc" id="L208">        return PlayersCount++;</span>
+    }
+
+    public static void parseQuery(String query, Map&lt;String,
+        Object&gt; parameters) throws UnsupportedEncodingException {
+
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        if (query != null) {</span>
+<span class="nc" id="L215">            String pairs[] = query.split(&quot;[&amp;]&quot;);</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">            for (String pair : pairs) {</span>
+<span class="nc" id="L217">                String param[] = pair.split(&quot;[=]&quot;);</span>
+<span class="nc" id="L218">                String key = null;</span>
+<span class="nc" id="L219">                String value = null;</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">                if (param.length &gt; 0) {</span>
+<span class="nc" id="L221">                    key = URLDecoder.decode(param[0],</span>
+<span class="nc" id="L222">                        System.getProperty(&quot;file.encoding&quot;));</span>
+                }
+
+<span class="nc bnc" id="L225" title="All 2 branches missed.">                if (param.length &gt; 1) {</span>
+<span class="nc" id="L226">                    value = URLDecoder.decode(param[1],</span>
+<span class="nc" id="L227">                        System.getProperty(&quot;file.encoding&quot;));</span>
+                }
+
+<span class="nc bnc" id="L230" title="All 2 branches missed.">                if (parameters.containsKey(key)) {</span>
+<span class="nc" id="L231">                    Object obj = parameters.get(key);</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">                    if (obj instanceof List&lt;?&gt;) {</span>
+<span class="nc" id="L233">                        List&lt;String&gt; values = (List&lt;String&gt;) obj;</span>
+<span class="nc" id="L234">                        values.add(value);</span>
+
+<span class="nc bnc" id="L236" title="All 2 branches missed.">                    } else if (obj instanceof String) {</span>
+<span class="nc" id="L237">                        List&lt;String&gt; values = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L238">                        values.add((String) obj);</span>
+<span class="nc" id="L239">                        values.add(value);</span>
+<span class="nc" id="L240">                        parameters.put(key, values);</span>
+                    }
+<span class="nc" id="L242">                } else {</span>
+<span class="nc" id="L243">                    parameters.put(key, value);</span>
+                }
+            }
+        }
+<span class="nc" id="L247">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

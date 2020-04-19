@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Api.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.api</a> &gt; <span class="el_source">Api.java</span></div><h1>Api.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.api;
+
+import com.esiea.tp4A.code.Obstacle;
+import com.esiea.tp4A.code.Plateau;
+import com.esiea.tp4A.domain.PlanetMap;
+import com.esiea.tp4A.domain.Position;
+import com.esiea.tp4A.code.Rover;
+import com.esiea.tp4A.domain.Direction;
+
+
+import java.util.Scanner;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+
+public class Api{
+
+    private Plateau map;
+    private int taille;
+    private Scanner scan;
+    private Position position;
+    private List&lt;Rover&gt; lstRover;
+    private int numeroJoueur;
+<span class="nc" id="L26">    private List&lt;Position&gt; setObstaclesPositions = new ArrayList&lt;Position&gt;();</span>
+
+   
+<span class="nc" id="L29">    public Api() {</span>
+<span class="nc" id="L30">    	scan = new Scanner (System.in);</span>
+        // initialisation obstacle + laser
+<span class="nc" id="L32">        System.out.println(&quot; Bienvenue sur notre jeu de l'espace!&quot;);</span>
+        //############# Génération aléatoire de la tailles de la CARTE #######
+<span class="nc" id="L34">        generationAleaCarte();</span>
+        // APPEL DES FONCTIONS GENERANT LES OBSTACLES ALEATOIRES SUR LA CARTE
+        //######################## Génération des 50 joueurs ###########################
+<span class="nc" id="L37">        System.out.println(&quot;Génération des 50 joueurs....&quot;);</span>
+<span class="nc" id="L38">        generationAleaJoueurs();</span>
+<span class="nc" id="L39">        System.out.println(&quot;Bravo, nous avons maintenant généré nos 50 joueurs!!\n&quot;);</span>
+        //####################### Choix numéro de joueur ##############################
+<span class="nc" id="L41">        System.out.println(&quot;Veuillez choisir un numéro de joueur entre 1 et 50&quot;);</span>
+<span class="nc" id="L42">        numeroJoueur = scan.nextInt(); </span>
+<span class="nc bnc" id="L43" title="All 4 branches missed.">        while((numeroJoueur &lt;1)|| (numeroJoueur &gt;50)){</span>
+<span class="nc" id="L44">        	System.out.println(&quot;Il faut impérativement entrer un nombre entre 1 et 50, sinon on ne peut pas vous attribuer de rover&quot;);</span>
+<span class="nc" id="L45">        	numeroJoueur = scan.nextInt();</span>
+        }
+<span class="nc" id="L47">        System.out.println(&quot;Vous avez choisi le Rover numéro &quot; + numeroJoueur + &quot;\nVoici ses coordonnées: &quot; + lstRover.get(numeroJoueur -1).getPosition().getX() +&quot; , &quot; + lstRover.get(numeroJoueur-1).getPosition().getY() + &quot;, &quot; + lstRover.get(numeroJoueur -1).getPosition().getDirection() + &quot;\n&quot;);</span>
+        // APPEL DES FONCTIONS GENERANT PORTEE DU LASER
+        //###################### Génération des obstacles #########################################&quot;&quot;
+<span class="nc" id="L50">        System.out.println(&quot;Maintenant cow-boy, l'heure est venue de rajouter des obstacles sur la carte!!!\n....Génération...&quot;);</span>
+<span class="nc" id="L51">        generationSetObstaclesPositions();</span>
+<span class="nc" id="L52">        System.out.println(&quot;C'est tout bon!\nRentrons maintenant dans le vif du sujet !&quot;);</span>
+        //############################ MENU UTILISATEUR #####################################
+<span class="nc" id="L54">        System.out.println(&quot;################### MENU ###################\nQue voulez-vous faire ? [h for help]\n&quot;);</span>
+        String choice;
+<span class="nc" id="L56">        boolean stop = false;</span>
+<span class="nc" id="L57">        choice = scan.next();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        while(!stop){</span>
+<span class="nc bnc" id="L59" title="All 12 branches missed.">            switch (choice.charAt(0)){</span>
+                case 'h':
+<span class="nc" id="L61">                	System.out.println(&quot;h: Afficher cet écran d'aide\np: Afficher la position des 50 joueurs\nc: Changer de rover\no: Connaitre la position des obstacles et joueurs adverses dans un carré de 30x30(par défaut) autour du joueur (radar)\nl: Connaitre la portée du laser\nd: Se déplacer\ns: Tirer avec le laser\na: Savoir si son personnage est vivant ou mort\nm: Afficher mes informations (numéro de rover et position\nr: Afficher la position des obstacles\nq: Quitter le programme\nQue voulez-vous faire? [h for help] \n&quot;);</span>
+<span class="nc" id="L62">                    choice = scan.next();</span>
+<span class="nc" id="L63">                    break;</span>
+                case 'p':
+<span class="nc" id="L65">                    System.out.println(&quot;Affichage de la position des joueurs&quot;);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                    for(Rover r: lstRover){</span>
+<span class="nc" id="L67">                        System.out.println(&quot; Rover numéro &quot; + r.getNumeroRover() + &quot; :  (&quot;+r.getPosition().getX() + &quot;, &quot;+ r.getPosition().getY() +  &quot;, &quot; + r.getPosition().getDirection() + &quot; )&quot;);</span>
+<span class="nc" id="L68">                    }</span>
+<span class="nc" id="L69">                    System.out.println(&quot;Que voulez-vous faire? [h for help] \n&quot;);</span>
+<span class="nc" id="L70">                    choice = scan.next();</span>
+<span class="nc" id="L71">                    break;</span>
+                case 'c':
+<span class="nc" id="L73">                	System.out.println(&quot;Changer de joueur\nVeuillez entrer le numéro du rover que vous voulez désormais incarner\nVeuillez choisir un numéro de joueur entre 1 et 50&quot;);</span>
+<span class="nc" id="L74">                    numeroJoueur = scan.nextInt(); </span>
+<span class="nc bnc" id="L75" title="All 4 branches missed.">                    while((numeroJoueur &lt;1)|| (numeroJoueur &gt;50)){</span>
+<span class="nc" id="L76">                    	System.out.println(&quot;Il faut impérativement entrer un nombre entre 1 et 50, sinon on ne peut pas vous attribuer de rover&quot;);</span>
+<span class="nc" id="L77">                    	numeroJoueur = scan.nextInt();</span>
+                    	
+                    }
+<span class="nc" id="L80">                    System.out.println(&quot;Que voulez-vous faire? [h for help] \n&quot;);</span>
+<span class="nc" id="L81">                    choice = scan.next();</span>
+<span class="nc" id="L82">                    break;</span>
+                case 'o':
+<span class="nc" id="L84">                    System.out.println(&quot;Connaitre la position des obstacles et joueurs adverses dans un carré de 30x30(par défaut) autour du joueur (radar)&quot;);</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">                    for(int i = 1; i &lt; 51; i++){</span>
+                        //APPEL AUX FONCTIONS REQUISES
+                    }
+<span class="nc" id="L88">                    System.out.println(&quot;Que voulez-vous faire? [h for help] \n&quot;);</span>
+<span class="nc" id="L89">                    choice= scan.next();</span>
+<span class="nc" id="L90">                    break;</span>
+                case 'l':
+<span class="nc" id="L92">                    System.out.println(&quot;Connaitre la portée du laser\nQue voulez-vous faire? [h for help]\n&quot;);</span>
+                    //APPEL AUX FONCTIONS REQUISES
+<span class="nc" id="L94">                    choice= scan.next();</span>
+<span class="nc" id="L95">                    break;</span>
+                case 'd':
+<span class="nc" id="L97">                	System.out.println(&quot;Se déplacer :\n'f' : le rover avance dans la direction à laquelle il fait face\n'b' : le rover recule\n'l' : le rover pivote sur la gauche\n'r' : le rover pivote sur la droite\nTapez votre commande :&quot;);</span>
+<span class="nc" id="L98">                    String move = scan.next();</span>
+<span class="nc" id="L99">                    char tabMove[] = move.toCharArray();</span>
+<span class="nc" id="L100">                    lstRover.get(numeroJoueur-1).give_order(tabMove);</span>
+<span class="nc" id="L101">                    System.out.println(&quot;Nouvelle position du rover &quot; + numeroJoueur + &quot;: (&quot;+lstRover.get(numeroJoueur-1).getPosition().getX() + &quot;, &quot;+ lstRover.get(numeroJoueur-1).getPosition().getY() +  &quot;, &quot; + lstRover.get(numeroJoueur-1).getPosition().getDirection() + &quot; )&quot;);</span>
+<span class="nc" id="L102">                    move=&quot;&quot;;</span>
+<span class="nc" id="L103">                    System.out.println(&quot;Que voulez-vous faire? [h for help] \n &quot;);</span>
+<span class="nc" id="L104">                    choice= scan.next();</span>
+<span class="nc" id="L105">                    break;</span>
+                case 's':
+<span class="nc" id="L107">                	System.out.println(&quot;Tirer avec le laser :\nVous devez utiliser la commande 's', le tir se fait dans la direction du rover\nEXEMPLE : le rover a une position (0, 0, N) avec un laser de portée courte 5 et un obstacle à (0,2)\nAvec la commande [s, f, f], le rover détruit l'obstacle et se retrouve à une position de (0, 2, N)\nQue voulez-vous faire? [h for help] \n&quot;);</span>
+<span class="nc" id="L108">                    choice= scan.next();</span>
+<span class="nc" id="L109">                    break;</span>
+                case 'a':
+<span class="nc" id="L111">                    System.out.println(&quot;Savoir si son personnage est vivant ou mort :&quot;);</span>
+<span class="nc" id="L112">                    boolean roverAlive =  lstRover.get(numeroJoueur).isAlive();</span>
+<span class="nc" id="L113">                    String personnage = &quot;&quot;;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">                    if(roverAlive == false){</span>
+<span class="nc" id="L115">                        personnage = &quot;mort&quot;;</span>
+                    }
+                    else {
+<span class="nc" id="L118">                        personnage = &quot;vivant&quot;;</span>
+                    }
+<span class="nc" id="L120">                    System.out.println(&quot;Votre personnage (numéro &quot; + numeroJoueur + &quot;) est : &quot; + personnage + &quot;\nQue voulez-vous faire? [h for help] \n&quot;);</span>
+<span class="nc" id="L121">                    choice= scan.next();</span>
+<span class="nc" id="L122">                    break;</span>
+                case 'm': 
+<span class="nc" id="L124">                	System.out.println(&quot;Afficher mes informations:\nVous êtes le rover numéro &quot; + numeroJoueur + &quot;\nVous êtes actuellement situé en (&quot;+lstRover.get(numeroJoueur-1).getPosition().getX() + &quot;, &quot;+ lstRover.get(numeroJoueur-1).getPosition().getY() +  &quot;, &quot; + lstRover.get(numeroJoueur-1).getPosition().getDirection() + &quot; )\nQue voulez-vous faire? [h for help]\n&quot;);</span>
+<span class="nc" id="L125">                    choice= scan.next();</span>
+<span class="nc" id="L126">                    break;</span>
+                case 'r':
+<span class="nc" id="L128">                	System.out.println(&quot;Afficher la position des obstacles&quot;);</span>
+<span class="nc" id="L129">                	Position[] tabPositionsOstacles = new Position[setObstaclesPositions.size()];</span>
+<span class="nc" id="L130">                	setObstaclesPositions.toArray(tabPositionsOstacles);</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">                	for(int i = 0; i &lt; tabPositionsOstacles.length; i++) {</span>
+<span class="nc" id="L132">                		System.out.println(&quot;Obstacle &quot; + (i+1) + &quot;: (&quot; + tabPositionsOstacles[i].getX() + &quot;, &quot; + tabPositionsOstacles[i].getY() + &quot;)&quot;);</span>
+                	}
+<span class="nc" id="L134">                	System.out.println(&quot;Que voulez-vous faire? [h for help] \n&quot;);</span>
+<span class="nc" id="L135">                    choice= scan.next();</span>
+<span class="nc" id="L136">                    break;</span>
+                case 'q':
+<span class="nc" id="L138">                    System.out.println(&quot;Merci de votre venue et à bientôt! Au revoir! &quot;);</span>
+<span class="nc" id="L139">                    stop = true;</span>
+<span class="nc" id="L140">                    System.exit(0);</span>
+<span class="nc" id="L141">                    break;</span>
+                default:
+<span class="nc" id="L143">                    System.out.println(&quot;Commande inconnue\nQue voulez-vous faire? [h for help]\n&quot;);</span>
+<span class="nc" id="L144">                    choice= scan.next();</span>
+<span class="nc" id="L145">                    break;</span>
+            }
+        }
+<span class="nc" id="L148">    scan.close();</span>
+<span class="nc" id="L149">    }</span>
+    
+    // Fonction qui génère aléatoirement la taille de la carte */
+    public void generationAleaCarte(){
+<span class="nc" id="L153">        map = new Plateau(randomNumber(0,100));</span>
+<span class="nc" id="L154">        System.out.println(&quot;Voici la taille de la carte, choisie aléatoirement :&quot;);</span>
+<span class="nc" id="L155">        taille = map.getTaille();</span>
+<span class="nc" id="L156">        System.out.println(taille + &quot;x&quot; + taille +&quot;\n&quot;);</span>
+<span class="nc" id="L157">    }</span>
+
+
+    /* Fonction qui génère aléatoirement un nombre */
+    public int randomNumber(int min, int max){
+<span class="nc" id="L162">        int range = max - min + 1;</span>
+<span class="nc" id="L163">        int res = 0;</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">        for(int i = min-1; i&lt;max; i++){</span>
+<span class="nc" id="L165">            res = (int) (Math.random() * range ) +min;</span>
+        }
+<span class="nc" id="L167">        return res;</span>
+    }
+
+    /*Fonction qui génère une direction aléatoire*/
+    public Direction aleaDirection(){
+<span class="nc" id="L172">        Direction tabDirection[] = {Direction.EAST, Direction.WEST, Direction.NORTH, Direction.SOUTH};</span>
+<span class="nc" id="L173">        int rand = (int) (Math.random() * tabDirection.length);</span>
+<span class="nc" id="L174">        Direction direction = tabDirection[rand];</span>
+<span class="nc" id="L175">        return direction;</span>
+    }
+
+    /*Fonction qui génère une position aléatoire */
+    public Position aleaPosition(){
+<span class="nc" id="L180">        int xMax = taille; //abscise maximale</span>
+<span class="nc" id="L181">        int yMax = taille; //ordonée maximale</span>
+        //x aléatoire
+<span class="nc" id="L183">        int x = randomNumber(-xMax,xMax);</span>
+        //y aléatoire
+<span class="nc" id="L185">        int y = randomNumber(-yMax, yMax);</span>
+        //direction aléatoire
+<span class="nc" id="L187">        Direction direction = aleaDirection();</span>
+<span class="nc" id="L188">        Position p = Position.of(x,y, direction);</span>
+<span class="nc" id="L189">        return p;</span>
+    }
+
+    /*Fonction qui gènère 50 joueurs*/
+    public List&lt;Rover&gt; generationAleaJoueurs(){
+<span class="nc" id="L194">        lstRover = new ArrayList&lt;Rover&gt;();</span>
+<span class="nc" id="L195">        Position p = null;</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        for(int i = 1; i&lt;51; i++){</span>
+<span class="nc" id="L197">            Rover r= new Rover(p); // création Rover</span>
+<span class="nc" id="L198">            p = aleaPosition(); // génération position aléatoire</span>
+<span class="nc" id="L199">            r.setPosition(p); //on fixe la position aléatoire du Rover</span>
+<span class="nc" id="L200">            r.setNumeroRover(i);</span>
+<span class="nc" id="L201">            r.setPlateau(map);</span>
+            //AJOUTER PORTEE DU LASER QUAND ELLE SERA DISPO
+<span class="nc" id="L203">            lstRover.add(r);//ajout à la liste de Rovers</span>
+        }
+<span class="nc" id="L205">        return lstRover;</span>
+    }
+    
+    //Création du set des positions  obstacles --&gt; doivent occuper 15* du terrain
+    public List&lt;Position&gt; generationSetObstaclesPositions(){
+<span class="nc" id="L210">    	int nbPositionsMap = (taille + (taille+1)) * (taille*2); //nombres total de positions possibles sur la map</span>
+<span class="nc" id="L211">    	int nbPositionObstacle = (int) Math.round(0.15 * nbPositionsMap); //15% des positions sont prises par des obstacles  </span>
+<span class="nc" id="L212">    	List&lt;Obstacle&gt; lstObstacles = new ArrayList&lt;Obstacle&gt;();</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">    	for(int i = 0; i&lt; nbPositionObstacle ; i++) { // on génère les 15 % de positions aléatoires</span>
+<span class="nc" id="L214">    		Position p = aleaPosition();</span>
+<span class="nc" id="L215">    		Obstacle o = new Obstacle(p.getX(),p.getY(),Direction.NORTH);</span>
+<span class="nc" id="L216">    		lstObstacles.add(o);</span>
+    	}
+<span class="nc bnc" id="L218" title="All 2 branches missed.">    	for(Obstacle o: lstObstacles) {</span>
+<span class="nc" id="L219">    		setObstaclesPositions.add(o.getPosition());</span>
+<span class="nc" id="L220">    	}</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">    	for(Rover r: lstRover) { // on ajoute cette liste d'obstacles à chaque Rover</span>
+<span class="nc" id="L222">    		r.setObstaclesMap(setObstaclesPositions);</span>
+<span class="nc" id="L223">    	}</span>
+<span class="nc" id="L224">    	return setObstaclesPositions;</span>
+    }
+    
+    public static void main(String[] args) {
+<span class="nc" id="L228">    	new Api();</span>
+<span class="nc" id="L229">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

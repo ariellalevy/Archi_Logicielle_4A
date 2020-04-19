@@ -21,6 +21,7 @@ public final class game{
         sessionNumber = gamesCount;
         generationAleaCarte();
         generationSetObstaclesPositions(gamesCount);
+        porteeLaser();
         System.out.println("fin init");
     }
 
@@ -117,6 +118,15 @@ public final class game{
         }
         System.out.println("fin generation obs");
         return setObstaclesPositions;
+    }
+
+    /* Fonction qui génère aléatoirement la portée du laser */
+    public int porteeLaser(){
+        int laser;
+        int tab_range[] = {5, 30, (int) Double.POSITIVE_INFINITY}; // tableau contenant les 3 possibilités de portée du laser
+        int rand = (int) (Math.random() * tab_range.length);
+        laser = tab_range[rand];
+        return laser;
     }
 
     public player getPlayerData(String playerName){

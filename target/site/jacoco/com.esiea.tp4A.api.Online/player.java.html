@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>player.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.api.Online</a> &gt; <span class="el_source">player.java</span></div><h1>player.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.api.Online;
+
+import com.esiea.tp4A.code.Rover;
+
+public final class player{
+
+<span class="nc" id="L7">    public player(String playerName, int Id){</span>
+<span class="nc" id="L8">        this.nameJoueur = playerName;</span>
+<span class="nc" id="L9">        this.IdJoueur = Id;</span>
+<span class="nc" id="L10">    }</span>
+
+    public void setRover(Rover rover){
+<span class="nc" id="L13">        this.roverJoueur = rover;</span>
+<span class="nc" id="L14">    }</span>
+
+    public String getNameJoueur(){
+<span class="nc" id="L17">        return nameJoueur;</span>
+    }
+
+    public Rover getRoverJoueur(){
+<span class="nc" id="L21">        return roverJoueur;</span>
+    }
+
+    public int getIdJoueur(){
+<span class="nc" id="L25">        return IdJoueur;</span>
+    }
+
+    private Rover roverJoueur;
+    private String nameJoueur;
+    private int IdJoueur;
+
+    @Override
+    public String toString(){
+
+<span class="nc" id="L35">        return &quot;Name : &quot; + getNameJoueur() + &quot; &quot; + &quot;Position : X: &quot; + getRoverJoueur().getPosition().getX() +  &quot;Position : Y: &quot; + getRoverJoueur().getPosition().getY() +  &quot;Dir: &quot; + getRoverJoueur().getPosition().getDirection();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

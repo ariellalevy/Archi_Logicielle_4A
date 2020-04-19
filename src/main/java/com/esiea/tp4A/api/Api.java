@@ -118,8 +118,7 @@ public class Api{
                     choice= scan.next();
                     break;
                 case 's':
-                    System.out.println("Tirer avec le laser :\nVous devez utiliser la commande 's', le tir se fait dans la direction du rover\nEXEMPLE : le rover a une position (0, 0, N) avec un laser de portée courte 5 et un obstacle à (0,2)\nAvec la commande [s, f, f], le rover détruit l'obstacle et se retrouve à une position de (0, 2, N)\nTapez votre commande :");
-                   // String tir = scan.next();
+                    System.out.println("Tirer avec le laser :\nVous devez utiliser la commande 's', le tir se fait dans la direction du rover\nEXEMPLE : le rover a une position (0, 0, N) avec un laser de portée courte 5 et un obstacle à (0,2)\nAvec la commande [s, f, f], le rover détruit l'obstacle et se retrouve à une position de (0, 2, N)");
                     //APPEL DE LASERSHOOT
                     choice= scan.next();
                     break;

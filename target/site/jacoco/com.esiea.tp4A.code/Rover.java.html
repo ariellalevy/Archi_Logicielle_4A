@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Rover.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.code</a> &gt; <span class="el_source">Rover.java</span></div><h1>Rover.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.code;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.MarsRover;
+import com.esiea.tp4A.domain.Position;
+
+public class Rover implements MarsRover{
+    private Position position;
+    private Plateau map;
+    private boolean alive;
+    private int numeroRover;
+    private List&lt;Position&gt; lstObstaclesPositions;
+    
+<span class="fc" id="L18">    public Rover(Position position){</span>
+<span class="fc" id="L19">        this.position = position;</span>
+<span class="fc" id="L20">        this.initialize(position);</span>
+<span class="fc" id="L21">        this.alive = true;</span>
+<span class="fc" id="L22">        numeroRover = 0;</span>
+<span class="fc" id="L23">    }</span>
+    
+    @Override
+    public  MarsRover initialize(Position position) {
+<span class="fc" id="L27">        position = new Position.FixedPosition(0,0, Direction.NORTH);</span>
+<span class="fc" id="L28">        return  this;</span>
+    }
+    
+    
+    public Position spheriqueOrdonnees(int taille, int y) {
+<span class="fc" id="L33">    	Position newPosition=null;</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    	if(map != null) {</span>
+<span class="nc bnc" id="L35" title="All 4 branches missed.">    		if((map.getTaille() == taille) &amp;&amp; (this.position.getY()==y)) {</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        		if(y &gt;=0) {</span>
+<span class="nc" id="L37">        			newPosition = Position.of(this.position.getX(), (this.position.getY() +(-2*taille)+1), this.position.getDirection());</span>
+        		}
+        		else {
+<span class="nc" id="L40">        			newPosition = Position.of(this.position.getX(), (this.position.getY() +(-2*taille)-1), this.position.getDirection());</span>
+        		}
+    		}
+    	}
+    	
+<span class="fc" id="L45">    	return newPosition;</span>
+    }
+    
+    
+    public Position spheriqueAbscises(int taille, int x) {
+<span class="fc" id="L50">    	Position newPosition=null;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">    	if(map != null) {</span>
+<span class="pc bpc" id="L52" title="1 of 4 branches missed.">    		if((map.getTaille() == taille) &amp;&amp; (this.position.getX()==x)) {</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        		if(x &gt;=0) {</span>
+<span class="nc" id="L54">        			newPosition = Position.of((this.position.getX() +(-2*taille)+1),this.position.getY(), this.position.getDirection());</span>
+        		}
+        		else {
+<span class="nc" id="L57">        			newPosition = Position.of((this.position.getY() +(-2*taille)-1), this.position.getY(), this.position.getDirection());</span>
+        		}
+    		}
+    	}
+<span class="fc" id="L61">    	return newPosition;</span>
+      }
+    
+    public Position detectObstacles(Position anciennePosition) {
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">    	if(lstObstaclesPositions != null) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">    		for(Position p : lstObstaclesPositions) {</span>
+<span class="nc bnc" id="L67" title="All 4 branches missed.">             	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L68">             		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(lstObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L69">                 	position = anciennePosition;</span>
+             	}
+<span class="nc" id="L71">        	 }</span>
+    	}
+<span class="fc" id="L73">    	return position;</span>
+    }
+    
+
+    @Override
+    public Position move(String command) {
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if(command.isEmpty()){</span>
+<span class="nc" id="L80">            return Position.of(0,0,Direction.NORTH);</span>
+        }       
+<span class="fc" id="L82">        Position anciennePosition = position;</span>
+<span class="fc bfc" id="L83" title="All 5 branches covered.">        switch(command.charAt(0)) {</span>
+            case 'f':
+<span class="pc bpc" id="L85" title="1 of 5 branches missed.">                switch (this.position.getDirection()){</span>
+                    case NORTH:
+                    	//System.out.println(&quot;TEST 1&quot;);
+                        //grille sphérique
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(100, 50) !=null) { this.position =spheriqueAbscises(100, 50);}</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(300, 150) !=null) { this.position =spheriqueAbscises(300, 150);}</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(600, 300) !=null) { this.position =spheriqueAbscises(600, 300);}</span>
+                        //System.out.println(&quot;HELLO 1&quot;)  
+<span class="fc" id="L93">                    	this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());</span>
+                        //Detection d'obstacles
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">                    	if(detectObstacles(anciennePosition)!=null) {</span>
+<span class="fc" id="L96">                    		System.out.println(&quot;ICI&quot;);</span>
+<span class="fc" id="L97">                    		this.position = detectObstacles(anciennePosition);}     </span>
+<span class="fc" id="L98">                        return this.position;</span>
+                    case SOUTH:
+                    	//System.out.println(&quot;TEST 2&quot;);
+                        //grille sphérique
+<span class="pc bpc" id="L102" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(100, -50) !=null) { this.position =spheriqueAbscises(100, -50);}</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(300, -150) !=null) { this.position =spheriqueAbscises(300, -150);}</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(600, -300) !=null) { this.position =spheriqueAbscises(600, -300);}</span>
+                        //System.out.println(&quot;HELLO 2&quot;);   
+<span class="fc" id="L106">                    	this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());</span>
+                        //Detection d'obstacles
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">                    	if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}</span>
+<span class="fc" id="L109">                        return this.position;</span>
+                    case EAST:
+                    	//System.out.println(&quot;TEST 3&quot;);
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(100, -50) !=null) { this.position =spheriqueOrdonnees(100, -50);}</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(300, -150) !=null) { this.position =spheriqueOrdonnees(300, -150);}</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(600, -300) !=null) { this.position =spheriqueOrdonnees(600, -300);}</span>
+<span class="fc" id="L115">                        this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection());</span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}</span>
+                        //System.out.println(&quot;TOTO 3&quot;);
+<span class="fc" id="L119">                        return this.position;</span>
+                    case WEST:
+                    	//System.out.println(&quot;TEST 4&quot;);
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(100, 50) !=null) { this.position =spheriqueOrdonnees(100, 50);}</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(300, 150) !=null) { this.position =spheriqueOrdonnees(300, 150);}</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(600, 300) !=null) { this.position =spheriqueOrdonnees(600, 300);}</span>
+<span class="fc" id="L125">                        this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());                       </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}</span>
+                       // System.out.println(&quot;TOTO 4&quot;);
+<span class="fc" id="L129">                        return this.position;</span>
+<span class="nc" id="L130">                    default: System.out.println(&quot;Erreur commande 'f'&quot;);</span>
+                        break;
+                }
+            case 'b':
+<span class="pc bpc" id="L134" title="1 of 5 branches missed.">                switch (this.position.getDirection()){</span>
+                    case NORTH:
+                        //grille sphérique
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(100, -50) !=null) { this.position =spheriqueAbscises(100, -50);}</span>
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(300, -150) !=null) { this.position =spheriqueAbscises(300, -150);}</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(600, -300) !=null) { this.position =spheriqueAbscises(600, -300);}</span>
+<span class="fc" id="L140">                        this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());                        </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}</span>
+<span class="fc" id="L143">                        return this.position;</span>
+                    case SOUTH:
+
+                        //grille sphérique
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(100, 50) !=null) { this.position =spheriqueAbscises(100, 50);}</span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(300, 150) !=null) { this.position =spheriqueAbscises(300, 150);}</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">                    	if(spheriqueAbscises(600, 300) !=null) { this.position =spheriqueAbscises(600, 300);}</span>
+                        //System.out.println(&quot;Houston nous avons un pbm50&quot;);
+<span class="fc" id="L151">                        this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());                      </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}</span>
+<span class="fc" id="L154">                        return this.position;</span>
+                    case EAST:
+<span class="pc bpc" id="L156" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(100, 50) !=null) { this.position =spheriqueOrdonnees(100, 50);}</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(300, 150) !=null) { this.position =spheriqueOrdonnees(300, 150);}</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(600, 300) !=null) { this.position =spheriqueOrdonnees(600, 300);}</span>
+<span class="fc" id="L159">                        this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());                       </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}</span>
+<span class="fc" id="L162">                        return this.position;</span>
+                    case WEST:
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(100, -50) !=null) { this.position =spheriqueOrdonnees(100, -50);}</span>
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(300, -150) !=null) { this.position =spheriqueOrdonnees(300, -150);}</span>
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">                    	if(spheriqueOrdonnees(600, -300) !=null) { this.position =spheriqueOrdonnees(600, -300);}</span>
+<span class="fc" id="L167">                        this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection()); </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L169" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                        </span>
+<span class="fc" id="L170">                        return this.position;</span>
+<span class="nc" id="L171">                    default: System.out.println(&quot;Erreur commande 'b'&quot;);</span>
+                        break;
+                }
+            case 'l':
+<span class="pc bpc" id="L175" title="1 of 5 branches missed.">                switch (this.position.getDirection()) {</span>
+                    case NORTH:
+<span class="fc" id="L177">                        this.position = Position.of(this.position.getX(), this.position.getY(), Direction.WEST);                       </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L179" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                         </span>
+<span class="fc" id="L180">                        return this.position;</span>
+                    case SOUTH:
+<span class="fc" id="L182">                        this.position = Position.of(this.position.getX(), this.position.getY(), Direction.EAST);</span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                        </span>
+<span class="fc" id="L185">                        return this.position;</span>
+                    case EAST:
+<span class="fc" id="L187">                        this.position = Position.of(this.position.getX(), this.position.getY(), Direction.NORTH); </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                        </span>
+<span class="fc" id="L190">                        return this.position;</span>
+                    case WEST:
+<span class="fc" id="L192">                        this.position = Position.of(this.position.getX(), this.position.getY(), Direction.SOUTH);                       </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}</span>
+<span class="fc" id="L195">                        return this.position;</span>
+                    default:
+<span class="nc" id="L197">                        System.out.println(&quot;Erreur commande 'l'&quot;);</span>
+                        break;
+                }
+            case 'r':
+<span class="pc bpc" id="L201" title="1 of 5 branches missed.">                switch (this.position.getDirection()) {</span>
+                    case NORTH:
+                    	//System.out.println(&quot;HOLA&quot;);
+<span class="fc" id="L204">                        this.position = Position.of(this.position.getX(), this.position.getY(), Direction.EAST);</span>
+
+                      //Detection d'obstacles
+<span class="pc bpc" id="L207" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                        </span>
+<span class="fc" id="L208">                        return this.position;</span>
+                    case SOUTH:
+                    	//System.out.println(&quot;BONJOUR&quot;);
+<span class="fc" id="L211">                        this.position = Position.of(this.position.getX(), this.position.getY(), Direction.WEST);  </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                        </span>
+<span class="fc" id="L214">                        return this.position;</span>
+                    case EAST:
+                    	//System.out.println(&quot;Dzien dobre&quot;);
+<span class="fc" id="L217">                        this.position = Position.of(this.position.getX(), this.position.getY(), Direction.SOUTH);   </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}  </span>
+<span class="fc" id="L220">                        return this.position;</span>
+                    case WEST:
+                    	//System.out.println(&quot;Guten tag&quot;);
+<span class="fc" id="L223">                        this.position = Position.of(this.position.getX(), this.position.getY(), Direction.NORTH);                       </span>
+                      //Detection d'obstacles
+<span class="pc bpc" id="L225" title="1 of 2 branches missed.">                        if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                       </span>
+<span class="fc" id="L226">                        return this.position;</span>
+                    default:
+<span class="nc" id="L228">                        System.out.println(&quot;Erreur commande 'r'&quot;);</span>
+                        break;
+                }
+<span class="fc" id="L231">            default:	System.out.println(&quot;Error!&quot;);</span>
+<span class="fc" id="L232">                return Position.of(0,0,Direction.NORTH);</span>
+        }
+    }
+    
+    public  Position give_order(char[] command){
+<span class="fc bfc" id="L237" title="All 2 branches covered.">        for(int  i =0; i&lt; command.length; i++){</span>
+<span class="fc" id="L238">            String cmd =&quot;&quot;;</span>
+<span class="fc" id="L239">            cmd +=command[i];</span>
+<span class="fc" id="L240">            move(cmd);</span>
+        }
+<span class="fc" id="L242">        return this.getPosition();</span>
+    }
+
+    public boolean setAlive(boolean value){
+<span class="fc" id="L246">        this.alive = value;</span>
+<span class="fc" id="L247">        return alive;</span>
+    }
+
+<span class="fc" id="L250">    public boolean isAlive(){return alive;}</span>
+
+<span class="nc" id="L252">    public void setPosition(Position position) {this.position = position;}</span>
+    
+<span class="fc" id="L254">    public Position getPosition() {return position;}</span>
+    
+<span class="fc" id="L256">    public int getNumeroRover() {return numeroRover;}</span>
+    
+<span class="fc" id="L258">    public void setNumeroRover(int numero) {numeroRover = numero;}</span>
+    
+<span class="fc" id="L260">    public void setPlateau(Plateau plateau) {this.map = plateau;}</span>
+    
+<span class="nc" id="L262">    public void setObstaclesMap(List&lt;Position&gt; setObstaPositions) {lstObstaclesPositions = setObstaPositions;}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
