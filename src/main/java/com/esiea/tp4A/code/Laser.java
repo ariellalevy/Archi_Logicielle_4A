@@ -17,12 +17,12 @@ public final class Laser {
         configureLaserRange(Range);
     }
 
-    public boolean LaserShoot(Set<Position> map, Position position){
+    public boolean LaserShoot(List<Position> map, Position position){
         boolean firstIsTouched = false;
         var tmpObj = obsInRange(position);
         tmpObj = orderSet(tmpObj,position.getDirection());
         map = orderSet(map,position.getDirection());
-        final Set<Position> tmpList = new HashSet<>();
+        final List<Position> tmpList = new ArrayList<>();
         for (Iterator<Position> it = map.iterator(); it.hasNext(); ) {
             Position f = it.next();
             for (Position pos: tmpObj) {
@@ -39,7 +39,7 @@ public final class Laser {
         return firstIsTouched;
     }
 
- private Set<Position> orderSet(Set<Position> set,Direction dir){
+    private List<Position> orderSet(List<Position> set,Direction dir){
         switch (dir){
             case NORTH:
             case SOUTH:
@@ -50,7 +50,7 @@ public final class Laser {
                         return o1.getY() - o2.getY() ;
                     }
                 });
-                return new LinkedHashSet<>(numbersList);
+                return numbersList;
             case EAST:
             case WEST:
                 List<Position> numbersList1 = new ArrayList<Position>(set) ;        //set -> list
@@ -60,37 +60,37 @@ public final class Laser {
                         return o1.getX() - o2.getX() ;
                     }
                 });
-                return new LinkedHashSet<>(numbersList1);
-                default:
-                    return set;
+                return numbersList1 ;
+            default:
+                return set;
         }
     }
 
-    private Set<Position> obsInRange(Position position){
-         final Set<Position> tmpList = new HashSet<>();
-            switch (position.getDirection()){
-                case EAST:
-                    for(int i = position.getX() + 1; i<= this.distance + position.getX(); i++ ){
-                        tmpList.add(Position.of(i,position.getY(),position.getDirection()));
-                    }
-                    return tmpList;
-                case WEST:
-                    for(int i = position.getX() - 1; i >= position.getX() - this.distance ; i-- ){
-                        tmpList.add(Position.of(i,position.getY(),position.getDirection()));
-                    }
-                    return tmpList;
-                case NORTH:
-                    for(int i = position.getY() + 1; i<= this.distance + position.getY(); i++ ){
-                        tmpList.add(Position.of(position.getX(),i,position.getDirection()));
-                    }
-                    return tmpList;
-                case SOUTH:
-                    for(int i = position.getY() - 1; i >= position.getY() - this.distance ; i-- ){
-                        tmpList.add(Position.of(position.getX(),i,position.getDirection()));
-                    }
-                    return tmpList;
-                default: return tmpList;
-            }
+    private List<Position> obsInRange(Position position){
+        final List<Position> tmpList = new ArrayList<>();
+        switch (position.getDirection()){
+            case EAST:
+                for(int i = position.getX() + 1; i<= this.distance + position.getX(); i++ ){
+                    tmpList.add(Position.of(i,position.getY(),position.getDirection()));
+                }
+                return tmpList;
+            case WEST:
+                for(int i = position.getX() - 1; i >= position.getX() - this.distance ; i-- ){
+                    tmpList.add(Position.of(i,position.getY(),position.getDirection()));
+                }
+                return tmpList;
+            case NORTH:
+                for(int i = position.getY() + 1; i<= this.distance + position.getY(); i++ ){
+                    tmpList.add(Position.of(position.getX(),i,position.getDirection()));
+                }
+                return tmpList;
+            case SOUTH:
+                for(int i = position.getY() - 1; i >= position.getY() - this.distance ; i-- ){
+                    tmpList.add(Position.of(position.getX(),i,position.getDirection()));
+                }
+                return tmpList;
+            default: return tmpList;
+        }
     }
 
     private Laser configureLaserRange(int range){

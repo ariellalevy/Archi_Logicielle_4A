@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MoveRover.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.code</a> &gt; <span class="el_source">MoveRover.java</span></div><h1>MoveRover.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.code;
+
+import java.util.List;
+
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.Position;
+
+<span class="nc" id="L8">public class MoveRover {</span>
+	
+    public static Position move(String command,Position position, List&lt;Position&gt; setObstaclesPositions, Plateau map) {
+<span class="pc bpc" id="L11" title="1 of 2 branches missed.">        if(command.isEmpty()){</span>
+<span class="nc" id="L12">            return Position.of(0,0,Direction.NORTH);</span>
+        }
+<span class="fc" id="L14">        Position anciennePosition = position;</span>
+<span class="fc bfc" id="L15" title="All 5 branches covered.">        switch(command.charAt(0)) {</span>
+            case 'f':
+<span class="pc bpc" id="L17" title="4 of 5 branches missed.">                switch (position.getDirection()){</span>
+                    case NORTH:
+<span class="fc bfc" id="L19" title="All 2 branches covered.">                    	if(map != null) {</span>
+                    		//grille sphérique
+<span class="pc bpc" id="L21" title="2 of 4 branches missed.">                            if((map.getTaille() == 100) &amp;&amp; (position.getY() == 50)){</span>
+<span class="fc" id="L22">                                position = Position.of(position.getX(), -49,position.getDirection());</span>
+                            }
+<span class="nc bnc" id="L24" title="All 4 branches missed.">                            else if((map.getTaille() == 300) &amp;&amp; (position.getY() == 150)){</span>
+<span class="nc" id="L25">                                position = Position.of(position.getX(), -149,position.getDirection());</span>
+                            }
+
+<span class="nc bnc" id="L28" title="All 4 branches missed.">                            else if((map.getTaille() == 600) &amp;&amp; (position.getY() == 300)){</span>
+<span class="nc" id="L29">                                position = Position.of(position.getX(), -200,position.getDirection());</span>
+                            }
+                    	}else {
+<span class="fc" id="L32">                    		position = Position.of(position.getX(), position.getY()+1,position.getDirection());</span>
+                    	}
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L36" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L37" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L38">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) + 1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() +&quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L39">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L41">                            }</span>
+                        }
+<span class="fc" id="L43">                        return position;</span>
+                    case SOUTH:
+<span class="nc bnc" id="L45" title="All 2 branches missed.">                        if(map != null) {</span>
+                        	//grille sphérique
+<span class="nc bnc" id="L47" title="All 4 branches missed.">                            if((map.getTaille() == 100) &amp;&amp; (position.getY() == -50)){</span>
+<span class="nc" id="L48">                                position = Position.of(position.getX(), 49,position.getDirection());</span>
+                            }
+<span class="nc bnc" id="L50" title="All 4 branches missed.">                            if((map.getTaille() == 300) &amp;&amp; (position.getY() == -150)){</span>
+<span class="nc" id="L51">                                position = Position.of(position.getX(), 149,position.getDirection());</span>
+                            }
+<span class="nc bnc" id="L53" title="All 4 branches missed.">                            if((map.getTaille() == 600) &amp;&amp; (position.getY() == -300)){</span>
+<span class="nc" id="L54">                                position = Position.of(position.getX(), 299,position.getDirection());</span>
+                            }
+                        }else {
+<span class="nc" id="L57">                        	position = Position.of(position.getX(), position.getY()-1,position.getDirection());</span>
+                        }
+<span class="nc bnc" id="L59" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L62" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L63">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L64">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L66">                            }</span>
+                        }
+<span class="nc" id="L68">                        return position;</span>
+                    case EAST:
+<span class="nc" id="L70">                        position = Position.of(position.getX()+1, position.getY(),position.getDirection());</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L74" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L75">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L76">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L78">                            }</span>
+                        }
+<span class="nc" id="L80">                        return position;</span>
+                    case WEST:
+<span class="nc" id="L82">                        position = Position.of(position.getX()-1, position.getY(),position.getDirection());</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L85" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L86" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L87">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L88">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L90">                            }</span>
+                        }
+<span class="nc" id="L92">                        return position;</span>
+<span class="nc" id="L93">                    default: System.out.println(&quot;Erreur commande 'f'&quot;);</span>
+                        break;
+                }
+
+            case 'b':
+<span class="pc bpc" id="L98" title="3 of 5 branches missed.">                switch (position.getDirection()){</span>
+                    case NORTH:
+<span class="nc bnc" id="L100" title="All 2 branches missed.">                    	if(map != null) {</span>
+                    		//grille sphérique
+<span class="nc bnc" id="L102" title="All 4 branches missed.">                            if((map.getTaille() == 100) &amp;&amp; (position.getY() == -50)){</span>
+<span class="nc" id="L103">                                position = Position.of(position.getX(), 49,position.getDirection());</span>
+                            }
+<span class="nc bnc" id="L105" title="All 4 branches missed.">                            if((map.getTaille() == 300) &amp;&amp; (position.getY() == -150)){</span>
+<span class="nc" id="L106">                                position = Position.of(position.getX(), 149,position.getDirection());</span>
+                            }
+<span class="nc bnc" id="L108" title="All 4 branches missed.">                            if((map.getTaille() == 600) &amp;&amp; (position.getY() == -300)){</span>
+<span class="nc" id="L109">                                position = Position.of(position.getX(), 299,position.getDirection());</span>
+                            }
+                    	}else {
+<span class="nc" id="L112">                    		position = Position.of(position.getX(), position.getY()-1,position.getDirection());</span>
+                    	}
+<span class="nc bnc" id="L114" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L116" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L117" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L118">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L119">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L121">                            }</span>
+                        }
+<span class="nc" id="L123">                        return position;</span>
+                    case SOUTH:
+<span class="pc bpc" id="L125" title="1 of 2 branches missed.">                    	if(map != null) {</span>
+                    		//grille sphérique
+<span class="nc bnc" id="L127" title="All 4 branches missed.">                            if((map.getTaille() == 100) &amp;&amp; (position.getY() == 50)){</span>
+<span class="nc" id="L128">                                position = Position.of(position.getX(), -49,position.getDirection());</span>
+                            }
+<span class="nc bnc" id="L130" title="All 4 branches missed.">                            if((map.getTaille() == 300) &amp;&amp; (position.getY() == 150)){</span>
+<span class="nc" id="L131">                                position = Position.of(position.getX(), -149,position.getDirection());</span>
+                            }
+<span class="nc bnc" id="L133" title="All 4 branches missed.">                            if((map.getTaille() == 600) &amp;&amp; (position.getY() == 300)){</span>
+<span class="nc" id="L134">                                position = Position.of(position.getX(), -299,position.getDirection());</span>
+                            }
+                    	}else {
+<span class="fc" id="L137">                    		position = Position.of(position.getX(), position.getY()+1,position.getDirection());</span>
+                    	}
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L141" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L142" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L143">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L144">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L146">                            }</span>
+                        }
+<span class="fc" id="L148">                        return position;</span>
+                    case EAST:
+<span class="nc" id="L150">                        position = Position.of(position.getX()-1, position.getY(),position.getDirection());</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L153" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L154" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L155">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L156">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L158">                            }</span>
+                        }
+<span class="nc" id="L160">                        return position;</span>
+                    case WEST:
+<span class="fc" id="L162">                        position = Position.of(position.getX()+1, position.getY(),position.getDirection());</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L165" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L166" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L167">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L168">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L170">                            }</span>
+                        }
+<span class="fc" id="L172">                        return position;</span>
+<span class="nc" id="L173">                    default: System.out.println(&quot;Erreur commande 'b'&quot;);</span>
+                        break;
+                }
+            case 'l':
+<span class="pc bpc" id="L177" title="3 of 5 branches missed.">                switch (position.getDirection()) {</span>
+                    case NORTH:
+<span class="fc" id="L179">                        position = Position.of(position.getX(), position.getY(), Direction.WEST);</span>
+<span class="pc bpc" id="L180" title="1 of 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L182" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L183" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L184">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L185">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L187">                            }</span>
+                        }
+<span class="fc" id="L189">                        return position;</span>
+                    case SOUTH:
+<span class="nc" id="L191">                        position = Position.of(position.getX(), position.getY(), Direction.EAST);</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L194" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L195" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L196">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L197">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L199">                            }</span>
+                        }
+<span class="nc" id="L201">                        return position;</span>
+                    case EAST:
+<span class="fc" id="L203">                        position = Position.of(position.getX(), position.getY(), Direction.NORTH);</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L206" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L207" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L208">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L209">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L211">                            }</span>
+                        }
+<span class="fc" id="L213">                        return position;</span>
+                    case WEST:
+<span class="nc" id="L215">                        position = Position.of(position.getX(), position.getY(), Direction.SOUTH);</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L218" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L219" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L220">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L221">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L223">                            }</span>
+                        }
+<span class="nc" id="L225">                        return position;</span>
+                    default:
+<span class="nc" id="L227">                        System.out.println(&quot;Erreur commande 'l'&quot;);</span>
+                        break;
+                }
+            case 'r':
+<span class="pc bpc" id="L231" title="4 of 5 branches missed.">                switch (position.getDirection()) {</span>
+                    case NORTH:
+                    	//System.out.println(&quot;HOLA&quot;);
+<span class="nc" id="L234">                        position = Position.of(position.getX(), position.getY(), Direction.EAST);</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L237" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L238" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L239">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L240">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L242">                            }</span>
+                        }
+<span class="nc" id="L244">                        return position;</span>
+                    case SOUTH:
+                    	//System.out.println(&quot;BONJOUR&quot;);
+<span class="nc" id="L247">                        position = Position.of(position.getX(), position.getY(), Direction.WEST);</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L250" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L251" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L252">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L253">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L255">                            }</span>
+                        }
+<span class="nc" id="L257">                        return position;</span>
+                    case EAST:
+                    	//System.out.println(&quot;Dzien dobre&quot;);
+<span class="nc" id="L260">                        position = Position.of(position.getX(), position.getY(), Direction.SOUTH);</span>
+<span class="nc bnc" id="L261" title="All 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L263" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L264" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L265">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L266">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L268">                            }</span>
+                        }
+<span class="nc" id="L270">                        return position;</span>
+                    case WEST:
+<span class="fc" id="L272">                        position = Position.of(position.getX(), position.getY(), Direction.NORTH);</span>
+<span class="pc bpc" id="L273" title="1 of 2 branches missed.">                        if(setObstaclesPositions != null) {</span>
+                        	//Detection d'obstacles
+<span class="nc bnc" id="L275" title="All 2 branches missed.">                            for(Position p : setObstaclesPositions) {</span>
+<span class="nc bnc" id="L276" title="All 4 branches missed.">                            	if((p.getX() == position.getX()) &amp;&amp; (p.getY() == position.getY())){</span>
+<span class="nc" id="L277">                            		System.out.println(&quot;Malheur! Un obstacle (le numéro &quot; +(setObstaclesPositions.indexOf(p) +1) +&quot;, de coordonnées (&quot; +p.getX() +&quot;, &quot; + p.getY() + &quot;)) nous barre la route! Revenons à notre ancienne position... &quot;);</span>
+<span class="nc" id="L278">                                	position = anciennePosition;</span>
+                            	}
+<span class="nc" id="L280">                            }</span>
+                        }
+<span class="fc" id="L282">                        return position;</span>
+                    default:
+<span class="nc" id="L284">                        System.out.println(&quot;Erreur commande 'r'&quot;);</span>
+                        break;
+                }
+<span class="fc" id="L287">            default:	System.out.println(&quot;Error!&quot;);</span>
+<span class="fc" id="L288">                return Position.of(0,0,Direction.NORTH);</span>
+        }
+    }
+    
+    public static  Position give_order(char[] command, Position position, List&lt;Position&gt; setObstaclesPositions, Plateau map){ 
+<span class="fc bfc" id="L293" title="All 2 branches covered.">        for(int  i =0; i&lt; command.length; i++){</span>
+<span class="fc" id="L294">            String cmd =&quot;&quot;;</span>
+<span class="fc" id="L295">            cmd +=command[i];</span>
+<span class="fc" id="L296">            position = move(cmd, position, setObstaclesPositions, map);</span>
+        }
+<span class="fc" id="L298">        return position;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

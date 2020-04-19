@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Laser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.code</a> &gt; <span class="el_source">Laser.java</span></div><h1>Laser.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.code;
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.MarsRover;
+import com.esiea.tp4A.domain.Position;
+import com.esiea.tp4A.code.Obstacle;
+
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+import java.util.Set;
+
+public final class Laser {
+
+    private int distance;
+
+<span class="fc" id="L16">    public Laser (int Range){</span>
+<span class="fc" id="L17">        configureLaserRange(Range);</span>
+<span class="fc" id="L18">    }</span>
+
+    public boolean LaserShoot(Set&lt;Position&gt; map, Position position){
+<span class="fc" id="L21">        boolean firstIsTouched = false;</span>
+<span class="fc" id="L22">        var tmpObj = obsInRange(position);</span>
+<span class="fc" id="L23">        tmpObj = orderSet(tmpObj,position.getDirection());</span>
+<span class="fc" id="L24">        map = orderSet(map,position.getDirection());</span>
+<span class="fc" id="L25">        final Set&lt;Position&gt; tmpList = new HashSet&lt;&gt;();</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        for (Iterator&lt;Position&gt; it = map.iterator(); it.hasNext(); ) {</span>
+<span class="fc" id="L27">            Position f = it.next();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">            for (Position pos: tmpObj) {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">                if (firstIsTouched){</span>
+<span class="fc" id="L30">                    break;</span>
+                }
+<span class="pc bpc" id="L32" title="1 of 6 branches missed.">                if (f.getY() == pos.getY() &amp;&amp; f.getX() == pos.getX() &amp;&amp; !firstIsTouched){</span>
+<span class="fc" id="L33">                    tmpList.add(f);</span>
+<span class="fc" id="L34">                    System.out.println(&quot;Objet :&quot; + f.getX() + &quot; &quot; + f.getY() + &quot;  a été detruit&quot; );</span>
+<span class="fc" id="L35">                    firstIsTouched = true;</span>
+                }
+<span class="fc" id="L37">            }</span>
+<span class="fc" id="L38">        }</span>
+<span class="fc" id="L39">        return firstIsTouched;</span>
+    }
+
+ private Set&lt;Position&gt; orderSet(Set&lt;Position&gt; set,Direction dir){
+<span class="pc bpc" id="L43" title="1 of 3 branches missed.">        switch (dir){</span>
+            case NORTH:
+            case SOUTH:
+<span class="fc" id="L46">                List&lt;Position&gt; numbersList = new ArrayList&lt;Position&gt;(set) ;        //set -&gt; list</span>
+<span class="fc" id="L47">                numbersList.sort(new Comparator&lt;Position&gt;() {</span>
+                    @Override
+                    public int compare(Position o1, Position o2) {
+<span class="fc" id="L50">                        return o1.getY() - o2.getY() ;</span>
+                    }
+                });
+<span class="fc" id="L53">                return new LinkedHashSet&lt;&gt;(numbersList);</span>
+            case EAST:
+            case WEST:
+<span class="fc" id="L56">                List&lt;Position&gt; numbersList1 = new ArrayList&lt;Position&gt;(set) ;        //set -&gt; list</span>
+<span class="fc" id="L57">                numbersList1.sort(new Comparator&lt;Position&gt;() {</span>
+                    @Override
+                    public int compare(Position o1, Position o2) {
+<span class="fc" id="L60">                        return o1.getX() - o2.getX() ;</span>
+                    }
+                });
+<span class="fc" id="L63">                return new LinkedHashSet&lt;&gt;(numbersList1);</span>
+                default:
+<span class="nc" id="L65">                    return set;</span>
+        }
+    }
+
+    private Set&lt;Position&gt; obsInRange(Position position){
+<span class="fc" id="L70">         final Set&lt;Position&gt; tmpList = new HashSet&lt;&gt;();</span>
+<span class="pc bpc" id="L71" title="3 of 5 branches missed.">            switch (position.getDirection()){</span>
+                case EAST:
+<span class="fc bfc" id="L73" title="All 2 branches covered.">                    for(int i = position.getX() + 1; i&lt;= this.distance + position.getX(); i++ ){</span>
+<span class="fc" id="L74">                        tmpList.add(Position.of(i,position.getY(),position.getDirection()));</span>
+                    }
+<span class="fc" id="L76">                    return tmpList;</span>
+                case WEST:
+<span class="nc bnc" id="L78" title="All 2 branches missed.">                    for(int i = position.getX() - 1; i &gt;= position.getX() - this.distance ; i-- ){</span>
+<span class="nc" id="L79">                        tmpList.add(Position.of(i,position.getY(),position.getDirection()));</span>
+                    }
+<span class="nc" id="L81">                    return tmpList;</span>
+                case NORTH:
+<span class="nc bnc" id="L83" title="All 2 branches missed.">                    for(int i = position.getY() + 1; i&lt;= this.distance + position.getY(); i++ ){</span>
+<span class="nc" id="L84">                        tmpList.add(Position.of(position.getX(),i,position.getDirection()));</span>
+                    }
+<span class="nc" id="L86">                    return tmpList;</span>
+                case SOUTH:
+<span class="fc bfc" id="L88" title="All 2 branches covered.">                    for(int i = position.getY() - 1; i &gt;= position.getY() - this.distance ; i-- ){</span>
+<span class="fc" id="L89">                        tmpList.add(Position.of(position.getX(),i,position.getDirection()));</span>
+                    }
+<span class="fc" id="L91">                    return tmpList;</span>
+<span class="nc" id="L92">                default: return tmpList;</span>
+            }
+    }
+
+    private Laser configureLaserRange(int range){
+<span class="fc" id="L97">        this.distance = range;</span>
+<span class="fc" id="L98">        return this;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

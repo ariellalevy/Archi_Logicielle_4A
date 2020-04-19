@@ -14,6 +14,7 @@ public class Rover implements MarsRover{
     private boolean alive;
     private int numeroRover;
     private List<Position> lstObstaclesPositions;
+    private Laser laser;
     
     public Rover(Position position){
         this.position = position;
@@ -25,9 +26,18 @@ public class Rover implements MarsRover{
     @Override
     public  MarsRover initialize(Position position) {
         position = new Position.FixedPosition(0,0, Direction.NORTH);
+        laser = new Laser(porteeLaser());
         return  this;
     }
-    
+
+    /* Fonction qui génère aléatoirement la portée du laser */
+    private int porteeLaser(){
+        int laser;
+        int tab_range[] = {5, 30, (int) Double.POSITIVE_INFINITY};
+        int rand = (int) (Math.random() * tab_range.length);
+        laser = tab_range[rand];
+        return laser;
+    }
     
     public Position spheriqueOrdonnees(int taille, int y) {
     	Position newPosition=null;
@@ -84,12 +94,10 @@ public class Rover implements MarsRover{
             case 'f':
                 switch (this.position.getDirection()){
                     case NORTH:
-                    	//System.out.println("TEST 1");
                         //grille sphérique
                     	if(spheriqueAbscises(100, 50) !=null) { this.position =spheriqueAbscises(100, 50);}
                     	if(spheriqueAbscises(300, 150) !=null) { this.position =spheriqueAbscises(300, 150);}
                     	if(spheriqueAbscises(600, 300) !=null) { this.position =spheriqueAbscises(600, 300);}
-                        //System.out.println("HELLO 1")  
                     	this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());
                         //Detection d'obstacles
                     	if(detectObstacles(anciennePosition)!=null) {
@@ -97,35 +105,27 @@ public class Rover implements MarsRover{
                     		this.position = detectObstacles(anciennePosition);}     
                         return this.position;
                     case SOUTH:
-                    	//System.out.println("TEST 2");
                         //grille sphérique
                     	if(spheriqueAbscises(100, -50) !=null) { this.position =spheriqueAbscises(100, -50);}
                     	if(spheriqueAbscises(300, -150) !=null) { this.position =spheriqueAbscises(300, -150);}
                     	if(spheriqueAbscises(600, -300) !=null) { this.position =spheriqueAbscises(600, -300);}
-                        //System.out.println("HELLO 2");   
                     	this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());
                         //Detection d'obstacles
                     	if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}
                         return this.position;
                     case EAST:
-                    	//System.out.println("TEST 3");
                     	if(spheriqueOrdonnees(100, -50) !=null) { this.position =spheriqueOrdonnees(100, -50);}
                     	if(spheriqueOrdonnees(300, -150) !=null) { this.position =spheriqueOrdonnees(300, -150);}
                     	if(spheriqueOrdonnees(600, -300) !=null) { this.position =spheriqueOrdonnees(600, -300);}
                         this.position = Position.of(this.position.getX()+1, this.position.getY(),this.position.getDirection());
-                      //Detection d'obstacles
                         if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}
-                        //System.out.println("TOTO 3");
                         return this.position;
                     case WEST:
-                    	//System.out.println("TEST 4");
                     	if(spheriqueOrdonnees(100, 50) !=null) { this.position =spheriqueOrdonnees(100, 50);}
                     	if(spheriqueOrdonnees(300, 150) !=null) { this.position =spheriqueOrdonnees(300, 150);}
                     	if(spheriqueOrdonnees(600, 300) !=null) { this.position =spheriqueOrdonnees(600, 300);}
-                        this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());                       
-                      //Detection d'obstacles
+                        this.position = Position.of(this.position.getX()-1, this.position.getY(),this.position.getDirection());
                         if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}
-                       // System.out.println("TOTO 4");
                         return this.position;
                     default: System.out.println("Erreur commande 'f'");
                         break;
@@ -138,7 +138,7 @@ public class Rover implements MarsRover{
                     	if(spheriqueAbscises(300, -150) !=null) { this.position =spheriqueAbscises(300, -150);}
                     	if(spheriqueAbscises(600, -300) !=null) { this.position =spheriqueAbscises(600, -300);}
                         this.position = Position.of(this.position.getX(), this.position.getY()-1,this.position.getDirection());                        
-                      //Detection d'obstacles
+                        //Detection d'obstacles
                         if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}
                         return this.position;
                     case SOUTH:
@@ -147,7 +147,6 @@ public class Rover implements MarsRover{
                     	if(spheriqueAbscises(100, 50) !=null) { this.position =spheriqueAbscises(100, 50);}
                     	if(spheriqueAbscises(300, 150) !=null) { this.position =spheriqueAbscises(300, 150);}
                     	if(spheriqueAbscises(600, 300) !=null) { this.position =spheriqueAbscises(600, 300);}
-                        //System.out.println("Houston nous avons un pbm50");
                         this.position = Position.of(this.position.getX(), this.position.getY()+1,this.position.getDirection());                      
                       //Detection d'obstacles
                         if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}
@@ -200,26 +199,21 @@ public class Rover implements MarsRover{
             case 'r':
                 switch (this.position.getDirection()) {
                     case NORTH:
-                    	//System.out.println("HOLA");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.EAST);
-
                       //Detection d'obstacles
                         if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                        
                         return this.position;
                     case SOUTH:
-                    	//System.out.println("BONJOUR");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.WEST);  
                       //Detection d'obstacles
                         if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                        
                         return this.position;
                     case EAST:
-                    	//System.out.println("Dzien dobre");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.SOUTH);   
                       //Detection d'obstacles
                         if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}  
                         return this.position;
                     case WEST:
-                    	//System.out.println("Guten tag");
                         this.position = Position.of(this.position.getX(), this.position.getY(), Direction.NORTH);                       
                       //Detection d'obstacles
                         if(detectObstacles(anciennePosition)!=null) {this.position = detectObstacles(anciennePosition);}                       
@@ -228,6 +222,8 @@ public class Rover implements MarsRover{
                         System.out.println("Erreur commande 'r'");
                         break;
                 }
+            case 's':
+                shoot();
             default:	System.out.println("Error!");
                 return Position.of(0,0,Direction.NORTH);
         }
@@ -260,4 +256,8 @@ public class Rover implements MarsRover{
     public void setPlateau(Plateau plateau) {this.map = plateau;}
     
     public void setObstaclesMap(List<Position> setObstaPositions) {lstObstaclesPositions = setObstaPositions;}
+
+    public void shoot(){
+        laser.LaserShoot(lstObstaclesPositions, position);
+    }
 }

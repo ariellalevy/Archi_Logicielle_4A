@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Aleatoire.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.code</a> &gt; <span class="el_source">Aleatoire.java</span></div><h1>Aleatoire.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.code;
+
+import com.esiea.tp4A.domain.Direction;
+import com.esiea.tp4A.domain.Position;
+
+public class Aleatoire {
+	
+	private Plateau plateau;
+	private int taille;
+	
+<span class="nc" id="L11">	public Aleatoire(Plateau plateau) {</span>
+<span class="nc" id="L12">		this.plateau = plateau;</span>
+<span class="nc" id="L13">		taille = plateau.getTaille();</span>
+<span class="nc" id="L14">	}	</span>
+	
+	/* Fonction qui génère aléatoirement un nombre */
+    public int randomNumber(int min, int max){
+<span class="nc" id="L18">        int range = max - min + 1;</span>
+<span class="nc" id="L19">        int res = 0;</span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        for(int i = min-1; i&lt;max; i++){</span>
+<span class="nc" id="L21">            res = (int) (Math.random() * range ) +min;</span>
+        }
+<span class="nc" id="L23">        return res;</span>
+    }
+    
+    /*Fonction qui génère une position aléatoire */
+    public Position aleaPosition(){
+<span class="nc" id="L28">        int xMax = taille; //abscise maximale</span>
+<span class="nc" id="L29">        int yMax = taille; //ordonée maximale</span>
+        //x aléatoire
+<span class="nc" id="L31">        int x = randomNumber(-xMax,xMax);</span>
+        //y aléatoire
+<span class="nc" id="L33">        int y = randomNumber(-yMax, yMax);</span>
+        //direction aléatoire
+<span class="nc" id="L35">        Direction direction = aleaDirection();</span>
+<span class="nc" id="L36">        Position p = Position.of(x,y, direction);</span>
+<span class="nc" id="L37">        return p;</span>
+    }
+
+    /*Fonction qui génère une direction aléatoire*/
+    public Direction aleaDirection(){
+<span class="nc" id="L42">        Direction tabDirection[] = {Direction.EAST, Direction.WEST, Direction.NORTH, Direction.SOUTH};</span>
+<span class="nc" id="L43">        int rand = (int) (Math.random() * tabDirection.length);</span>
+<span class="nc" id="L44">        Direction direction = tabDirection[rand];</span>
+<span class="nc" id="L45">        return direction;</span>
+    }
+    
+    /*Fonction qui génère aléatoirement la portée du laser*/
+    public int aleaPorteeLaser() {
+<span class="nc" id="L50">    	int tabPortee[] = {5, 30, 2000}; //2000 équivaut à la valeur infinie de la portée du laser</span>
+<span class="nc" id="L51">    	int rand = (int) (Math.random() * tabPortee.length);</span>
+<span class="nc" id="L52">    	int portee = tabPortee[rand];</span>
+<span class="nc" id="L53">    	return portee;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

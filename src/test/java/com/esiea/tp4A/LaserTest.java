@@ -8,16 +8,13 @@ import com.esiea.tp4A.domain.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LaserTest {
     private final Laser laser = new Laser(5);
-    private final Set<Position> posList = new HashSet<>();
+    private final List<Position> posList = new ArrayList<>();
 
     void init(){
         posList.add(Position.of(2,3,Direction.NORTH));
@@ -33,7 +30,7 @@ public class LaserTest {
         //test passant obstacle detruit
         assertThat(laser.LaserShoot(posList,Position.of(1,9,Direction.SOUTH))).isEqualTo(true);
         assertThat(laser.LaserShoot(posList,Position.of(-2,4,Direction.EAST))).isEqualTo(true);
-        //test non passant 
+        //test non passant
         assertThat(laser.LaserShoot(posList,Position.of(1,10,Direction.SOUTH))).isEqualTo(false);
         assertThat(laser.LaserShoot(posList,Position.of(-2,9,Direction.SOUTH))).isEqualTo(false);
     }

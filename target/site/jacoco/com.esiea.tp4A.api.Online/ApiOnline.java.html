@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiOnline.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">tp-4A-2020</a> &gt; <a href="index.source.html" class="el_package">com.esiea.tp4A.api.Online</a> &gt; <span class="el_source">ApiOnline.java</span></div><h1>ApiOnline.java</h1><pre class="source lang-java linenums">package com.esiea.tp4A.api.Online;
+
+import com.esiea.tp4A.domain.Position;
+import java.util.*;
+
+
+public final class ApiOnline {
+
+<span class="nc" id="L9">    private List&lt;game&gt; Games = new ArrayList&lt;game&gt;();</span>
+<span class="nc" id="L10">    private Map&lt;String,Integer&gt; listPlayer = new HashMap&lt;String, Integer&gt;();;</span>
+
+<span class="nc" id="L12">    public ApiOnline() {</span>
+<span class="nc" id="L13">        createNewGame();</span>
+<span class="nc" id="L14">    }</span>
+
+    public void createNewGame(){
+
+<span class="nc" id="L18">        Games.add(new game(Games.size()));</span>
+<span class="nc" id="L19">    }</span>
+
+    public player getPlayerData(String nickname){
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if (!listPlayer.containsKey(nickname)){</span>
+<span class="nc" id="L23">            return null;</span>
+        }else {
+<span class="nc" id="L25">            var retur = Games.get(listPlayer.get(nickname)).getPlayerData(nickname);</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">            if (retur != null){</span>
+<span class="nc" id="L27">                return retur;</span>
+            }else{
+<span class="nc" id="L29">                return null;</span>
+            }
+        }
+    }
+
+    private boolean gameIsFull(){
+<span class="nc" id="L35">       return  Games.get(Games.size()-1).gameIsFull();</span>
+    }
+
+    public player command(String playerName, String command){
+<span class="nc" id="L39">        System.out.println(command);</span>
+<span class="nc" id="L40">        System.out.println(playerName);</span>
+<span class="nc" id="L41">       return Games.get(listPlayer.get(playerName)).gamecommand(playerName,command);</span>
+    }
+
+    public List&lt;player&gt; getGamePalyers(String playerName){
+<span class="nc" id="L45">        return Games.get(listPlayer.get(playerName)).getPlayers(playerName);</span>
+    }
+
+    public List&lt;Position&gt; getGameObstacles(String playerName){
+<span class="nc" id="L49">        return  Games.get(listPlayer.get(playerName)).getObstacles(playerName);</span>
+    }
+
+    public player joingame(String playerName){
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (gameIsFull()){</span>
+<span class="nc" id="L54">            createNewGame();</span>
+        }
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (listPlayer.containsKey(playerName)){</span>
+<span class="nc" id="L57">            return null;</span>
+        }else {
+<span class="nc" id="L59">            listPlayer.put(playerName,Games.size()-1);</span>
+<span class="nc" id="L60">            return Games.get(Games.size()-1).joinAGame(playerName);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
